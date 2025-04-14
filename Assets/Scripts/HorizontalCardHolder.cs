@@ -34,13 +34,11 @@ public class HorizontalCardHolder : MonoBehaviour
 
     public void AddCard(Card card)
     {
-        GameObject slot = Instantiate(emptySlotPrefab, transform);
-        card.transform.SetParent(slot.transform);
-        card.transform.localPosition = Vector3.zero;
+        card.transform.parent.SetParent(transform);
+        card.transform.parent.transform.localPosition = Vector3.zero;
         cards.Add(card);
 
         card.PointerEnterEvent.AddListener(CardPointerEnter);
-        Debug.Log("添加了CardPointerEnter");
         card.PointerExitEvent.AddListener(CardPointerExit);
         card.BeginDragEvent.AddListener(BeginDrag);
         card.EndDragEvent.AddListener(EndDrag);
@@ -56,7 +54,7 @@ public class HorizontalCardHolder : MonoBehaviour
         card.BeginDragEvent.RemoveListener(BeginDrag);
         card.EndDragEvent.RemoveListener(EndDrag);
         cards.Remove(card); 
-        Destroy(card.transform.parent.gameObject,.1f);
+        // Destroy(card.transform.parent.gameObject,.1f);
         
         if (card.cardVisual != null)
             card.cardVisual.UpdateIndex(transform.childCount);

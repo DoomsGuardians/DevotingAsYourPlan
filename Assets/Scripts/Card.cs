@@ -100,7 +100,6 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         imageComponent.raycastTarget = true;
 
         HorizontalCardHolder currentHolder = transform.GetComponentInParent<HorizontalCardHolder>();
-        Debug.Log("My Holder is"+currentHolder.name);
         foreach (var holder in CardHolderManager.Holders)
         {
             if (holder == currentHolder)

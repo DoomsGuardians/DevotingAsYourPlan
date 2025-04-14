@@ -27,7 +27,7 @@ public class ShaderCode : MonoBehaviour
         {
             image.material.DisableKeyword(image.material.enabledKeywords[i]);
         }
-        image.material.EnableKeyword("_EDITION_" + editions[0]);
+        image.material.EnableKeyword("_EDITION_" + editions[Random.RandomRange(0,4)]);
     }
 
     // Update is called once per frame
