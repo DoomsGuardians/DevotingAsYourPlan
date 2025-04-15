@@ -5,29 +5,23 @@ using UnityEngine.UI;
 public class ShaderCode : MonoBehaviour
 {
 
-    Image image;
-    Material m;
-    CardVisual visual;
+    [SerializeField] private Image image;
+    private Material m;
+    public int editionIndex;
+    private string[] editions = { "REGULAR", "POLYCHROME", "REGULAR", "NEGATIVE" };
 
     // Start is called before the first frame update
     void Start()
     {
-        image = GetComponent<Image>();
         m = new Material(image.material);
         image.material = m;
-        visual = GetComponentInParent<CardVisual>();
-
-        string[] editions = new string[4];
-        editions[0] = "REGULAR";
-        editions[1] = "POLYCHROME";
-        editions[2] = "REGULAR";
-        editions[3] = "NEGATIVE";
+        //visual = GetComponentInParent<CardVisual>();
 
         for (int i = 0; i < image.material.enabledKeywords.Length; i++)
         {
             image.material.DisableKeyword(image.material.enabledKeywords[i]);
         }
-        image.material.EnableKeyword("_EDITION_" + editions[Random.RandomRange(0,4)]);
+        image.material.EnableKeyword("_EDITION_" + editions[editionIndex]);
     }
 
     // Update is called once per frame

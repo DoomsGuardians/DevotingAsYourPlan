@@ -16,7 +16,7 @@ public class HorizontalCardHolder : MonoBehaviour
     private RectTransform rect;
 
     [Header("Spawn Settings")]
-    [SerializeField] private int cardsToSpawn = 7;
+    // [SerializeField] private int cardsToSpawn = 7;
     public List<Card> cards;
 
     bool isCrossing = false;
@@ -32,7 +32,27 @@ public class HorizontalCardHolder : MonoBehaviour
         CardHolderManager.Unregister(this);
     }
 
-    public void AddCard(Card card)
+    public void RefreshCardsInfo()
+    {
+        foreach (var card in cards)
+        {
+            card.RefreshCardInfo();
+        }
+    }
+    
+    public void AddCard(CardRuntime cardRuntime)
+    {
+        GameObject cardSlot = Instantiate(slotPrefab, transform);
+        Card card = cardSlot.GetComponentInChildren<Card>();
+        card.Initialize(cardRuntime);
+        cards.Add(card);
+        card.PointerEnterEvent.AddListener(CardPointerEnter);
+        card.PointerExitEvent.AddListener(CardPointerExit);
+        card.BeginDragEvent.AddListener(BeginDrag);
+        card.EndDragEvent.AddListener(EndDrag);
+    }
+    
+    public void TransferCard(Card card)
     {
         card.transform.parent.SetParent(transform);
         card.transform.parent.transform.localPosition = Vector3.zero;
@@ -60,27 +80,38 @@ public class HorizontalCardHolder : MonoBehaviour
             card.cardVisual.UpdateIndex(transform.childCount);
     }
     
+    public void DestroyCard(Card card)
+    {
+        card.PointerEnterEvent.RemoveListener(CardPointerEnter);
+        card.PointerExitEvent.RemoveListener(CardPointerExit);
+        card.BeginDragEvent.RemoveListener(BeginDrag);
+        card.EndDragEvent.RemoveListener(EndDrag);
+        cards.Remove(card); 
+        Destroy(card.transform.parent.gameObject);
+        
+        if (card.cardVisual != null)
+            card.cardVisual.UpdateIndex(transform.childCount);
+    }
+    
     void Start()
     {
-        for (int i = 0; i < cardsToSpawn; i++)
-        {
-            Instantiate(slotPrefab, transform);
-        }
-
+        // for (int i = 0; i < cardsToSpawn; i++)
+        // {
+        //     Instantiate(slotPrefab, transform);
+        // }
         rect = GetComponent<RectTransform>();
-        cards = GetComponentsInChildren<Card>().ToList();
-
-        int cardCount = 0;
-
-        foreach (Card card in cards)
-        {
-            card.PointerEnterEvent.AddListener(CardPointerEnter);
-            card.PointerExitEvent.AddListener(CardPointerExit);
-            card.BeginDragEvent.AddListener(BeginDrag);
-            card.EndDragEvent.AddListener(EndDrag);
-            card.name = cardCount.ToString();
-            cardCount++;
-        }
+        // cards = GetComponentsInChildren<Card>().ToList();
+        //
+        // int cardCount = 0;
+        //
+        // foreach (Card card in cards)
+        // {
+        //     card.PointerEnterEvent.AddListener(CardPointerEnter);
+        //     card.PointerExitEvent.AddListener(CardPointerExit);
+        //     card.BeginDragEvent.AddListener(BeginDrag);
+        //     card.EndDragEvent.AddListener(EndDrag);
+        //     cardCount++;
+        // }
 
         StartCoroutine(Frame());
 

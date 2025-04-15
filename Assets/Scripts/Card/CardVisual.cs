@@ -6,11 +6,18 @@ using UnityEngine.EventSystems;
 using Unity.Collections;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using TMPro;
 
 public class CardVisual : MonoBehaviour
 {
     private bool initalize = false;
 
+    [Header("CardInfo")] 
+    [SerializeField] private TMP_Text titleText;
+    [SerializeField] private TMP_Text remainLifeText;
+    [SerializeField] private Image cardImage;
+    [SerializeField] private ShaderCode shaderCode;
+    
     [Header("Card")]
     public Card parentCard;
     private Transform cardTransform;
@@ -26,7 +33,6 @@ public class CardVisual : MonoBehaviour
     private Canvas shadowCanvas;
     [SerializeField] private Transform shakeParent;
     [SerializeField] private Transform tiltParent;
-    [SerializeField] private Image cardImage;
 
     [Header("Follow Parameters")]
     [SerializeField] private float followSpeed = 30;
@@ -65,6 +71,15 @@ public class CardVisual : MonoBehaviour
     private float curveRotationOffset;
     private Coroutine pressCoroutine;
 
+    public void SetVisual(CardRuntime data)
+    {
+        Debug.Log("CardVisual初始化了");
+        titleText.text = data.data.cardName;
+        remainLifeText.text = data.remainingLife.ToString();
+        cardImage.sprite = data.data.illustration;
+        shaderCode.editionIndex = data.data.rarity;
+    }
+    
     private void Start()
     {
         shadowDistance = visualShadow.localPosition;
@@ -99,7 +114,6 @@ public class CardVisual : MonoBehaviour
     void Update()
     {
         if (!initalize || parentCard == null) return;
-
         HandPositioning();
         SmoothFollow();
         FollowRotation();

@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler, IPointerDownHandler
 {
+    [Header("Data")]
+    public CardRuntime runtimeData;
+    
     private Canvas canvas;
     private Image imageComponent;
     [SerializeField] private bool instantiateVisual = true;
@@ -41,17 +44,31 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     [HideInInspector] public UnityEvent<Card> EndDragEvent;
     [HideInInspector] public UnityEvent<Card, bool> SelectEvent;
     
-    void Start()
+    
+    public void Initialize(CardRuntime data)
     {
-        canvas = GetComponentInParent<Canvas>();
-        imageComponent = GetComponent<Image>();
-
+        runtimeData = data;
+        this.name = runtimeData.data.cardName;
         if (!instantiateVisual)
             return;
 
         visualHandler = FindObjectOfType<VisualCardsHandler>();
         cardVisual = Instantiate(cardVisualPrefab, visualHandler ? visualHandler.transform : canvas.transform).GetComponent<CardVisual>();
         cardVisual.Initialize(this);
+        // 可以同步设置 Visual 上的数据
+        cardVisual?.SetVisual(data);
+    }
+
+
+    public void RefreshCardInfo()
+    {
+        cardVisual?.SetVisual(runtimeData);
+    }
+    
+    void Start()
+    {
+        canvas = GetComponentInParent<Canvas>();
+        imageComponent = GetComponent<Image>();
     }
 
     void Update()
@@ -109,7 +126,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
             if (RectTransformUtility.RectangleContainsScreenPoint(holderRect, Input.mousePosition, Camera.main))
             {
                 currentHolder?.RemoveCard(this);
-                holder.AddCard(this);
+                holder.TransferCard(this);
                 break;
             }
         }
