@@ -73,7 +73,6 @@ public class CardVisual : MonoBehaviour
 
     public void SetVisual(CardRuntime data)
     {
-        Debug.Log("CardVisual初始化了");
         titleText.text = data.data.cardName;
         remainLifeText.text = data.remainingLife.ToString();
         cardImage.sprite = data.data.illustration;

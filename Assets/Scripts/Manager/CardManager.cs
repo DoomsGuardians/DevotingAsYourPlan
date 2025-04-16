@@ -22,7 +22,7 @@ public class CardManager : Singleton<CardManager>
 
         foreach (var card in cardDatabase)
             cardPools[card.cardType].Add(card);
-        Debug.Log($"CardManager初始化了");
+        Debug.Log($"卡片管理器初始化了");
     }
 
     public void DrawCard (CardType type)

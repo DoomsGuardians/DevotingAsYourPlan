@@ -150,13 +150,11 @@ public class HorizontalCardHolder : MonoBehaviour
 
     void CardPointerEnter(Card card)
     {
-        Debug.Log("添加了悬置开始的方法");
         hoveredCard = card;
     }
 
     void CardPointerExit(Card card)
     {
-        Debug.Log("添加了悬置结束的方法");
         hoveredCard = null;
     }
     

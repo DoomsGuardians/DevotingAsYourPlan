@@ -3,13 +3,23 @@ using System.Collections.Generic;
 
 public class GameManager : MonoSingleton<GameManager>
 {
+    [Header("配置资源")]
     [SerializeField]private List<CardData> cardDatabase; 
     [SerializeField]private HorizontalCardHolder playerCardHolder;
-    
-    public TurnStateMachine turnStateMachine;
+    [SerializeField] private GameObject eventSlotPrefab;
+    [SerializeField] private List<RoleData> roleDataConfigs;
+    [SerializeField] private RoleStatDefinitionTable statDefinitionTable;
 
+    #region 回合制状态机
+        public TurnStateMachine turnStateMachine;
+    #endregion
+
+    #region 管理器
     public CardManager CardManager { get; private set; }
     public EventManager EventManager { get; private set; }
+    public RoleManager RoleManager { get; private set; }
+    #endregion
+
 
     protected override void Awake()
     {
@@ -17,11 +27,16 @@ public class GameManager : MonoSingleton<GameManager>
 
         turnStateMachine = new TurnStateMachine();
         CardManager = new CardManager();
+        RoleManager = new RoleManager();
         EventManager = new EventManager();
+        
         CardManager.Initialize(cardDatabase, playerCardHolder);
+        RoleManager.Initialize(roleDataConfigs, statDefinitionTable);
+        EventManager.Initialize();
+        EventSlotFactory.Initialize(eventSlotPrefab);
         turnStateMachine.Initialize(this);
         
-        Debug.Log("初始化完成");
+        Debug.Log("GameManager初始化完成");
     }
 
     private void Update()
@@ -34,7 +49,7 @@ public class GameManager : MonoSingleton<GameManager>
         turnStateMachine.TransitionToState(phase);
     }
 
-    public void DrawCards()
+    public void DrawCards()//此后将用于处理每回合开始人民奉献给玩家的卡牌
     {
         
         CardManager.DrawCard(CardType.Labor);
@@ -43,5 +58,7 @@ public class GameManager : MonoSingleton<GameManager>
         
     }
 
+    public Role GetRole(RoleType type) => RoleManager.GetRole(type);
+    
     public override bool IsNotDestroyOnLoad() => true;
 }

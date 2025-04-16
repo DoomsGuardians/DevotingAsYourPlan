@@ -759,6 +759,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7e193de67561af4418006890e123f985, type: 2}
   - {fileID: 11400000, guid: f8a8be7a31f6162468c7209060048083, type: 2}
   playerCardHolder: {fileID: 667881467}
+  eventSlotPrefab: {fileID: 0}
+  roleDataConfigs: []
+  statDefinitionTable: {fileID: 0}
 --- !u!4 &484044549
 Transform:
   m_ObjectHideFlags: 0
