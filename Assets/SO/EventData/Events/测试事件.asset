@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e59bba2fe274b45a23dfb1ac0ad63f, type: 3}
+  m_Name: "\u6D4B\u8BD5\u4E8B\u4EF6"
+  m_EditorClassIdentifier: 
+  eventID: 
+  eventName: "\u6D4B\u8BD5\u4E8B\u4EF6"
+  sourceRole: 0
+  triggerConditions: {fileID: 11400000, guid: 0be340afaf0059e42855b61d418c7c10, type: 2}
+  outcomeBranches:
+  - label: "1\u5F20\u52B3\u529B\u5361"
+    matchConditions: {fileID: 11400000, guid: 3ccd2e6b2b907254083bc28b05e3e186, type: 2}
+    effects:
+    - {fileID: 11400000, guid: 97eee12aed4fd1a4da17ae87780acfa7, type: 2}
+  expiredEffects:
+  - {fileID: 11400000, guid: ac3203ca75f4b064f89307c06372d856, type: 2}
+  description: "\u6D4B\u8BD5\u4E8B\u4EF6"
+  icon: {fileID: 0}
+  duration: 2

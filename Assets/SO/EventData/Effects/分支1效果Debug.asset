@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08c3aee2c5daa5c4b8c164deeb5ee799, type: 3}
-  m_Name: RoleStatDefinitionTable
+  m_Script: {fileID: 11500000, guid: 17d7f752acca653449fb9cc9933540ce, type: 3}
+  m_Name: "\u5206\u652F1\u6548\u679CDebug"
   m_EditorClassIdentifier: 
-  stats:
-  - key: Health
-    displayName: "\u5065\u5EB7\u5EA6"
-    description: "\u73A9\u5BB6\u7684\u5065\u5EB7\u72B6\u51B5"
-    defaultValue: 100
+  debugString: "\u5206\u652F1\u6548\u679C\u88AB\u89E6\u53D1\u4E86"

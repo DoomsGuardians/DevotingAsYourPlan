@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-[CreateAssetMenu(menuName = "Events/Condition Group")]
+[CreateAssetMenu(menuName = "Events/Condition Groups/Resolve Condition Group")]
 public class ResolveConditionGroup : ScriptableObject
 {
     [Tooltip("结算事件条件组判断模式")]

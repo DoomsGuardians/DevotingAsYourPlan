@@ -9,14 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69e59bba2fe274b45a23dfb1ac0ad63f, type: 3}
-  m_Name: "\u75C5\u5371\u5C11\u5973"
+  m_Script: {fileID: 11500000, guid: 17d7f752acca653449fb9cc9933540ce, type: 3}
+  m_Name: "\u5206\u652F2\u6548\u679CDebug"
   m_EditorClassIdentifier: 
-  eventName: "\u75C5\u5371\u5C11\u5973"
-  eventID: 
-  duration: 2
-  triggerConditions: []
-  successEffects:
-  - {fileID: 0}
-  failureEffects: []
-  transitions: []
+  debugString: "\u5206\u652F2\u6548\u679C\u88AB\u89E6\u53D1\u4E86"

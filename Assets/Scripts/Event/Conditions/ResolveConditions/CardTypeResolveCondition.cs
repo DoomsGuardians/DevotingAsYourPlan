@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-[CreateAssetMenu(menuName = "Events/Conditions/Card Type")]
+[CreateAssetMenu(menuName = "Events/Conditions/Resolve Conditions/Card Type")]
 public class CardTypeResolveCondition : EventResolveConditionSO
 {
+    [Tooltip("需要检测数量的卡牌种类")]
     public CardType requiredType;
     public int minCount = 1;
 

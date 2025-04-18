@@ -8,6 +8,7 @@ public class EndTurnState : TurnState
         Debug.Log("进入结束阶段");
         gameManager.CardManager.TickCards();
         gameManager.CardManager.RefreshCards();
+        gameManager.EventManager.TickEvents();
         gameManager.TransitionToState(TurnPhase.StartTurn);
     }
 }

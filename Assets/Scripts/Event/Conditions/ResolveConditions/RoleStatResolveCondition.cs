@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ComparisonType { GreaterThan, LessThan, Equal }
-
-[CreateAssetMenu(menuName = "Events/Conditions/Role Stat")]
+[CreateAssetMenu(menuName = "Events/Conditions/Resolve Conditions/Role Stat")]
 public class RoleStatResolveCondition : EventResolveConditionSO
 {
+    [Tooltip("需要检测数值的属性名称")]
     public string statKey;
     public float threshold;
     public ComparisonType comparison;

@@ -82,7 +82,7 @@ public class EventManager
     #endregion
     
     #region 处理事件效果
-    public void ResolveEvents()
+    public void ResolveEventsEffect()
     {
         foreach (var evt in activeEvents.ToArray())
         {
@@ -99,26 +99,41 @@ public class EventManager
 
                     foreach (var effect in branch.effects)
                         effect.Apply();
-
+                        
                     matched = true;
+                    activeEvents.Remove(evt);
+                    GameObject.Destroy(evt.cardHolder.transform.parent.gameObject);
                     break;
                 }
             }
-
+            
             if (!matched && evt.IsExpired())
             {
                 Debug.Log($"[事件处理] 事件【{evt.data.eventName}】过期未匹配任何分支");
-                // 可以考虑添加 fallback 分支支持
-            }
-
-            evt.TickLife();
-
-            if (evt.IsExpired())
+                foreach (var effect in evt.data.expiredEffects)
+                {
+                    effect.Apply();
+                }
                 activeEvents.Remove(evt);
-
+                GameObject.Destroy(evt.cardHolder.transform.parent.gameObject);
+            }
+            
             HistoryLog.Log(evt, matched);
         }
     }
+    #endregion
+
+
+    #region 处理事件寿命
+
+    public void TickEvents()
+    {
+        foreach (var evt in activeEvents.ToArray())
+        {
+            evt.TickLife();
+        }
+    }
+
     #endregion
 
 }

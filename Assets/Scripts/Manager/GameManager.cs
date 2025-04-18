@@ -10,6 +10,7 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private List<RoleData> roleDataConfigs;
     [SerializeField] private RoleStatDefinitionTable statDefinitionTable;
     [SerializeField] private List<EventNodeData> defaultEventNodeDatas;
+    [SerializeField] private RectTransform eventHolder;
     
     #region 回合制状态机
         public TurnStateMachine turnStateMachine;
@@ -34,7 +35,7 @@ public class GameManager : MonoSingleton<GameManager>
         CardManager.Initialize(cardDatabase, playerCardHolder);
         RoleManager.Initialize(roleDataConfigs, statDefinitionTable);
         EventManager.Initialize(defaultEventNodeDatas);
-        EventSlotFactory.Initialize(eventSlotPrefab);
+        EventSlotFactory.Initialize(eventSlotPrefab, eventHolder);
         turnStateMachine.Initialize(this);
         
         Debug.Log("GameManager初始化完成");
@@ -60,6 +61,10 @@ public class GameManager : MonoSingleton<GameManager>
     }
 
     public Role GetRole(RoleType type) => RoleManager.GetRole(type);
+
+    public void ProcessEventTrigger() => EventManager.ProcessEventTrigger();
+
+    public void ResolveEventEffect() => EventManager.ResolveEventsEffect();
     
     public override bool IsNotDestroyOnLoad() => true;
 }

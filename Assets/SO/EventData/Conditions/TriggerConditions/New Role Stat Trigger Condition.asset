@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08c3aee2c5daa5c4b8c164deeb5ee799, type: 3}
-  m_Name: RoleStatDefinitionTable
+  m_Script: {fileID: 11500000, guid: df4b792e417aa3a4ba3b70890b79d019, type: 3}
+  m_Name: New Role Stat Trigger Condition
   m_EditorClassIdentifier: 
-  stats:
-  - key: Health
-    displayName: "\u5065\u5EB7\u5EA6"
-    description: "\u73A9\u5BB6\u7684\u5065\u5EB7\u72B6\u51B5"
-    defaultValue: 100
+  statKey: Health
+  threshold: 0
+  comparison: 0
