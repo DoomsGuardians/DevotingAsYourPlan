@@ -12,7 +12,6 @@ public class HorizontalCardHolder : MonoBehaviour
     [SerializeReference] private Card hoveredCard;
 
     [SerializeField] private GameObject slotPrefab;
-    [SerializeField] private GameObject emptySlotPrefab;
     private RectTransform rect;
 
     [Header("Spawn Settings")]
@@ -128,14 +127,12 @@ public class HorizontalCardHolder : MonoBehaviour
 
     private void BeginDrag(Card card)
     {
-        Debug.Log("添加了开始拖拽的方法");
         selectedCard = card;
     }
 
 
     void EndDrag(Card card)
     {
-        Debug.Log("添加了拖拽结束的方法");
         if (selectedCard == null)
             return;
 

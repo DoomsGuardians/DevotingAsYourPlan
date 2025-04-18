@@ -4,14 +4,14 @@ using UnityEngine;
 using System.Linq;
 
 [CreateAssetMenu(menuName = "Events/Conditions/Card Type")]
-public class CardTypeCondition : EventConditionSO
+public class CardTypeResolveCondition : EventResolveConditionSO
 {
     public CardType requiredType;
     public int minCount = 1;
 
-    public override bool Evaluate(EventContext context)
+    public override bool Evaluate(EventInstance context)
     {
-        return context.eventInstance.cardHolder.cards.Count(c => c.runtimeData.data.cardType == requiredType) >= minCount;
+        return context.cardHolder.cards.Count(c => c.runtimeData.data.cardType == requiredType) >= minCount;
     }
 
     public override string Description => $"至少 {minCount} 张 {requiredType}";

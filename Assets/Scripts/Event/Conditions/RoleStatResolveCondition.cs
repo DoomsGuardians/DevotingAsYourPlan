@@ -5,15 +5,15 @@ using UnityEngine;
 public enum ComparisonType { GreaterThan, LessThan, Equal }
 
 [CreateAssetMenu(menuName = "Events/Conditions/Role Stat")]
-public class RoleStatCondition : EventConditionSO
+public class RoleStatResolveCondition : EventResolveConditionSO
 {
     public string statKey;
     public float threshold;
     public ComparisonType comparison;
 
-    public override bool Evaluate(EventContext context)
+    public override bool Evaluate(EventInstance context)
     {
-        float value = context.role.GetStat(statKey);
+        float value = context.sourceRole.GetStat(statKey);
         return comparison switch
         {
             ComparisonType.GreaterThan => value > threshold,

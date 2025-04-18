@@ -9,15 +9,16 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private GameObject eventSlotPrefab;
     [SerializeField] private List<RoleData> roleDataConfigs;
     [SerializeField] private RoleStatDefinitionTable statDefinitionTable;
-
+    [SerializeField] private List<EventNodeData> defaultEventNodeDatas;
+    
     #region 回合制状态机
         public TurnStateMachine turnStateMachine;
     #endregion
 
     #region 管理器
     public CardManager CardManager { get; private set; }
-    public EventManager EventManager { get; private set; }
     public RoleManager RoleManager { get; private set; }
+    public EventManager EventManager { get; private set; }
     #endregion
 
 
@@ -32,7 +33,7 @@ public class GameManager : MonoSingleton<GameManager>
         
         CardManager.Initialize(cardDatabase, playerCardHolder);
         RoleManager.Initialize(roleDataConfigs, statDefinitionTable);
-        EventManager.Initialize();
+        EventManager.Initialize(defaultEventNodeDatas);
         EventSlotFactory.Initialize(eventSlotPrefab);
         turnStateMachine.Initialize(this);
         
