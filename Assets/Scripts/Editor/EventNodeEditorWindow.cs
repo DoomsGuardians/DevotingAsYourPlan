@@ -2,7 +2,6 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
-
 public class EventNodeEditorWindow : EditorWindow
 {
     private string eventName = "事件名称";
