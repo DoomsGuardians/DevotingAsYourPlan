@@ -18,7 +18,7 @@ public class EventNodeData : ScriptableObject
     [Tooltip("设置事件过期未处理的效果组")]
     public List<EventEffectSO> expiredEffects; // 过期事件
     
-    [TextArea]
+    [TextArea(25,10)]
     public string description;
     public Sprite icon;
     public int duration = 2;

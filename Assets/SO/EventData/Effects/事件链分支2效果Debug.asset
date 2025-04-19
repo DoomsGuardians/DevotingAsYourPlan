@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 650ecb40950ae1d43a74182200ff3f26, type: 3}
-  m_Name: New Trigger Event Effect
+  m_Name: "\u4E8B\u4EF6\u94FE\u5206\u652F2\u6548\u679CDebug"
   m_EditorClassIdentifier: 
-  eventToTrigger: {fileID: 0}
+  eventToQueue: {fileID: 11400000, guid: 32662303dffde54459ace2b053696fba, type: 2}
