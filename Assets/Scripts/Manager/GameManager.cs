@@ -34,8 +34,8 @@ public class GameManager : MonoSingleton<GameManager>
         
         CardManager.Initialize(cardDatabase, playerCardHolder);
         RoleManager.Initialize(roleDataConfigs, statDefinitionTable);
-        EventManager.Initialize(defaultEventNodeDatas);
-        EventSlotFactory.Initialize(eventSlotPrefab, eventHolder);
+        EventManager.Initialize(defaultEventNodeDatas, eventSlotPrefab,eventHolder);
+        //EventSlotFactory.Initialize(eventSlotPrefab, eventHolder);
         turnStateMachine.Initialize(this);
         
         Debug.Log("GameManager初始化完成");

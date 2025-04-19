@@ -10,11 +10,17 @@ public class EventManager
     private List<EventNodeData> pendingEvents = new();
 
     private List<EventNodeData> defaultEvents = new();
+
+    private GameObject eventSlot;
+
+    private RectTransform eventHolder;
     
-    public void Initialize(List<EventNodeData> defaultList)
+    public void Initialize(List<EventNodeData> defaultList, GameObject prefab, RectTransform holder)
     {
         activeEvents = new();
         defaultEvents = defaultList;
+        eventSlot = prefab;
+        eventHolder = holder;
         Debug.Log("事件管理器已初始化");
     }
 
@@ -46,7 +52,8 @@ public class EventManager
 
             if (canTrigger)
             {
-                var instance = new EventInstance(data);
+                EventInstance instance = GameObject.Instantiate(eventSlot, eventHolder).GetComponent<EventInstance>();
+                instance.Initialize(data);
                 activeEvents.Add(instance);
 
                 Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
@@ -66,8 +73,8 @@ public class EventManager
 
             if (canTrigger)
             {
-                Role role = GameManager.Instance.GetRole(data.sourceRole);
-                var instance = new EventInstance(data);
+                EventInstance instance = GameObject.Instantiate(eventSlot, eventHolder).GetComponent<EventInstance>();
+                instance.Initialize(data);
                 activeEvents.Add(instance);
 
                 Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
@@ -102,7 +109,7 @@ public class EventManager
                         
                     matched = true;
                     activeEvents.Remove(evt);
-                    GameObject.Destroy(evt.cardHolder.transform.parent.gameObject);
+                    GameObject.Destroy(evt.transform.gameObject);
                     break;
                 }
             }
@@ -115,7 +122,7 @@ public class EventManager
                     effect.Apply();
                 }
                 activeEvents.Remove(evt);
-                GameObject.Destroy(evt.cardHolder.transform.parent.gameObject);
+                GameObject.Destroy(evt.transform.gameObject);
             }
             
             HistoryLog.Log(evt, matched);

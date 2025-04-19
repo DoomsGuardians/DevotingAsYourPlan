@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688ae953c0e6c334e92611bb6e7008f9, type: 3}
-  m_Name: New Card Type Condition
+  m_Script: {fileID: 11500000, guid: d1db51979910eac468574dc3ea47ce19, type: 3}
+  m_Name: "1\u5F20\u52B3\u529B\u5361"
   m_EditorClassIdentifier: 
-  requiredType: 0
-  minCount: 1
+  mode: 0
+  conditions:
+  - {fileID: 11400000, guid: 53787af0aae004b449e2e39dbc53881f, type: 2}
