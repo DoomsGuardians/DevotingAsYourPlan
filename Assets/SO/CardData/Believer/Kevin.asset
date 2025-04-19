@@ -16,5 +16,6 @@ MonoBehaviour:
   description: This is a  Your First Believer here
   illustration: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   cardType: 2
-  rarity: 1
+  rarity: 2
   maxLife: 50
+  IsUnique: 1

@@ -54,9 +54,9 @@ public class GameManager : MonoSingleton<GameManager>
     public void DrawCards()//此后将用于处理每回合开始人民奉献给玩家的卡牌
     {
         
-        CardManager.DrawCard(CardType.Labor);
-        //CardManager.DrawCard(CardType.Believer);
-        CardManager.DrawCard(CardType.Tribute);
+        //CardManager.DrawCard(CardType.Labor);
+        CardManager.DrawCard(CardType.Believer, "Kevin");
+        //CardManager.DrawCard(CardType.Tribute);
         
     }
 

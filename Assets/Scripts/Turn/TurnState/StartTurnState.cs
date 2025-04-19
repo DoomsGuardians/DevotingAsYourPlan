@@ -5,6 +5,7 @@ public class StartTurnState : TurnState
 
     public override void Enter()
     {
+        Debug.Log("==========================================");
         Debug.Log("进入开始阶段");
         gameManager.turnStateMachine.TurnNum++; // 逻辑封装到CardManager中
         Debug.Log($"这是第{gameManager.turnStateMachine.TurnNum}回合");

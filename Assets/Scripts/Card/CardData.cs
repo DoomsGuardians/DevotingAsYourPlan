@@ -14,6 +14,7 @@ public class CardData : ScriptableObject
     [Range(0, 3)] public int rarity;
     public int maxLife = 1;
 
+    public bool IsUnique = false;
     // 可扩展属性（比如参数机制）
     //public List<CardTag> tags; // 可设计成 enum 或 string-based key
 

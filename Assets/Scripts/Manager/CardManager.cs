@@ -8,6 +8,8 @@ public class CardManager : Singleton<CardManager>
 
     public HorizontalCardHolder playerCardHolder;
 
+    private List<string> uniqueCardsNames = new();
+    
     // 可以按类型分类池子
     private Dictionary<CardType, List<CardData>> cardPools;
 
@@ -25,6 +27,10 @@ public class CardManager : Singleton<CardManager>
         Debug.Log($"卡片管理器初始化了");
     }
 
+    /// <summary>
+    /// 这个重载用于根据卡牌冲类抽取一张随机的卡牌
+    /// </summary>
+    /// <param name="type"></param>
     public void DrawCard (CardType type)
     {
         var pool = cardPools[type];
@@ -35,12 +41,45 @@ public class CardManager : Singleton<CardManager>
         }
 
         CardData selected = pool[Random.Range(0, pool.Count)];
-        CardRuntime runtime = new CardRuntime(selected);
-        playerCardHolder.AddCard(runtime);
+        if (ShouldDraw(selected))
+        {
+            CardRuntime runtime = new CardRuntime(selected);
+            playerCardHolder.AddCard(runtime);
+        }
         
     }
-    
 
+    /// <summary>
+    /// 这个重载用于根据卡牌类型和名抽取特定卡牌
+    /// </summary>
+    public void DrawCard(CardType type, string name)
+    {
+        CardData selected = cardPools[type].Find(x => x.cardName.Equals(name));
+        if (ShouldDraw(selected))
+        {
+            CardRuntime runtime = new CardRuntime(selected);
+            playerCardHolder.AddCard(runtime);
+        }
+    }
+
+    public bool ShouldDraw(CardData selected)
+    {
+        if (selected.IsUnique)
+        {
+            if(uniqueCardsNames.Contains(selected.cardName))
+                return false;
+            else
+            {
+                uniqueCardsNames.Add(selected.cardName);
+                return true;
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+    
     public void TickCards()
     {
         foreach (var holder in CardHolderManager.Holders)
