@@ -4,13 +4,13 @@ using System.Collections.Generic;
 public class GameManager : MonoSingleton<GameManager>
 {
     [Header("配置资源")]
-    [SerializeField]private List<CardData> cardDatabase; 
-    [SerializeField]private HorizontalCardHolder playerCardHolder;
+    [SerializeField] private List<CardData> cardDatabase; 
+    [SerializeField] public HorizontalCardHolder playerCardHolder;
     [SerializeField] private GameObject eventSlotPrefab;
     [SerializeField] private List<RoleData> roleDataConfigs;
     [SerializeField] private RoleStatDefinitionTable statDefinitionTable;
     [SerializeField] private List<EventNodeData> defaultEventNodeDatas;
-    [SerializeField] private RectTransform eventHolder;
+    [SerializeField] public RectTransform eventHolder;
     
     #region 回合制状态机
         public TurnStateMachine turnStateMachine;

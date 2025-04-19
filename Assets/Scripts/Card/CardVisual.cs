@@ -2,11 +2,14 @@ using System;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
+using DG.Tweening.Plugins.Options;
+using Naninovel.Commands;
 using UnityEngine.EventSystems;
 using Unity.Collections;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using TMPro;
+using Sequence = DG.Tweening.Sequence;
 
 public class CardVisual : MonoBehaviour
 {
@@ -17,6 +20,7 @@ public class CardVisual : MonoBehaviour
     [SerializeField] private TMP_Text remainLifeText;
     [SerializeField] private Image cardImage;
     [SerializeField] private ShaderCode shaderCode;
+    [SerializeField] private CanvasGroup canvasGroup;
     
     [Header("Card")]
     public Card parentCard;
@@ -100,7 +104,7 @@ public class CardVisual : MonoBehaviour
         parentCard.PointerDownEvent.AddListener(PointerDown);
         parentCard.PointerUpEvent.AddListener(PointerUp);
         parentCard.SelectEvent.AddListener(Select);
-
+        
         //Initialization
         initalize = true;
     }
@@ -229,4 +233,20 @@ public class CardVisual : MonoBehaviour
         shadowCanvas.overrideSorting = false;
     }
 
+    public void ToggleShow(bool isFold)
+    {
+        if (isFold)
+        {
+            DOVirtual.DelayedCall(0.3f, () => {
+                canvasGroup.DOFade(1f, 0.5f);
+            });
+            canvasGroup.interactable = true;
+        }
+        else
+        {
+            canvasGroup.DOFade(0f, 0.2f);
+            canvasGroup.interactable = false;
+        }
+    }
+    
 }

@@ -492,6 +492,7 @@ MonoBehaviour:
   remainLifeText: {fileID: 8713066109944823527}
   cardImage: {fileID: 7697484841366769644}
   shaderCode: {fileID: 502704179870035794}
+  canvasGroup: {fileID: 404130344431792101}
   parentCard: {fileID: 0}
   visualShadow: {fileID: 9157190824811683565}
   shakeParent: {fileID: 3449025543118524474}
@@ -545,8 +546,8 @@ CanvasGroup:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7310339964073049012}
-  m_Enabled: 0
-  m_Alpha: 0
+  m_Enabled: 1
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0

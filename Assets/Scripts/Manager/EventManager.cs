@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Assertions;
 
 public class EventManager
 {
@@ -46,10 +47,11 @@ public class EventManager
     }
     private void ProcessPending()
     {
+        if(GameManager.Instance.eventHolder.childCount>=3)
+            return;
         foreach (var data in pendingEvents.ToArray())
         {
             bool canTrigger = data.triggerConditions.EvaluateAll(data);
-
             if (canTrigger)
             {
                 EventInstance instance = GameObject.Instantiate(eventSlot, eventHolder).GetComponent<EventInstance>();
@@ -63,10 +65,13 @@ public class EventManager
             {
                 Debug.Log($"[事件保留] 条件不满足 → 保留事件：{data.eventName}");
             }
+            if(GameManager.Instance.eventHolder.childCount>=3) break;
         }
     }
     private void ProcessDefault()
     {
+        if(GameManager.Instance.eventHolder.childCount>=3)
+            return;
         foreach (var data in defaultEvents.ToArray())
         {
             bool canTrigger = data.triggerConditions.EvaluateAll(data);
@@ -83,6 +88,8 @@ public class EventManager
             {
                 Debug.Log($"[事件保留] 条件不满足 → 保留事件：{data.eventName}");
             }
+            if(GameManager.Instance.eventHolder.childCount>=3) 
+                break;
         }
     }
 
@@ -109,11 +116,18 @@ public class EventManager
                         
                     matched = true;
                     activeEvents.Remove(evt);
+                    List<Card> cards = new List<Card>(evt.cardHolder.cards);
+                    for(int i = cards.Count - 1; i >= 0; i--)
+                    {
+                        evt.cardHolder.RemoveCard(cards[i]);
+                        GameManager.Instance.playerCardHolder.TransferCard(cards[i]);
+                        
+                    }
                     GameObject.Destroy(evt.transform.gameObject);
+                    cards.Clear();
                     break;
                 }
             }
-            
             if (!matched && evt.IsExpired())
             {
                 Debug.Log($"[事件处理] 事件【{evt.data.eventName}】过期未匹配任何分支");
@@ -122,7 +136,19 @@ public class EventManager
                     effect.Apply();
                 }
                 activeEvents.Remove(evt);
+                if (evt.cardHolder.cards.Count >= 0)
+                {
+                    List<Card> cards = new List<Card>(evt.cardHolder.cards);
+                    for(int i = cards.Count - 1; i >= 0; i--)
+                    {
+                        evt.cardHolder.RemoveCard(cards[i]);
+                        GameManager.Instance.playerCardHolder.TransferCard(cards[i]);
+                        
+                    }
+                    GameObject.Destroy(evt.transform.gameObject);
+                }
                 GameObject.Destroy(evt.transform.gameObject);
+                
             }
             
             HistoryLog.Log(evt, matched);

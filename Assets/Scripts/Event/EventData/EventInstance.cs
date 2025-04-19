@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Animancer;
+using UnityEngine.EventSystems;
 
 public class EventInstance : MonoBehaviour
 {
@@ -23,8 +25,10 @@ public class EventInstance : MonoBehaviour
     [SerializeField] private TMP_Text remainingLifeText;
 
     [SerializeField] private Image illust;
-    
-    
+
+    [SerializeField] public AnimancerComponent animancer;
+
+    [SerializeField] public List<ClipTransition> clips;
     
 
     public void Initialize(EventNodeData data)
@@ -36,7 +40,12 @@ public class EventInstance : MonoBehaviour
         remainingLifeText.text = $"剩余{remainingLife}年";
         //illust.sprite = data.icon;
     }
-
+    
+    public void ToggleCardShow(bool value)
+    {
+        cardHolder.ToggleShow(value);
+    }
+    
     public void TickLife()
     {
         remainingLife--;

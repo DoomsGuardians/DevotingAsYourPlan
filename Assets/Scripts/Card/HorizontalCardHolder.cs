@@ -14,6 +14,8 @@ public class HorizontalCardHolder : MonoBehaviour
     [SerializeField] private GameObject slotPrefab;
     private RectTransform rect;
 
+    public bool isFold = false;
+    
     [Header("Spawn Settings")]
     // [SerializeField] private int cardsToSpawn = 7;
     public List<Card> cards;
@@ -41,6 +43,7 @@ public class HorizontalCardHolder : MonoBehaviour
     
     public void AddCard(CardRuntime cardRuntime)
     {
+        if (isFold) return;
         GameObject cardSlot = Instantiate(slotPrefab, transform);
         Card card = cardSlot.GetComponentInChildren<Card>();
         card.Initialize(cardRuntime);
@@ -53,6 +56,7 @@ public class HorizontalCardHolder : MonoBehaviour
     
     public void TransferCard(Card card)
     {
+        if (isFold) return;
         card.transform.parent.SetParent(transform);
         card.transform.parent.transform.localPosition = Vector3.zero;
         cards.Add(card);
@@ -68,6 +72,7 @@ public class HorizontalCardHolder : MonoBehaviour
     
     public void RemoveCard(Card card)
     {
+        if (isFold) return;
         card.PointerEnterEvent.RemoveListener(CardPointerEnter);
         card.PointerExitEvent.RemoveListener(CardPointerExit);
         card.BeginDragEvent.RemoveListener(BeginDrag);
@@ -81,6 +86,7 @@ public class HorizontalCardHolder : MonoBehaviour
     
     public void DestroyCard(Card card)
     {
+        if (isFold) return;
         card.PointerEnterEvent.RemoveListener(CardPointerEnter);
         card.PointerExitEvent.RemoveListener(CardPointerExit);
         card.BeginDragEvent.RemoveListener(BeginDrag);
@@ -158,6 +164,7 @@ public class HorizontalCardHolder : MonoBehaviour
     
     void Update()
     {
+        if (isFold) return;
         if (Input.GetKeyDown(KeyCode.Delete))
         {
             if (hoveredCard != null)
@@ -207,6 +214,7 @@ public class HorizontalCardHolder : MonoBehaviour
 
     void Swap(int index)
     {
+        if (isFold) return;
         isCrossing = true;
 
         Transform focusedParent = selectedCard.transform.parent;
@@ -231,4 +239,29 @@ public class HorizontalCardHolder : MonoBehaviour
         }
     }
 
+
+    public void ToggleShow(bool value)
+    {
+        foreach (var card in cards)
+        {
+            // if (isFold)
+            // {
+            //     card.PointerEnterEvent.AddListener(CardPointerEnter);
+            //     card.PointerExitEvent.AddListener(CardPointerExit);
+            //     card.BeginDragEvent.AddListener(BeginDrag);
+            //     card.EndDragEvent.AddListener(EndDrag);
+            // }
+            // else
+            // {
+            //     card.PointerEnterEvent.RemoveListener(CardPointerEnter);
+            //     card.PointerExitEvent.RemoveListener(CardPointerExit);
+            //     card.BeginDragEvent.RemoveListener(BeginDrag);
+            //     card.EndDragEvent.RemoveListener(EndDrag);
+            // }
+            card.ToggleShow(value);
+            if (card.cardVisual != null)
+                card.cardVisual.UpdateIndex(transform.childCount);
+        }
+    }
+    
 }

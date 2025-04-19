@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -123,6 +124,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
                 continue;
 
             RectTransform holderRect = holder.GetComponent<RectTransform>();
+            if(holder.isFold)continue;
             if (RectTransformUtility.RectangleContainsScreenPoint(holderRect, Input.mousePosition, Camera.main))
             {
                 currentHolder?.RemoveCard(this);
@@ -214,9 +216,15 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         return transform.parent.CompareTag("Slot") ? ExtensionMethods.Remap((float)ParentIndex(), 0, (float)(transform.parent.parent.childCount - 1), 0, 1) : 0;
     }
 
+    public void ToggleShow(bool value)
+    {
+        cardVisual.ToggleShow(value);
+    }
+
     private void OnDestroy()
     {
         if(cardVisual != null)
         Destroy(cardVisual.gameObject);
     }
+    
 }
