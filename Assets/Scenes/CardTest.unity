@@ -766,6 +766,7 @@ MonoBehaviour:
   statDefinitionTable: {fileID: 11400000, guid: a35175a889d64ef438d2c495e2744f36, type: 2}
   defaultEventNodeDatas:
   - {fileID: 11400000, guid: 9baf8b453658a644d9878b181b3b70fc, type: 2}
+  - {fileID: 11400000, guid: a9e9988df69ad4947936c3f27c7f332d, type: 2}
   eventHolder: {fileID: 1108857902}
 --- !u!4 &484044549
 Transform:
