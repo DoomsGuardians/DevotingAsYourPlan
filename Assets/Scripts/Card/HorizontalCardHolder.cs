@@ -14,7 +14,7 @@ public class HorizontalCardHolder : MonoBehaviour
     [SerializeField] private GameObject slotPrefab;
     private RectTransform rect;
 
-    public bool isFold = false;
+    public bool isFold = true;
     
     [Header("Spawn Settings")]
     // [SerializeField] private int cardsToSpawn = 7;
@@ -78,7 +78,6 @@ public class HorizontalCardHolder : MonoBehaviour
         card.BeginDragEvent.RemoveListener(BeginDrag);
         card.EndDragEvent.RemoveListener(EndDrag);
         cards.Remove(card); 
-        // Destroy(card.transform.parent.gameObject,.1f);
         
         if (card.cardVisual != null)
             card.cardVisual.UpdateIndex(transform.childCount);

@@ -66,5 +66,5 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void ResolveEventEffect() => EventManager.ResolveEventsEffect();
     
-    public override bool IsNotDestroyOnLoad() => true;
+    public override bool IsNotDestroyOnLoad() => false;
 }
