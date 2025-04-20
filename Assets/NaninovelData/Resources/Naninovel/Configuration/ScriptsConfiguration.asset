@@ -25,7 +25,7 @@ MonoBehaviour:
   StableIdentification: 0
   InitializationScript: 
   TitleScript: 
-  StartGameScript: 
+  StartGameScript: TestEvent
   AutoAddScripts: 1
   AutoResolvePath: 1
   HotReloadScripts: 1

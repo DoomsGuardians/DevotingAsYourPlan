@@ -27,6 +27,9 @@ MonoBehaviour:
     - Naninovel.ProjectResourceProvider, Elringus.Naninovel.Runtime, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   OverrideObjectsLayer: 1
-  ObjectsLayer: 5
-  FontOptions: []
-  DefaultFont: 
+  ObjectsLayer: 6
+  FontOptions:
+  - FontName: Noto
+    FontResource: Assets/Fonts/NotoSansSC-Regular SDF
+    ApplyOnLocale: zh
+  DefaultFont: Assets/Fonts/NotoSansSC-Regular SDF
