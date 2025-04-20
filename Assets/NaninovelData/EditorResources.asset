@@ -113,5 +113,8 @@ MonoBehaviour:
     - name: TestEvent
       pathPrefix: Scripts
       guid: 9aa22fa99042aa54193983e4158e2cc2
+    - name: Test
+      pathPrefix: Scripts
+      guid: 981baee8bb1f2f641a3701c2d6a343fe
   - Id: Backgrounds/b00d646b-38e2-4bd9-9ccc-d289418b55db
     Resources: []

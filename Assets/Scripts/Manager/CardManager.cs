@@ -94,7 +94,6 @@ public class CardManager : Singleton<CardManager>
                 }
             }
         }
-        
     }
 
     public void RefreshCards()

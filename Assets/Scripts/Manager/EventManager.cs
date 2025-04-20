@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine.Assertions;
 
 public class EventManager
 {
+    
     public List<EventInstance> activeEvents;
     
     private List<EventNodeData> pendingEvents = new();
@@ -14,14 +16,18 @@ public class EventManager
 
     private GameObject eventSlot;
 
-    private RectTransform eventHolder;
+    private List<RectTransform> eventHolders;
     
-    public void Initialize(List<EventNodeData> defaultList, GameObject prefab, RectTransform holder)
+    private const int MAX_PLAYER_ACTION_COUNT = 4;
+
+    private const int PLAYER_INDEX = 0;
+    
+    public void Initialize(List<EventNodeData> defaultList, GameObject prefab, List<RectTransform> holder)
     {
         activeEvents = new();
         defaultEvents = defaultList;
         eventSlot = prefab;
-        eventHolder = holder;
+        eventHolders = holder;
         Debug.Log("事件管理器已初始化");
     }
 
@@ -40,37 +46,41 @@ public class EventManager
     /// <summary>
     /// 在 NPC 阶段调用，判断条件，生成满足条件的事件
     /// </summary>
-    public void ProcessEventTrigger()
+    public void ProcessEventTrigger()//一起更新很少用
     {
         ProcessDefault();
         ProcessPending();
     }
-    private void ProcessPending()
+    public void ProcessPending()
     {
-        if(GameManager.Instance.eventHolder.childCount>=3)
-            return;
-        foreach (var data in pendingEvents.ToArray())
+        Debug.Log("执行力");
+        for (int i = PLAYER_INDEX+1; i <= GameManager.Instance.eventHolders.Count-1 ; i++)
         {
-            bool canTrigger = data.triggerConditions.EvaluateAll(data);
-            if (canTrigger)
+            if (GameManager.Instance.eventHolders[i].childCount >= 3) continue;
+            foreach (var data in pendingEvents.ToArray())
             {
-                EventInstance instance = GameObject.Instantiate(eventSlot, eventHolder).GetComponent<EventInstance>();
-                instance.Initialize(data);
-                activeEvents.Add(instance);
+                bool canTrigger = data.triggerConditions.EvaluateAll(data);
+                if (canTrigger)
+                {
+                    EventInstance instance = GameObject.Instantiate(eventSlot, eventHolders[i]).GetComponent<EventInstance>();
+                    instance.Initialize(data);
+                    activeEvents.Add(instance);
 
-                Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
-                pendingEvents.Remove(data);
+                    Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
+                    pendingEvents.Remove(data);
+                }
+                else
+                {
+                    Debug.Log($"[事件保留] 条件不满足 → 保留事件：{data.eventName}");
+                }
+                if(GameManager.Instance.eventHolders[i].childCount>=3) break;
             }
-            else
-            {
-                Debug.Log($"[事件保留] 条件不满足 → 保留事件：{data.eventName}");
-            }
-            if(GameManager.Instance.eventHolder.childCount>=3) break;
         }
+
     }
-    private void ProcessDefault()
+    public void ProcessDefault()
     {
-        if(GameManager.Instance.eventHolder.childCount>=3)
+        if(GameManager.Instance.eventHolders[PLAYER_INDEX].childCount>=MAX_PLAYER_ACTION_COUNT)
             return;
         foreach (var data in defaultEvents.ToArray())
         {
@@ -78,7 +88,7 @@ public class EventManager
 
             if (canTrigger)
             {
-                EventInstance instance = GameObject.Instantiate(eventSlot, eventHolder).GetComponent<EventInstance>();
+                EventInstance instance = GameObject.Instantiate(eventSlot, eventHolders[PLAYER_INDEX]).GetComponent<EventInstance>();
                 instance.Initialize(data);
                 activeEvents.Add(instance);
 
@@ -88,7 +98,7 @@ public class EventManager
             {
                 Debug.Log($"[事件保留] 条件不满足 → 保留事件：{data.eventName}");
             }
-            if(GameManager.Instance.eventHolder.childCount>=3) 
+            if(GameManager.Instance.eventHolders[PLAYER_INDEX].childCount>=MAX_PLAYER_ACTION_COUNT) 
                 break;
         }
     }

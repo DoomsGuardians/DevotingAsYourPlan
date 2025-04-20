@@ -567,7 +567,11 @@ MonoBehaviour:
   statDefinitionTable: {fileID: 11400000, guid: a35175a889d64ef438d2c495e2744f36, type: 2}
   defaultEventNodeDatas:
   - {fileID: 11400000, guid: 9baf8b453658a644d9878b181b3b70fc, type: 2}
-  eventHolder: {fileID: 1108857902}
+  - {fileID: 11400000, guid: a9e9988df69ad4947936c3f27c7f332d, type: 2}
+  eventHolders:
+  - {fileID: 184017833}
+  - {fileID: 1972772661}
+  - {fileID: 1108857902}
 --- !u!4 &484044549
 Transform:
   m_ObjectHideFlags: 0
@@ -1463,7 +1467,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845276930943762971, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000015258789
+      value: 0.000015258789
       objectReference: {fileID: 0}
     - target: {fileID: 4845637959249703711, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchorMax.y
