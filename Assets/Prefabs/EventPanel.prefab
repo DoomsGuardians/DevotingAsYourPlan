@@ -614,6 +614,14 @@ MonoBehaviour:
       _Names: []
     _Clip: {fileID: 7400000, guid: c5deca91d6f742d4dbd656279ab04fe6, type: 2}
     _NormalizedStartTime: NaN
+  - _FadeDuration: 0.25
+    _Speed: 1
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: 7400000, guid: 9fa8f87b54398234eb61709510b099be, type: 2}
+    _NormalizedStartTime: NaN
   references:
     version: 2
     RefIds: []

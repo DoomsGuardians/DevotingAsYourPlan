@@ -33,7 +33,7 @@ MonoBehaviour:
     - rid: 113146787124477954
       type: {class: TransitionPreviewSettings, ns: Animancer.Editor.Previews, asm: Kybernetik.Animancer.Editor}
       data:
-        _AutoClose: 1
+        _AutoClose: 0
         _SceneLighting: 0
         _ShowSkybox: 0
         _FrameStep: 0.02

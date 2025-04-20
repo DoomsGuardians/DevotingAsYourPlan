@@ -29,4 +29,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ac3203ca75f4b064f89307c06372d856, type: 2}
   description: "\u6D4B\u8BD5\u4E8B\u4EF6\n\u8FD9\u662F\u6D4B\u8BD5\u4E8B\u4EF6\u94FE\u7684\u89E6\u53D1\u5206\u652F\u662F\u5426\u6B63\u5E38\u3002\n\u6211\u662F\u4E8B\u4EF6\u94FE\u5206\u652F1\u4E8B\u4EF6_1"
   icon: {fileID: 0}
-  duration: 1
+  duration: 5

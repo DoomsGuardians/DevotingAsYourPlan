@@ -19,10 +19,14 @@ public class AutoAddUICameraStack : MonoBehaviour
 
     private void OnDisable()
     {
-        cameraData = Camera.main.GetUniversalAdditionalCameraData();
-        if (cameraData.cameraStack.Contains(camera))
+        if (Camera.main)
         {
-            cameraData.cameraStack.Remove(camera);
+            cameraData = Camera.main.GetUniversalAdditionalCameraData();
+            if (cameraData.cameraStack.Contains(camera))
+            {
+                cameraData.cameraStack.Remove(camera);
+            }
         }
+
     }
 }

@@ -14,7 +14,11 @@ public class EventFold : MonoBehaviour, IPointerClickHandler
         {
             if (isFold)
             {
-                evt.animancer.Play(evt.clips[0]);
+                var state = evt.animancer.Play(evt.clips[0]);
+                state.Events(this).OnEnd = () =>
+                {
+                    Debug.Log("我展开啦！");
+                };
             }
             else
             {
