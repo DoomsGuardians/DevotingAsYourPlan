@@ -7,6 +7,6 @@ public class NPCActionState : TurnState
     {
         Debug.Log("进入角色行动阶段");
         gameManager.ProcessEventTrigger();
-        gameManager.TransitionToState(TurnPhase.ResolveEvents);
+        gameManager.TransitionToState(TurnPhase.EndTurn);
     }
 }

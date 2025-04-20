@@ -7,6 +7,6 @@ public class ResolveEventsState : TurnState
     {
         Debug.Log("进入事件结算阶段");
         gameManager.ResolveEventEffect();
-        gameManager.TransitionToState(TurnPhase.EndTurn);
+        gameManager.TransitionToState(TurnPhase.NPCAction);
     }
 }

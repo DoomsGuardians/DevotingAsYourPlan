@@ -6,6 +6,6 @@ public class EndTurnBtn : MonoBehaviour
 {
     public void EndPlayerTurn()
     {
-        GameManager.Instance.TransitionToState(TurnPhase.NPCAction);
+        GameManager.Instance.TransitionToState(TurnPhase.ResolveEvents);
     }
 }

@@ -34,11 +34,25 @@ public class EventInstance : MonoBehaviour
     public void Initialize(EventNodeData data)
     {
         this.data = data;
-        this.remainingLife = data.duration;
-        titleText.text = data.eventName;
-        descText.text = data.description;
-        remainingLifeText.text = $"剩余{remainingLife}年";
-        //illust.sprite = data.icon;
+        remainingLife = data.duration;
+        if (titleText)
+        {
+            titleText.text = data.eventName;
+        }
+        if(descText)
+        {
+            descText.text = data.description;
+        }
+
+        if (remainingLifeText)
+        {
+            remainingLifeText.text = $"剩余{remainingLife}年";
+        }
+
+        if (illust && data.icon)
+        {
+            illust.sprite = data.icon;
+        }
     }
     
     public void ToggleCardShow(bool value)
@@ -49,7 +63,10 @@ public class EventInstance : MonoBehaviour
     public void TickLife()
     {
         remainingLife--;
-        remainingLifeText.text = $"剩余{remainingLife}年";
+        if (remainingLifeText)
+        {
+            remainingLifeText.text = $"剩余{remainingLife}年";
+        }
     }
 
     public bool IsExpired() => remainingLife <= 0;
