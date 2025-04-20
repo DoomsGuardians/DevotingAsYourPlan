@@ -28,8 +28,5 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   OverrideObjectsLayer: 1
   ObjectsLayer: 6
-  FontOptions:
-  - FontName: Noto
-    FontResource: Assets/Fonts/NotoSansSC-Regular SDF
-    ApplyOnLocale: zh
-  DefaultFont: Assets/Fonts/NotoSansSC-Regular SDF
+  FontOptions: []
+  DefaultFont: 
