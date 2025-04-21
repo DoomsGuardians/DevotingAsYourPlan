@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153238d593734ba44a5645e51f8b9a7f, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
+  definitionTable: {fileID: 11400000, guid: a35175a889d64ef438d2c495e2744f36, type: 2}
   type: 0
   initialStats:
   - key: "\u5065\u5EB7\u5EA6"
-    valueType: 0
-    rangePreset: 2
-    min: 0
-    max: 150
     value: 70
+  - key: "\u4FE1\u5949\u5EA6"
+    value: 0
+  - key: "\u795E\u79D8\u6027"
+    value: 0
+  - key: "\u795E\u683C\u6027"
+    value: 0
