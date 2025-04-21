@@ -29,9 +29,13 @@ public class StartTurnState : TurnState
     {
         if (!Engine.Initialized)
         {
+            Engine.OnInitializationFinished += PlayScript;
             await RuntimeInitializer.Initialize();
         }
-        else Engine.OnInitializationFinished += PlayScript;
+        else
+        {
+            PlayScript();
+        }
     }
 
     async void PlayScript()
@@ -42,6 +46,9 @@ public class StartTurnState : TurnState
         await scriptPlayer.LoadAndPlay(scriptName);
     }
 
-
+    async void DebugScript()
+    {
+        Debug.Log("NaniEngine初始化好了");
+    }
     
 }

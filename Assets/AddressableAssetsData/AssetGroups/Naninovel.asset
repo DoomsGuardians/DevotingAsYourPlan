@@ -29,12 +29,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1add671f8348e8443bcc56290e82fc5e
-    m_Address: Naninovel/UI/ContinueInputUI
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1bc08ccd31adff6439e97161aa6e1d8b
     m_Address: Naninovel/TextPrinters/Dialogue
     m_ReadOnly: 0
@@ -83,12 +77,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 671ceb4f549ddf046913d7debf113469
-    m_Address: Naninovel/UI/ExternalScriptsUI
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6f9836a3c4f777741b1962979d97e485
     m_Address: Naninovel/TextPrinters/Chat
     m_ReadOnly: 0
@@ -97,18 +85,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 702c32b2de0c0784b9a66ec90601874f
     m_Address: Naninovel/UI/ClickThroughPanel
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 71da50c8dae82bd42ba67528804e820c
-    m_Address: Naninovel/UI/CGGalleryUI
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 735d6aa767879aa469134858c5b2f0a7
-    m_Address: Naninovel/UI/ScriptNavigatorUI
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -131,18 +107,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 88d03f19bcbff914ba33a7c9895e2d7c
-    m_Address: Naninovel/UI/ConfirmationUI
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8d53726b3d08433479398f02b4780e7f
-    m_Address: Naninovel/UI/SaveLoadUI
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9aa22fa99042aa54193983e4158e2cc2
     m_Address: Naninovel/Scripts/TestEvent
     m_ReadOnly: 0
@@ -161,12 +125,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a32c73a3aff4b274c85b3ff16c854b07
-    m_Address: Naninovel/UI/RollbackUI
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a9117e2fa90704d45b3e1461596c11ee
     m_Address: Naninovel/Spawn/Rain
     m_ReadOnly: 0
@@ -175,12 +133,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b47d9659b2be5ee4e95a776f213c9d4b
     m_Address: Naninovel/TextPrinters/Bubble
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bb95f484e341dcd4391a572f22b7d067
-    m_Address: Naninovel/UI/VariableInputUI
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
@@ -202,12 +154,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dd85ce99288c2f8488447fa511b1c0d6
-    m_Address: Naninovel/UI/ToastUI
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
+    - Scripts/TestEvent
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e3b234b4273b7f64ab3f1d9fe425ed23
     m_Address: Naninovel/UI/SceneTransitionUI
@@ -223,18 +170,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ea76638b26a915946b62907dd1e776fd
     m_Address: Naninovel/Spawn/DepthOfField
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f5aae572225ee1b4c96d1a17fc5cb073
-    m_Address: Naninovel/UI/TipsUI
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Naninovel
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f9a211517d1cb1a44964dc2254463049
-    m_Address: Naninovel/UI/MovieUI
     m_ReadOnly: 0
     m_SerializedLabels:
     - Naninovel

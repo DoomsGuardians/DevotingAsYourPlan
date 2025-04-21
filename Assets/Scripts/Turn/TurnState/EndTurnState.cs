@@ -9,6 +9,7 @@ public class EndTurnState : TurnState
         gameManager.CardManager.TickCards();
         gameManager.CardManager.RefreshCards();
         gameManager.EventManager.TickEvents();
+        gameManager.RoleManager.SettleAllRoles();
         gameManager.TransitionToState(TurnPhase.StartTurn);
     }
 }

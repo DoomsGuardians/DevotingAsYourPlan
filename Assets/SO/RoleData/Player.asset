@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   initialStats:
-  - key: Health
-    value: 100
+  - key: "\u5065\u5EB7\u5EA6"
+    valueType: 0
+    rangePreset: 2
+    min: 0
+    max: 150
+    value: 70
