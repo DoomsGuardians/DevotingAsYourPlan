@@ -1,5 +1,6 @@
 using UnityEngine;
 using Naninovel;
+using Naninovel.Commands;
 public class StartTurnState : TurnState
 {
     public StartTurnState(GameManager manager) : base(manager) { }
@@ -17,7 +18,12 @@ public class StartTurnState : TurnState
         Debug.Log("进入开始阶段");
         gameManager.turnStateMachine.TurnNum++; // 逻辑封装到CardManager中
         Debug.Log($"这是第{gameManager.turnStateMachine.TurnNum}回合");
-        gameManager.TransitionToState(TurnPhase.DrawCard);
+        Debug.Log($"现在玩家行动槽中包含{gameManager.eventHolders[0].childCount}项行动");
+        gameManager.ProcessPlayerDefaultTrigger();
+    }
+
+    public override void Exit()
+    {
     }
     public async void PlayDialogue(string scriptName)
     {
@@ -25,7 +31,7 @@ public class StartTurnState : TurnState
         {
             await RuntimeInitializer.Initialize();
         }
-        PlayScript();
+        else Engine.OnInitializationFinished += PlayScript;
     }
 
     async void PlayScript()

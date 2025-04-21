@@ -16,17 +16,20 @@ public class EventManager
 
     private GameObject eventSlot;
 
+    private GameObject actionSlot;
+
     private List<RectTransform> eventHolders;
     
     private const int MAX_PLAYER_ACTION_COUNT = 4;
 
     private const int PLAYER_INDEX = 0;
     
-    public void Initialize(List<EventNodeData> defaultList, GameObject prefab, List<RectTransform> holder)
+    public void Initialize(List<EventNodeData> defaultList, GameObject eventPrefab, GameObject actionPrefab, List<RectTransform> holder)
     {
         activeEvents = new();
         defaultEvents = defaultList;
-        eventSlot = prefab;
+        eventSlot = eventPrefab;
+        actionSlot = actionPrefab;
         eventHolders = holder;
         Debug.Log("事件管理器已初始化");
     }
@@ -46,18 +49,41 @@ public class EventManager
     /// <summary>
     /// 在 NPC 阶段调用，判断条件，生成满足条件的事件
     /// </summary>
-    public void ProcessEventTrigger()//一起更新很少用
+    public void ProcessEventTrigger()
     {
         ProcessDefault();
         ProcessPending();
+        GameManager.Instance.TransitionToState(TurnPhase.EndTurn);
     }
-    public void ProcessPending()
+    private void ProcessPending()
     {
-        Debug.Log("执行力");
+        if (GameManager.Instance.eventHolders[PLAYER_INDEX].childCount <= MAX_PLAYER_ACTION_COUNT)
+        {
+            foreach (var data in pendingEvents.FindAll((EventNodeData s) => (int)s.sourceRole == PLAYER_INDEX)?.ToArray())
+            {
+                bool canTrigger = data.triggerConditions.EvaluateAll(data);
+                if (canTrigger)
+                {
+                    EventInstance instance = GameObject.Instantiate(actionSlot, eventHolders[PLAYER_INDEX]).GetComponent<EventInstance>();
+                    instance.Initialize(data);
+                    activeEvents.Add(instance);
+
+                    Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
+                    pendingEvents.Remove(data);
+                }
+                else
+                {
+                    Debug.Log($"[事件保留] 条件不满足 → 保留事件：{data.eventName}");
+                }
+                if(GameManager.Instance.eventHolders[PLAYER_INDEX].childCount>=4) break;
+            } 
+        }
+
+        //处理其他角色
         for (int i = PLAYER_INDEX+1; i <= GameManager.Instance.eventHolders.Count-1 ; i++)
         {
             if (GameManager.Instance.eventHolders[i].childCount >= 3) continue;
-            foreach (var data in pendingEvents.ToArray())
+            foreach (var data in pendingEvents.FindAll((EventNodeData s) => (int)s.sourceRole == i)?.ToArray())
             {
                 bool canTrigger = data.triggerConditions.EvaluateAll(data);
                 if (canTrigger)
@@ -78,29 +104,58 @@ public class EventManager
         }
 
     }
-    public void ProcessDefault()
+    private void ProcessDefault()
     {
-        if(GameManager.Instance.eventHolders[PLAYER_INDEX].childCount>=MAX_PLAYER_ACTION_COUNT)
-            return;
-        foreach (var data in defaultEvents.ToArray())
+        //处理其他角色
+        for (int i = PLAYER_INDEX+1; i <= GameManager.Instance.eventHolders.Count-1 ; i++)
         {
-            bool canTrigger = data.triggerConditions.EvaluateAll(data);
-
-            if (canTrigger)
+            Debug.Log($"处理{GameManager.Instance.eventHolders[i].name}");
+            if (GameManager.Instance.eventHolders[i].childCount >= 3) continue;
+            foreach (var data in defaultEvents.FindAll((EventNodeData s) => (int)s.sourceRole == i)?.ToArray())
             {
-                EventInstance instance = GameObject.Instantiate(eventSlot, eventHolders[PLAYER_INDEX]).GetComponent<EventInstance>();
-                instance.Initialize(data);
-                activeEvents.Add(instance);
+                bool canTrigger = data.triggerConditions.EvaluateAll(data);
+                if (canTrigger)
+                {
+                    EventInstance instance = GameObject.Instantiate(eventSlot, eventHolders[i]).GetComponent<EventInstance>();
+                    instance.Initialize(data);
+                    activeEvents.Add(instance);
 
-                Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
+                    Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
+                }
+                else
+                {
+                    Debug.Log($"[事件保留] 条件不满足 → 保留事件：{data.eventName}");
+                }
+                if(GameManager.Instance.eventHolders[i].childCount>=3) break;
             }
-            else
-            {
-                Debug.Log($"[事件保留] 条件不满足 → 保留事件：{data.eventName}");
-            }
-            if(GameManager.Instance.eventHolders[PLAYER_INDEX].childCount>=MAX_PLAYER_ACTION_COUNT) 
-                break;
         }
+    }
+
+    public void ProcessPlayerDefault()
+    {
+        if (GameManager.Instance.eventHolders[PLAYER_INDEX].childCount <= MAX_PLAYER_ACTION_COUNT)
+        {
+            foreach (var data in defaultEvents.FindAll((EventNodeData s) => (int)s.sourceRole == PLAYER_INDEX)?.ToArray())
+            {
+                bool canTrigger = data.triggerConditions.EvaluateAll(data);
+                if (canTrigger)
+                {
+                    EventInstance instance = GameObject.Instantiate(actionSlot, eventHolders[PLAYER_INDEX]).GetComponent<EventInstance>();
+                    instance.Initialize(data);
+                    activeEvents.Add(instance);
+                    Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
+                }
+                else
+                {
+                    Debug.Log($"[事件保留] 条件不满足 → 保留事件：{data.eventName}");
+                }
+                if(GameManager.Instance.eventHolders[PLAYER_INDEX].childCount>=MAX_PLAYER_ACTION_COUNT) 
+                {
+                    break;
+                }
+            } 
+        }
+        GameManager.Instance.TransitionToState(TurnPhase.DrawCard);
     }
 
     #endregion
@@ -133,7 +188,7 @@ public class EventManager
                         GameManager.Instance.playerCardHolder.TransferCard(cards[i]);
                         
                     }
-                    GameObject.Destroy(evt.transform.gameObject);
+                    GameObject.DestroyImmediate(evt.transform.gameObject);
                     cards.Clear();
                     break;
                 }
@@ -155,14 +210,19 @@ public class EventManager
                         GameManager.Instance.playerCardHolder.TransferCard(cards[i]);
                         
                     }
-                    GameObject.Destroy(evt.transform.gameObject);
                 }
-                GameObject.Destroy(evt.transform.gameObject);
+                GameObject.DestroyImmediate(evt.transform.gameObject);
                 
             }
             
             HistoryLog.Log(evt, matched);
         }
+        foreach(var child in GameManager.Instance.eventHolders[0].GetComponentsInChildren<RectTransform>())
+        {
+            Debug.Log($"{child.name}");
+        }
+        Debug.Log($"玩家槽位共{GameManager.Instance.eventHolders[0].childCount}个");
+        GameManager.Instance.TransitionToState(TurnPhase.NPCAction);
     }
     #endregion
 

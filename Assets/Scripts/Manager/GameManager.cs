@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -7,10 +8,11 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private List<CardData> cardDatabase; 
     [SerializeField] public HorizontalCardHolder playerCardHolder;
     [SerializeField] private GameObject eventSlotPrefab;
+    [SerializeField] private GameObject actionSlotPrefab;
     [SerializeField] private List<RoleData> roleDataConfigs;
     [SerializeField] private RoleStatDefinitionTable statDefinitionTable;
     [SerializeField] private List<EventNodeData> defaultEventNodeDatas;
-    [SerializeField] public List<RectTransform> eventHolders;
+    public List<RectTransform> eventHolders;
     
     #region 回合制状态机
         public TurnStateMachine turnStateMachine;
@@ -34,11 +36,9 @@ public class GameManager : MonoSingleton<GameManager>
         
         CardManager.Initialize(cardDatabase, playerCardHolder);
         RoleManager.Initialize(roleDataConfigs, statDefinitionTable);
-        EventManager.Initialize(defaultEventNodeDatas, eventSlotPrefab,eventHolders);
-        //EventSlotFactory.Initialize(eventSlotPrefab, eventHolder);
-        turnStateMachine.Initialize(this);
-        
+        EventManager.Initialize(defaultEventNodeDatas, eventSlotPrefab, actionSlotPrefab, eventHolders);
         Debug.Log("GameManager初始化完成");
+        turnStateMachine.Initialize(this);
     }
 
     private void Update()
@@ -63,6 +63,8 @@ public class GameManager : MonoSingleton<GameManager>
     public Role GetRole(RoleType type) => RoleManager.GetRole(type);
 
     public void ProcessEventTrigger() => EventManager.ProcessEventTrigger();
+
+    public void ProcessPlayerDefaultTrigger() => EventManager.ProcessPlayerDefault();
 
     public void ResolveEventEffect() => EventManager.ResolveEventsEffect();
     

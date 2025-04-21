@@ -1,6 +1,6 @@
 public enum RoleType
 {
-    Player,
-    People,
-    World
+    Player = 0,
+    People = 1,
+    World = 2
 }

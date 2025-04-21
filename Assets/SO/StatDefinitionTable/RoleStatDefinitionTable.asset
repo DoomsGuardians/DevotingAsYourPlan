@@ -17,7 +17,3 @@ MonoBehaviour:
     displayName: "\u5065\u5EB7\u5EA6"
     description: "\u73A9\u5BB6\u7684\u5065\u5EB7\u72B6\u51B5"
     defaultValue: 100
-  - key: Health
-    displayName: "\u5065\u5EB7\u5EA6"
-    description: "\u73A9\u5BB6\u7684\u5065\u5EB7\u72B6\u51B5"
-    defaultValue: 100

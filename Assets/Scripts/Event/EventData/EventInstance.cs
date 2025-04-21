@@ -34,6 +34,8 @@ public class EventInstance : MonoBehaviour
     public void Initialize(EventNodeData data)
     {
         this.data = data;
+        this.name = data.eventName;
+        
         remainingLife = data.duration;
         if (titleText)
         {
