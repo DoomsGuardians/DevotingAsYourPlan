@@ -8,7 +8,7 @@ public class ShaderCode : MonoBehaviour
     [SerializeField] private Image image;
     private Material m;
     public int editionIndex;
-    private string[] editions = { "REGULAR", "POLYCHROME", "REGULAR", "NEGATIVE" };
+    private string[] editions = { "REGULAR", "POLYCHROME", "FOIL", "NEGATIVE" };
 
     // Start is called before the first frame update
     void Start()

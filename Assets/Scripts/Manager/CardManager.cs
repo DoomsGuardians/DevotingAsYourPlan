@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CardManager : Singleton<CardManager>
 {
-    public List<CardData> cardDatabase; // 由美术or策划配置
+    public List<CardData> cardDatabase; 
 
     public HorizontalCardHolder playerCardHolder;
 

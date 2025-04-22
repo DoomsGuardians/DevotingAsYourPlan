@@ -3,19 +3,32 @@ using System.Collections.Generic;
 using QFSW.QC;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Mono.CSharp;
 
 public static class StaticCheatDebugCommand
 {
+    private static bool isCheating = false;
+
+    [Command("Debug")]
+    [Command("debug")]
+    public static void ToggleCheatMode()
+    {
+        isCheating = !isCheating;
+    }
+
     [Command("RoleStat")]
     [Command("rs")]
     [Command("RS")]
     [Command("rolestat")]
     public static void GetRoleStat(RoleType roleType)
     {
+        if(!isCheating) 
+        {
+            Debug.Log("尚未开启作弊模式，无法使用指令");
+            return;
+        }
         PrintDictionary(GameManager.Instance.GetRole(roleType).GetAllStats());
     }
     [Command("RoleStat.All")]
@@ -24,6 +37,11 @@ public static class StaticCheatDebugCommand
     [Command("rolestat.all")]
     public static void GetRoleStat()
     {
+        if(!isCheating) 
+        {
+            Debug.Log("尚未开启作弊模式，无法使用指令");
+            return;
+        }
         foreach (RoleType roleType in System.Enum.GetValues(typeof(RoleType)))
         {
             Debug.Log($"{roleType}的属性");
