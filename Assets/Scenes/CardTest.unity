@@ -553,11 +553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee57c9191c76cc4c8615b78746d6e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardDatabase:
-  - {fileID: 11400000, guid: 1dd7bfa6cd08da940a90146ce9705ebe, type: 2}
-  - {fileID: 11400000, guid: fe3dcd1cc0ba48742aa980d77a9b4a6f, type: 2}
-  - {fileID: 11400000, guid: 7e193de67561af4418006890e123f985, type: 2}
-  - {fileID: 11400000, guid: f8a8be7a31f6162468c7209060048083, type: 2}
+  defaultCardPool: {fileID: 11400000, guid: eee1d9c2c9c4c194c90493994f07eef5, type: 2}
   playerCardHolder: {fileID: 667881467}
   eventSlotPrefab: {fileID: 4840401969066378952, guid: 6cc766e05534dae45bab868ef9857082, type: 3}
   actionSlotPrefab: {fileID: 4840401969066378952, guid: cf0c96037aa9d7e4c85e13090fb4b7bb, type: 3}

@@ -12,11 +12,10 @@ public class CardData : ScriptableObject
     public Sprite illustration;
     public CardType cardType;
     [Range(0, 3)] public int rarity;
-    public int maxLife = 1;
+    [Range(0, 100)]public int maxLife = 1;
 
-    public bool IsUnique = false;
-    // 可扩展属性（比如参数机制）
-    //public List<CardTag> tags; // 可设计成 enum 或 string-based key
+    public bool isUnique = false;
 
-    // 后期可以加权重、事件链ID、特殊效果等
+    [Header("词条系统")]
+    public List<CardEntry> entries;
 }

@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Kevin
   description: This is a  Your First Believer here
-  illustration: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  illustration: {fileID: 21300000, guid: ec5818c959bedf84dbe85b0e399e1f47, type: 3}
   cardType: 2
-  rarity: 2
+  rarity: 3
   maxLife: 50
-  IsUnique: 1
+  isUnique: 1
+  entries:
+  - {fileID: 11400000, guid: 589c0f6ca098fb046b365ea6bc503345, type: 2}

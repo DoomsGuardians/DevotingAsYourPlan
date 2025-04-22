@@ -45,10 +45,5 @@ public class StartTurnState : TurnState
         // 播放整个脚本
         await scriptPlayer.LoadAndPlay(scriptName);
     }
-
-    async void DebugScript()
-    {
-        Debug.Log("NaniEngine初始化好了");
-    }
     
 }

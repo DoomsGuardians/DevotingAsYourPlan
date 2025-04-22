@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 455a0d4c6b3aec142aec345debda4ab4, type: 3}
-  m_Name: CardData
+  m_Script: {fileID: 11500000, guid: 7e78d2d73155113459355c85f61df9cf, type: 3}
+  m_Name: "\u5FE0\u8BDA"
   m_EditorClassIdentifier: 
-  cardName: 
-  description: 
-  illustration: {fileID: 0}
-  cardType: 0
-  rarity: 0
-  maxLife: -186
-  IsUnique: 0
+  entryName: "\u5FE0\u8BDA"
+  description: "\u5FE0\u5FC3\u803F\u803F"

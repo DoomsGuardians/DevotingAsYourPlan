@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 public class GameManager : MonoSingleton<GameManager>
 {
     [Header("配置资源")]
-    [SerializeField] private List<CardData> cardDatabase; 
+    [SerializeField] private CardPool defaultCardPool;
     [SerializeField] public HorizontalCardHolder playerCardHolder;
     [SerializeField] private GameObject eventSlotPrefab;
     [SerializeField] private GameObject actionSlotPrefab;
@@ -34,7 +34,7 @@ public class GameManager : MonoSingleton<GameManager>
         RoleManager = new RoleManager();
         EventManager = new EventManager();
         
-        CardManager.Initialize(cardDatabase, playerCardHolder);
+        CardManager.Initialize(defaultCardPool, playerCardHolder);
         RoleManager.Initialize(roleDataConfigs, statDefinitionTable);
         EventManager.Initialize(defaultEventNodeDatas, eventSlotPrefab, actionSlotPrefab, eventHolders);
         Debug.Log("GameManager初始化完成");
@@ -55,7 +55,7 @@ public class GameManager : MonoSingleton<GameManager>
     {
         
         CardManager.DrawCard(CardType.Labor);
-        CardManager.DrawCard(CardType.Believer, "Kevin");
+        CardManager.DrawCard("Kevin");
         CardManager.DrawCard(CardType.Tribute);
         
     }
