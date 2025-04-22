@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7013cabf4b26e844fa4d1d1dc4a7942b, type: 3}
   m_Name: DefaultCardPool
   m_EditorClassIdentifier: 
-  poolName: "\u65B0\u5361\u6C60"
+  poolName: "\u6807\u51C6\u5361\u6C60"
   description: 
   cards:
   - {fileID: 11400000, guid: f8a8be7a31f6162468c7209060048083, type: 2}

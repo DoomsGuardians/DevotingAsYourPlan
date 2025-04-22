@@ -6,6 +6,7 @@ using System.Reflection;
 [CustomPropertyDrawer(typeof(StatDefinitionRangeAttribute))]
 public class StatDefinitionRangeDrawer : PropertyDrawer
 {
+    
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         StatDefinitionRangeAttribute rangeAttr = (StatDefinitionRangeAttribute)attribute;
