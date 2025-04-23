@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using Animancer;
 using UnityEngine.EventSystems;
+using Cysharp.Threading.Tasks;
 
 public class EventInstance : MonoBehaviour
 {
@@ -54,6 +55,25 @@ public class EventInstance : MonoBehaviour
         if (illust && data.icon)
         {
             illust.sprite = data.icon;
+        }
+        
+        PlayEntryAnimation();
+    }
+    
+    /// 播放入场动画
+    private async void PlayEntryAnimation()
+    {
+        if (animancer != null && clips != null && clips.Count > 0)
+        {
+            // 播放第一个入场动画
+            var state = animancer.Play(clips[2]);
+            // 等待动画播放完毕
+            await UniTask.Delay((int)(clips[2].Clip.length * 1000+500)); ; // 等待动画播放完成
+            Debug.Log("[EventInstance] 入场动画播放完毕");
+        }
+        else
+        {
+            Debug.LogWarning("[EventInstance] 没有入场动画！");
         }
     }
     

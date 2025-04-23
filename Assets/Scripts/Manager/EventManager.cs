@@ -221,65 +221,65 @@ public class EventManager
     #endregion
     
     #region 处理事件效果
-public async UniTask ResolveEventsEffectAsync()
-{
-    foreach (var evt in activeEvents.ToArray())
+    public async UniTask ResolveEventsEffectAsync()
     {
-        if (evt.resolved) continue;
-
-        bool matched = false;
-
-        // 遍历所有结果分支
-        foreach (var branch in evt.data.outcomeBranches)
+        foreach (var evt in activeEvents.ToArray())
         {
-            if (branch.matchConditions.EvaluateAll(evt))
+            if (evt.resolved) continue;
+
+            bool matched = false;
+
+            // 遍历所有结果分支
+            foreach (var branch in evt.data.outcomeBranches)
             {
-                Debug.Log($"[事件处理] 【{evt.data.eventName}】匹配分支【{branch.label}】");
+                if (branch.matchConditions.EvaluateAll(evt))
+                {
+                    Debug.Log($"[事件处理] 【{evt.data.eventName}】匹配分支【{branch.label}】");
 
-                await ExecuteEffectsAsync(branch.effects);
-                matched = true;
+                    await ExecuteEffectsAsync(branch.effects);
+                    matched = true;
 
-                await CleanupEventAsync(evt);
-                break;
+                    await CleanupEventAsync(evt);
+                    break;
+                }
             }
-        }
 
-        // 没有匹配分支，但事件已过期
-        if (!matched && evt.IsExpired())
-        {
-            Debug.Log($"[事件处理] 【{evt.data.eventName}】过期未匹配任何分支");
+            // 没有匹配分支，但事件已过期
+            if (!matched && evt.IsExpired())
+            {
+                Debug.Log($"[事件处理] 【{evt.data.eventName}】过期未匹配任何分支");
 
-            await ExecuteEffectsAsync(evt.data.expiredEffects);
+                await ExecuteEffectsAsync(evt.data.expiredEffects);
             
-            await CleanupEventAsync(evt);
-        }
-        else if (!matched)
-        {
-            Debug.LogWarning($"[事件处理] 【{evt.data.eventName}】没有匹配任何分支！");
-        }
+                await CleanupEventAsync(evt);
+            }
+            else if (!matched)
+            {
+                Debug.LogWarning($"[事件处理] 【{evt.data.eventName}】没有匹配任何分支！");
+            }
 
-        HistoryLog.Log(evt, matched);
+            HistoryLog.Log(evt, matched);
+        }
     }
-}
 
-public async UniTask CleanupEventAsync(EventInstance evt)
-{
-    // 卡牌转移给玩家
-    var cards = new List<Card>(evt.cardHolder.cards);
-    for (int i = cards.Count - 1; i >= 0; i--)
+    public async UniTask CleanupEventAsync(EventInstance evt)
     {
-        evt.cardHolder.RemoveCard(cards[i]);
-        GameManager.Instance.playerCardHolder.TransferCard(cards[i]);
+        // 卡牌转移给玩家
+        var cards = new List<Card>(evt.cardHolder.cards);
+        for (int i = cards.Count - 1; i >= 0; i--)
+        {
+            evt.cardHolder.RemoveCard(cards[i]);
+            GameManager.Instance.playerCardHolder.TransferCard(cards[i]);
+        }
+
+        // 销毁事件之前，确保动画播放完成
+        await evt.PlayAndDestroyAfterAnim();
+        Debug.Log($"[事件处理] 清理【{evt.data.eventName}】过期分支");
+        activeEvents.Remove(evt);
+
+        // 这部分会等到动画播放完再销毁事件
+        GameObject.Destroy(evt.gameObject);
     }
-
-    // 销毁事件之前，确保动画播放完成
-    await evt.PlayAndDestroyAfterAnim();
-    Debug.Log($"[事件处理] 清理【{evt.data.eventName}】过期分支");
-    activeEvents.Remove(evt);
-
-    // 这部分会等到动画播放完再销毁事件
-    GameObject.Destroy(evt.gameObject);
-}
 
 
     public async UniTask ExecuteEffectsAsync(List<EventEffectSO>effects)
