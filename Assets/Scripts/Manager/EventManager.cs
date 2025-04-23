@@ -59,11 +59,11 @@ public class EventManager
     /// </summary>
     public async UniTask ProcessEventTrigger()
     {
-        ProcessDefault();
-        ProcessPending();
+        await ProcessDefault();
+        await ProcessPending();
         await GameManager.Instance.TransitionToStateAsync(TurnPhase.EndTurn);
     }
-    private void ProcessPending()
+    private async UniTask ProcessPending()
     {
         if (GameManager.Instance.eventHolders[PLAYER_INDEX].childCount <= MAX_PLAYER_ACTION_COUNT)
         {
@@ -87,7 +87,7 @@ public class EventManager
                 if (canTrigger)
                 {
                     EventInstance instance = GameObject.Instantiate(actionSlot, eventHolders[PLAYER_INDEX]).GetComponent<EventInstance>();
-                    instance.Initialize(data);
+                    await instance.Initialize(data);
                     activeEvents.Add(instance);
 
                     Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
@@ -124,7 +124,7 @@ public class EventManager
                 if (canTrigger)
                 {
                     EventInstance instance = GameObject.Instantiate(eventSlot, eventHolders[i]).GetComponent<EventInstance>();
-                    instance.Initialize(data);
+                    await instance.Initialize(data);
                     activeEvents.Add(instance);
 
                     Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
@@ -139,7 +139,7 @@ public class EventManager
         }
 
     }
-    private void ProcessDefault()
+    private async UniTask ProcessDefault()
     {
         //处理其他角色
         for (int i = PLAYER_INDEX+1; i <= GameManager.Instance.eventHolders.Count-1 ; i++)
@@ -164,7 +164,7 @@ public class EventManager
                 if (canTrigger)
                 {
                     EventInstance instance = GameObject.Instantiate(eventSlot, eventHolders[i]).GetComponent<EventInstance>();
-                    instance.Initialize(data);
+                    await instance.Initialize(data);
                     activeEvents.Add(instance);
 
                     Debug.Log($"[事件生成] 满足条件 -> 创建事件：{data.eventName}");
@@ -201,7 +201,7 @@ public class EventManager
                 if (canTrigger)
                 {
                     EventInstance instance = GameObject.Instantiate(actionSlot, eventHolders[PLAYER_INDEX]).GetComponent<EventInstance>();
-                    instance.Initialize(data);
+                    await instance.Initialize(data);
                     activeEvents.Add(instance);
                     Debug.Log($"[事件生成] 满足条件 -> 创建事件：{data.eventName}");
                 }

@@ -32,7 +32,7 @@ public class EventInstance : MonoBehaviour
     [SerializeField] public List<ClipTransition> clips;
     
 
-    public void Initialize(EventNodeData data)
+    public async UniTask Initialize(EventNodeData data)
     {
         this.data = data;
         this.name = data.eventName;
@@ -57,19 +57,18 @@ public class EventInstance : MonoBehaviour
             illust.sprite = data.icon;
         }
         
-        PlayEntryAnimation();
+        await PlayEntryAnimation();
     }
     
     /// 播放入场动画
-    private async void PlayEntryAnimation()
+    private async UniTask PlayEntryAnimation()
     {
         if (animancer != null && clips != null && clips.Count > 0)
         {
             // 播放第一个入场动画
-            var state = animancer.Play(clips[2]);
+            await animancer.Play(clips[2]);
             // 等待动画播放完毕
-            await UniTask.Delay((int)(clips[2].Clip.length * 1000+500)); ; // 等待动画播放完成
-            Debug.Log("[EventInstance] 入场动画播放完毕");
+            await UniTask.Delay((int)(clips[2].Clip.length * 1000-200)); ; // 等待动画播放完成
         }
         else
         {
