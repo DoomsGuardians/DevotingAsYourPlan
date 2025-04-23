@@ -40,7 +40,7 @@ public class CardMatchRangeResolveCondition : EventResolveConditionSO
 
         int count = matchedCards.Count();
 
-        Debug.Log($"[分支判断] 筛选后卡牌数 = {count}，要求 ∈ [{minCount}, {maxCount}]");
+        Debug.Log($"[分支判断] 筛选后卡牌数 = {count}，要求属于 [{minCount}, {maxCount}]");
 
         return count >= minCount && count <= maxCount;
     }

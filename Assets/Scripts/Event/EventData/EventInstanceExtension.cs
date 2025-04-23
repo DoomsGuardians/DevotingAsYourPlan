@@ -35,8 +35,8 @@ public static class EventInstanceExtensions
         {
             Debug.LogError("[EventInstanceExtensions] Animancer 或动画剪辑列表为空");
         }
-
-        // 销毁事件对象
-        Object.Destroy(evt.gameObject);
+        //
+        // // 销毁事件对象
+        // Object.Destroy(evt.gameObject);
     }
 }

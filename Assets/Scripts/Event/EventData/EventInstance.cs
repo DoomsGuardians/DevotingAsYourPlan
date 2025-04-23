@@ -36,7 +36,7 @@ public class EventInstance : MonoBehaviour
     {
         this.data = data;
         this.name = data.eventName;
-        
+        this.sourceRole = GameManager.Instance.GetRole(data.sourceRole);
         remainingLife = data.duration;
         if (titleText)
         {

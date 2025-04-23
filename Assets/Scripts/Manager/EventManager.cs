@@ -265,6 +265,7 @@ public class EventManager
     public async UniTask CleanupEventAsync(EventInstance evt)
     {
         // 卡牌转移给玩家
+        evt.ToggleCardShow(true);
         var cards = new List<Card>(evt.cardHolder.cards);
         for (int i = cards.Count - 1; i >= 0; i--)
         {
