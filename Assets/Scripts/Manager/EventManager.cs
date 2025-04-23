@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine.Assertions;
+using System.Threading.Tasks;
 
 public class EventManager
 {
@@ -13,6 +15,12 @@ public class EventManager
     private List<EventNodeData> pendingEvents = new();
 
     private List<EventNodeData> defaultEvents = new();
+
+    // 唯一事件的记录（触发过即加入）
+    private HashSet<string> triggeredEventIDs = new();
+
+    // 非唯一事件冷却：事件ID → 剩余冷却回合
+    private Dictionary<string, int> cooldownTimers = new();
 
     private GameObject eventSlot;
 
@@ -49,11 +57,11 @@ public class EventManager
     /// <summary>
     /// 在 NPC 阶段调用，判断条件，生成满足条件的事件
     /// </summary>
-    public void ProcessEventTrigger()
+    public async UniTask ProcessEventTrigger()
     {
         ProcessDefault();
         ProcessPending();
-        GameManager.Instance.TransitionToState(TurnPhase.EndTurn);
+        await GameManager.Instance.TransitionToStateAsync(TurnPhase.EndTurn);
     }
     private void ProcessPending()
     {
@@ -61,6 +69,20 @@ public class EventManager
         {
             foreach (var data in pendingEvents.FindAll((EventNodeData s) => (int)s.sourceRole == PLAYER_INDEX)?.ToArray())
             {
+                // 是否唯一事件已触发
+                if (data.isUnique && triggeredEventIDs.Contains(data.eventID))
+                {
+                    Debug.Log($"[事件跳过] 唯一事件已触发过：{data.eventName}");
+                    continue;
+                }
+
+                // 是否在冷却中
+                if (cooldownTimers.TryGetValue(data.eventID, out int cooldown) && cooldown > 0)
+                {
+                    Debug.Log($"[事件跳过] {data.eventName} 冷却中，剩余 {cooldown} 回合");
+                    continue;
+                }
+
                 bool canTrigger = data.triggerConditions.EvaluateAll(data);
                 if (canTrigger)
                 {
@@ -85,6 +107,19 @@ public class EventManager
             if (GameManager.Instance.eventHolders[i].childCount >= 3) continue;
             foreach (var data in pendingEvents.FindAll((EventNodeData s) => (int)s.sourceRole == i)?.ToArray())
             {
+                // 是否唯一事件已触发
+                if (data.isUnique && triggeredEventIDs.Contains(data.eventID))
+                {
+                    Debug.Log($"[事件跳过] 唯一事件已触发过：{data.eventName}");
+                    continue;
+                }
+
+                // 是否在冷却中
+                if (cooldownTimers.TryGetValue(data.eventID, out int cooldown) && cooldown > 0)
+                {
+                    Debug.Log($"[事件跳过] {data.eventName} 冷却中，剩余 {cooldown} 回合");
+                    continue;
+                }
                 bool canTrigger = data.triggerConditions.EvaluateAll(data);
                 if (canTrigger)
                 {
@@ -109,10 +144,22 @@ public class EventManager
         //处理其他角色
         for (int i = PLAYER_INDEX+1; i <= GameManager.Instance.eventHolders.Count-1 ; i++)
         {
-            Debug.Log($"处理{GameManager.Instance.eventHolders[i].name}");
             if (GameManager.Instance.eventHolders[i].childCount >= 3) continue;
             foreach (var data in defaultEvents.FindAll((EventNodeData s) => (int)s.sourceRole == i)?.ToArray())
             {
+                // 是否唯一事件已触发
+                if (data.isUnique && triggeredEventIDs.Contains(data.eventID))
+                {
+                    Debug.Log($"[事件跳过] 唯一事件已触发过：{data.eventName}");
+                    continue;
+                }
+
+                // 是否在冷却中
+                if (cooldownTimers.TryGetValue(data.eventID, out int cooldown) && cooldown > 0)
+                {
+                    Debug.Log($"[事件跳过] {data.eventName} 冷却中，剩余 {cooldown} 回合");
+                    continue;
+                }
                 bool canTrigger = data.triggerConditions.EvaluateAll(data);
                 if (canTrigger)
                 {
@@ -120,34 +167,47 @@ public class EventManager
                     instance.Initialize(data);
                     activeEvents.Add(instance);
 
-                    Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
+                    Debug.Log($"[事件生成] 满足条件 -> 创建事件：{data.eventName}");
                 }
                 else
                 {
-                    Debug.Log($"[事件保留] 条件不满足 → 保留事件：{data.eventName}");
+                    Debug.Log($"[事件保留] 条件不满足 -> 保留事件：{data.eventName}");
                 }
                 if(GameManager.Instance.eventHolders[i].childCount>=3) break;
             }
         }
     }
 
-    public void ProcessPlayerDefault()
+    public async UniTask ProcessPlayerDefault()
     {
         if (GameManager.Instance.eventHolders[PLAYER_INDEX].childCount <= MAX_PLAYER_ACTION_COUNT)
         {
             foreach (var data in defaultEvents.FindAll((EventNodeData s) => (int)s.sourceRole == PLAYER_INDEX)?.ToArray())
             {
+                // 是否唯一事件已触发
+                if (data.isUnique && triggeredEventIDs.Contains(data.eventID))
+                {
+                    Debug.Log($"[事件跳过] 唯一事件已触发过：{data.eventName}");
+                    continue;
+                }
+
+                // 是否在冷却中
+                if (cooldownTimers.TryGetValue(data.eventID, out int cooldown) && cooldown > 0)
+                {
+                    Debug.Log($"[事件跳过] {data.eventName} 冷却中，剩余 {cooldown} 回合");
+                    continue;
+                }
                 bool canTrigger = data.triggerConditions.EvaluateAll(data);
                 if (canTrigger)
                 {
                     EventInstance instance = GameObject.Instantiate(actionSlot, eventHolders[PLAYER_INDEX]).GetComponent<EventInstance>();
                     instance.Initialize(data);
                     activeEvents.Add(instance);
-                    Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
+                    Debug.Log($"[事件生成] 满足条件 -> 创建事件：{data.eventName}");
                 }
                 else
                 {
-                    Debug.Log($"[事件保留] 条件不满足 → 保留事件：{data.eventName}");
+                    Debug.Log($"[事件保留] 条件不满足 -> 保留事件：{data.eventName}");
                 }
                 if(GameManager.Instance.eventHolders[PLAYER_INDEX].childCount>=MAX_PLAYER_ACTION_COUNT) 
                 {
@@ -155,75 +215,82 @@ public class EventManager
                 }
             } 
         }
-        GameManager.Instance.TransitionToState(TurnPhase.DrawCard);
+        await GameManager.Instance.TransitionToStateAsync(TurnPhase.DrawCard);
     }
 
     #endregion
     
     #region 处理事件效果
-    public void ResolveEventsEffect()
+public async UniTask ResolveEventsEffectAsync()
+{
+    foreach (var evt in activeEvents.ToArray())
     {
-        foreach (var evt in activeEvents.ToArray())
-        {
-            if (evt.resolved) continue;
-            
-            bool matched = false;
+        if (evt.resolved) continue;
 
-            // 遍历每个处理分支
-            foreach (var branch in evt.data.outcomeBranches)
-            {
-                if (branch.matchConditions.EvaluateAll(evt))
-                {
-                    Debug.Log($"[事件处理] 事件【{evt.data.eventName}】匹配分支【{branch.label}】");
+        bool matched = false;
 
-                    foreach (var effect in branch.effects)
-                        effect.Apply();
-                        
-                    matched = true;
-                    activeEvents.Remove(evt);
-                    List<Card> cards = new List<Card>(evt.cardHolder.cards);
-                    for(int i = cards.Count - 1; i >= 0; i--)
-                    {
-                        evt.cardHolder.RemoveCard(cards[i]);
-                        GameManager.Instance.playerCardHolder.TransferCard(cards[i]);
-                        
-                    }
-                    GameObject.DestroyImmediate(evt.transform.gameObject);
-                    cards.Clear();
-                    break;
-                }
-            }
-            if (!matched && evt.IsExpired())
-            {
-                Debug.Log($"[事件处理] 事件【{evt.data.eventName}】过期未匹配任何分支");
-                foreach (var effect in evt.data.expiredEffects)
-                {
-                    effect.Apply();
-                }
-                activeEvents.Remove(evt);
-                if (evt.cardHolder.cards.Count >= 0)
-                {
-                    List<Card> cards = new List<Card>(evt.cardHolder.cards);
-                    for(int i = cards.Count - 1; i >= 0; i--)
-                    {
-                        evt.cardHolder.RemoveCard(cards[i]);
-                        GameManager.Instance.playerCardHolder.TransferCard(cards[i]);
-                        
-                    }
-                }
-                GameObject.DestroyImmediate(evt.transform.gameObject);
-                
-            }
-            
-            HistoryLog.Log(evt, matched);
-        }
-        foreach(var child in GameManager.Instance.eventHolders[0].GetComponentsInChildren<RectTransform>())
+        // 遍历所有结果分支
+        foreach (var branch in evt.data.outcomeBranches)
         {
-            Debug.Log($"{child.name}");
+            if (branch.matchConditions.EvaluateAll(evt))
+            {
+                Debug.Log($"[事件处理] 【{evt.data.eventName}】匹配分支【{branch.label}】");
+
+                await ExecuteEffectsAsync(branch.effects);
+                matched = true;
+
+                await CleanupEventAsync(evt);
+                break;
+            }
         }
-        Debug.Log($"玩家槽位共{GameManager.Instance.eventHolders[0].childCount}个");
-        GameManager.Instance.TransitionToState(TurnPhase.NPCAction);
+
+        // 没有匹配分支，但事件已过期
+        if (!matched && evt.IsExpired())
+        {
+            Debug.Log($"[事件处理] 【{evt.data.eventName}】过期未匹配任何分支");
+
+            await ExecuteEffectsAsync(evt.data.expiredEffects);
+            
+            await CleanupEventAsync(evt);
+        }
+        else if (!matched)
+        {
+            Debug.LogWarning($"[事件处理] 【{evt.data.eventName}】没有匹配任何分支！");
+        }
+
+        HistoryLog.Log(evt, matched);
     }
+}
+
+public async UniTask CleanupEventAsync(EventInstance evt)
+{
+    // 卡牌转移给玩家
+    var cards = new List<Card>(evt.cardHolder.cards);
+    for (int i = cards.Count - 1; i >= 0; i--)
+    {
+        evt.cardHolder.RemoveCard(cards[i]);
+        GameManager.Instance.playerCardHolder.TransferCard(cards[i]);
+    }
+
+    // 销毁事件之前，确保动画播放完成
+    await evt.PlayAndDestroyAfterAnim();
+    Debug.Log($"[事件处理] 清理【{evt.data.eventName}】过期分支");
+    activeEvents.Remove(evt);
+
+    // 这部分会等到动画播放完再销毁事件
+    GameObject.Destroy(evt.gameObject);
+}
+
+
+    public async UniTask ExecuteEffectsAsync(List<EventEffectSO>effects)
+    {
+        foreach (var effect in effects)
+        {
+            await effect.ApplyAsync(); // 统一调用 async，自动适配新旧效果
+        }
+    }
+
+    
     #endregion
 
 

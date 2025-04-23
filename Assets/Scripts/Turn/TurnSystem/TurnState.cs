@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+
 public abstract class TurnState
 {
     protected GameManager gameManager;
@@ -7,7 +9,7 @@ public abstract class TurnState
         this.gameManager = manager;
     }
 
-    public virtual void Enter() { }
+    public virtual UniTask EnterAsync() => UniTask.CompletedTask;
     public virtual void Update() { }
     public virtual void Exit() { }
 }

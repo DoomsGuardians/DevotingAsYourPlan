@@ -1,15 +1,19 @@
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 public class EndTurnState : TurnState
 {
     public EndTurnState(GameManager manager) : base(manager) { }
 
-    public override void Enter()
+    public override async UniTask EnterAsync()
     {
         Debug.Log("进入结束阶段");
+
         gameManager.CardManager.TickCards();
         gameManager.CardManager.RefreshCards();
         gameManager.EventManager.TickEvents();
         gameManager.RoleManager.SettleAllRoles();
-        gameManager.TransitionToState(TurnPhase.StartTurn);
+
+        await UniTask.Yield(); // 可选：给 UI 一帧显示空隙
+        await gameManager.TransitionToStateAsync(TurnPhase.StartTurn);
     }
 }

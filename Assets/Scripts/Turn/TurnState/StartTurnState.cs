@@ -1,49 +1,30 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
-using Naninovel;
-using Naninovel.Commands;
+
 public class StartTurnState : TurnState
 {
+    private bool isFirstTime = true;
+    private string scriptName = "开始脚本";
+
     public StartTurnState(GameManager manager) : base(manager) { }
 
-    private bool isFirstTime = true;
-    private string scriptName = "TestEvent";
-    public override void Enter()
+    public override async UniTask EnterAsync()
     {
         if (isFirstTime)
         {
-            PlayDialogue(scriptName);
+            await PlayDialogue(scriptName);
             isFirstTime = false;
         }
-        Debug.Log("==========================================");
+
         Debug.Log("进入开始阶段");
-        gameManager.turnStateMachine.TurnNum++; // 逻辑封装到CardManager中
+        gameManager.turnStateMachine.TurnNum++;
         Debug.Log($"这是第{gameManager.turnStateMachine.TurnNum}回合");
-        Debug.Log($"现在玩家行动槽中包含{gameManager.eventHolders[0].childCount}项行动");
-        gameManager.ProcessPlayerDefaultTrigger();
+        await gameManager.ProcessPlayerDefaultTrigger();
     }
 
-    public override void Exit()
+    private async UniTask PlayDialogue(string script)
     {
+        Debug.Log($"播放对话：{script}");
+        await UniTask.Delay(500); // 假装播放一段对话
     }
-    public async void PlayDialogue(string scriptName)
-    {
-        if (!Engine.Initialized)
-        {
-            Engine.OnInitializationFinished += PlayScript;
-            await RuntimeInitializer.Initialize();
-        }
-        else
-        {
-            PlayScript();
-        }
-    }
-
-    async void PlayScript()
-    {
-        // 获取 Naninovel 的 ScriptPlayer 服务
-        var scriptPlayer = Engine.GetService<IScriptPlayer>();
-        // 播放整个脚本
-        await scriptPlayer.LoadAndPlay(scriptName);
-    }
-    
 }

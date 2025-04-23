@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class EndTurnBtn : MonoBehaviour
 {
-    public void EndPlayerTurn()
+    public async UniTask EndPlayerTurn()
     {
-        GameManager.Instance.TransitionToState(TurnPhase.ResolveEvents);
+        Debug.Log("玩家点击了结束回合");
+        await GameManager.Instance.TransitionToStateAsync(TurnPhase.ResolveEvents);
     }
 }
+

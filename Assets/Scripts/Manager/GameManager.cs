@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -15,7 +17,7 @@ public class GameManager : MonoSingleton<GameManager>
     public List<RectTransform> eventHolders;
     
     #region 回合制状态机
-        public TurnStateMachine turnStateMachine;
+        public TurnStateManager turnStateMachine;
     #endregion
 
     #region 管理器
@@ -29,7 +31,6 @@ public class GameManager : MonoSingleton<GameManager>
     {
         base.Awake(); // 确保 MonoSingleton 的生命周期处理被调用
 
-        turnStateMachine = new TurnStateMachine();
         CardManager = new CardManager();
         RoleManager = new RoleManager();
         EventManager = new EventManager();
@@ -38,7 +39,13 @@ public class GameManager : MonoSingleton<GameManager>
         RoleManager.Initialize(roleDataConfigs, statDefinitionTable);
         EventManager.Initialize(defaultEventNodeDatas, eventSlotPrefab, actionSlotPrefab, eventHolders);
         Debug.Log("GameManager初始化完成");
-        turnStateMachine.Initialize(this);
+        turnStateMachine = new TurnStateManager(this);
+    }
+
+    private async void Start()
+    {
+        Debug.Log("开始游戏启动流程");
+        await TransitionToStateAsync(TurnPhase.StartTurn);
     }
 
     private void Update()
@@ -46,27 +53,26 @@ public class GameManager : MonoSingleton<GameManager>
         turnStateMachine.Update();
     }
 
-    public void TransitionToState(TurnPhase phase)
+    public async UniTask TransitionToStateAsync(TurnPhase phase)
     {
-        turnStateMachine.TransitionToState(phase);
+        await turnStateMachine.TransitionToStateAsync(phase);
     }
 
-    public void DrawCards()//此后将用于处理每回合开始人民奉献给玩家的卡牌
+
+    public async UniTask DrawCardsAsync()//此后将用于处理每回合开始人民奉献给玩家的卡牌
     {
         
-        CardManager.DrawCard(CardType.Labor);
-        CardManager.DrawCard("Kevin");
-        CardManager.DrawCard(CardType.Tribute);
+        await CardManager.DrawCardsAsync();
         
     }
 
     public Role GetRole(RoleType type) => RoleManager.GetRole(type);
 
-    public void ProcessEventTrigger() => EventManager.ProcessEventTrigger();
+    public async UniTask ProcessEventTrigger() => await EventManager.ProcessEventTrigger();
 
-    public void ProcessPlayerDefaultTrigger() => EventManager.ProcessPlayerDefault();
+    public async UniTask ProcessPlayerDefaultTrigger() => await EventManager.ProcessPlayerDefault();
 
-    public void ResolveEventEffect() => EventManager.ResolveEventsEffect();
+    public async UniTask ResolveEventEffect() => await EventManager.ResolveEventsEffectAsync();
     
     public override bool IsNotDestroyOnLoad() => false;
 }

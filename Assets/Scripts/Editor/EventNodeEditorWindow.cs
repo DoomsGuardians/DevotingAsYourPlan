@@ -10,6 +10,8 @@ public class EventNodeEditorWindow : EditorWindow
     private string description = "事件描述...";
     private Sprite icon;
     private int duration = 2;
+    private bool isUnique = false;
+    private int cooldownTurns = 0;
 
     private TriggerConditionGroup triggerGroup;
     private List<EventOutcomeBranch> branches = new();
@@ -45,6 +47,12 @@ public class EventNodeEditorWindow : EditorWindow
         icon = (Sprite)EditorGUILayout.ObjectField("图标", icon, typeof(Sprite), false);
         duration = EditorGUILayout.IntField("持续时间", duration);
         description = EditorGUILayout.TextArea(description, GUILayout.Height(60));
+
+        GUILayout.Space(5);
+        GUILayout.Label("高级选项", EditorStyles.boldLabel);
+        isUnique = EditorGUILayout.Toggle("是否为唯一事件", isUnique);
+        cooldownTurns = EditorGUILayout.IntSlider("冷却回合数", cooldownTurns, 0, 10);
+
 
         DrawTriggerConditionGroup();
 
@@ -234,7 +242,7 @@ public class EventNodeEditorWindow : EditorWindow
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("添加 GiveCard 效果"))
         {
-            var effect = CreateAndSaveSO<GiveCardEffect>($"{eventName}_{prefix}_GiveCard_{list.Count}");
+            var effect = CreateAndSaveSO<GiveFilteredRandomCardEffect>($"{eventName}_{prefix}_GiveCard_{list.Count}");
             list.Add(effect);
         }
         if (GUILayout.Button("添加 TriggerEvent 效果"))
@@ -257,6 +265,8 @@ public class EventNodeEditorWindow : EditorWindow
         node.description = description;
         node.icon = icon;
         node.duration = duration;
+        node.isUnique = isUnique;
+        node.cooldownTurns = cooldownTurns;
         node.triggerConditions = triggerGroup;
         node.expiredEffects = expiredEffects;
         node.outcomeBranches = branches;

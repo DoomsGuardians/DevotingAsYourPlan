@@ -548,6 +548,7 @@ GameObject:
   - component: {fileID: 2506787226594586714}
   - component: {fileID: 6233432941294691564}
   - component: {fileID: 2046291990352517260}
+  - component: {fileID: 7293041011025828748}
   m_Layer: 5
   m_Name: EventPanel
   m_TagString: Untagged
@@ -622,7 +623,7 @@ MonoBehaviour:
       _Names: []
     _Clip: {fileID: 7400000, guid: 6ec8423bfa65b8449ade3464ea1bfa66, type: 2}
     _NormalizedStartTime: NaN
-  - _FadeDuration: 0.25
+  - _FadeDuration: 0.33333334
     _Speed: 1
     _Events:
       _NormalizedTimes: []
@@ -669,6 +670,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!225 &7293041011025828748
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4840401969066378952}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5103735307787893179
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,6 +963,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5808879319562814982}
   - component: {fileID: 3295728710739130019}
+  - component: {fileID: 8744474820697962152}
   - component: {fileID: 5235599428335309887}
   - component: {fileID: 8350641408043872806}
   m_Layer: 5
@@ -990,6 +1004,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6720588009811651416}
   m_CullTransparentMesh: 1
+--- !u!225 &8744474820697962152
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6720588009811651416}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!114 &5235599428335309887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1004,7 +1030,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

@@ -1,12 +1,15 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+
 public class DrawCardState : TurnState
 {
     public DrawCardState(GameManager manager) : base(manager) { }
 
-    public override void Enter()
+    public override async UniTask EnterAsync()
     {
         Debug.Log("进入抽卡阶段");
-        gameManager.DrawCards(); // 逻辑封装到CardManager中
-        gameManager.TransitionToState(TurnPhase.PlayerAction);
+        await gameManager.DrawCardsAsync();
+        Debug.Log("抽卡完成，进入玩家行动阶段");
+        await gameManager.TransitionToStateAsync(TurnPhase.PlayerAction);
     }
 }

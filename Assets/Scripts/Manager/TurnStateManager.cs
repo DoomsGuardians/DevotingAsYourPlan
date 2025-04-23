@@ -1,41 +1,45 @@
-using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
-public class TurnStateMachine
+public class TurnStateManager
 {
-    private Dictionary<TurnPhase, TurnState> states = new();
+    private GameManager gameManager;
+    private Dictionary<TurnPhase, TurnState> states;
     private TurnState currentState;
+    public int TurnNum { get; set; } = 0;
 
-    private int turnNum = 0;
-
-    public int TurnNum
+    public TurnStateManager(GameManager manager)
     {
-        get => turnNum;
-        set => turnNum = value;
+        gameManager = manager;
+        states = new Dictionary<TurnPhase, TurnState>
+        {
+            { TurnPhase.StartTurn, new StartTurnState(manager) },
+            { TurnPhase.DrawCard, new DrawCardState(manager) },
+            { TurnPhase.PlayerAction, new PlayerActionState(manager) },
+            { TurnPhase.NPCAction, new NPCActionState(manager) },
+            { TurnPhase.ResolveEvents, new ResolveEventsState(manager) },
+            { TurnPhase.EndTurn, new EndTurnState(manager) }
+        };
     }
 
-    public void Initialize(GameManager gameManager)
-    {
-        states[TurnPhase.StartTurn] = new StartTurnState(gameManager);
-        states[TurnPhase.DrawCard] = new DrawCardState(gameManager);
-        states[TurnPhase.PlayerAction] = new PlayerActionState(gameManager);
-        states[TurnPhase.NPCAction] = new NPCActionState(gameManager);
-        states[TurnPhase.ResolveEvents] = new ResolveEventsState(gameManager);
-        states[TurnPhase.EndTurn] = new EndTurnState(gameManager);
 
-        TransitionToState(TurnPhase.StartTurn);
-    }
-
-    public void TransitionToState(TurnPhase phase)
+    public async UniTask TransitionToStateAsync(TurnPhase nextPhase)
     {
         currentState?.Exit();
-        currentState = states[phase];
-        currentState.Enter();
+        currentState = states[nextPhase];
+        TurnPhaseEventSystem.RaisePhaseChanged(nextPhase);
+        await currentState.EnterAsync();
     }
 
     public void Update()
     {
         currentState?.Update();
+    }
+
+    public bool IsCurrentPhase(TurnPhase phase)
+    {
+        return currentState == states[phase];
     }
 }

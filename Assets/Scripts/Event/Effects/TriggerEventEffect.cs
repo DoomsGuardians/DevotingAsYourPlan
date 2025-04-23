@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Events/Effects/TriggerEvent")]
+[CreateAssetMenu(menuName = "Events/Effects/触发后续事件")]
 public class TriggerEventEffect : EventEffectSO
 {
     public EventNodeData eventToQueue;

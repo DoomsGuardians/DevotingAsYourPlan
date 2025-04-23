@@ -12,6 +12,7 @@ public class RoleData : ScriptableObject
 [System.Serializable]
 public class RoleStatInit
 {
+    [RoleStatKey]
     public string key;
     
 

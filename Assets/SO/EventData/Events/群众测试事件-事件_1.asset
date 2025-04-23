@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventID: 
   eventName: "\u6D4B\u8BD5\u4E8B\u4EF6-\u4E8B\u4EF6_1"
-  sourceRole: 0
+  sourceRole: 1
+  isUnique: 0
+  cooldownTurns: 0
   triggerConditions: {fileID: 11400000, guid: 0be340afaf0059e42855b61d418c7c10, type: 2}
   outcomeBranches:
   - label: "1\u5F20\u8D21\u54C1\u5361"

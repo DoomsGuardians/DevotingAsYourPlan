@@ -1,7 +1,8 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 
 public class CardManager : Singleton<CardManager>
 {
@@ -92,7 +93,7 @@ public class CardManager : Singleton<CardManager>
             if (query.weightedByRarity)
             {
                 int totalWeight = filtered.Sum(c => rarityWeights.TryGetValue(c.rarity, out var w) ? w : 1);
-                int roll = Random.Range(0, totalWeight);
+                int roll = UnityEngine.Random.Range(0, totalWeight);
                 int acc = 0;
 
                 foreach (var card in filtered)
@@ -107,7 +108,7 @@ public class CardManager : Singleton<CardManager>
             }
             else
             {
-                return filtered[Random.Range(0, filtered.Count)];
+                return filtered[UnityEngine.Random.Range(0, filtered.Count)];
             }
         }
 
@@ -122,6 +123,35 @@ public class CardManager : Singleton<CardManager>
         this.playerCardHolder = playerCardHolder;
         Debug.Log($"卡片管理器初始化了");
     }
+
+    public async UniTask DrawCardsAsync()
+    {
+        var drawSequence = new List<Func<UniTask>>
+        {
+            () => DrawAndDelay(CardType.Labor),
+            () => DrawAndDelay("Kevin"),
+            () => DrawAndDelay(CardType.Tribute)
+        };
+
+        foreach (var task in drawSequence)
+        {
+            await task();
+        }
+    }
+
+    private async UniTask DrawAndDelay(CardType type)
+    {
+        DrawCard(type);
+        await UniTask.Delay(200);
+    }
+
+    private async UniTask DrawAndDelay(string name)
+    {
+        DrawCard(name);
+        await UniTask.Delay(200);
+    }
+
+
 
     /// <summary>
     /// 这个重载用于根据卡牌冲类抽取一张随机的卡牌
