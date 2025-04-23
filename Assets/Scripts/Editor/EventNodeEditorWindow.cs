@@ -1,7 +1,10 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using System;
 using System.IO;
+
 public class EventNodeEditorWindow : EditorWindow
 {
     private string eventName = "事件名称";
@@ -48,19 +51,18 @@ public class EventNodeEditorWindow : EditorWindow
         duration = EditorGUILayout.IntField("持续时间", duration);
         description = EditorGUILayout.TextArea(description, GUILayout.Height(60));
 
-        GUILayout.Space(5);
+        GUILayout.Space(10);
         GUILayout.Label("高级选项", EditorStyles.boldLabel);
         isUnique = EditorGUILayout.Toggle("是否为唯一事件", isUnique);
         cooldownTurns = EditorGUILayout.IntSlider("冷却回合数", cooldownTurns, 0, 10);
 
-
         DrawTriggerConditionGroup();
 
-        GUILayout.Space(10);
+        GUILayout.Space(20);
         GUILayout.Label("过期效果", EditorStyles.boldLabel);
         DrawEffectList(expiredEffects, "ExpiredEffect", 1);
 
-        GUILayout.Space(10);
+        GUILayout.Space(20);
         GUILayout.Label("分支设置", EditorStyles.boldLabel);
         if (GUILayout.Button("添加分支")) branches.Add(new EventOutcomeBranch());
 
@@ -97,161 +99,284 @@ public class EventNodeEditorWindow : EditorWindow
             branches.RemoveAt(branchToRemove);
         }
 
-        GUILayout.Space(10);
+        GUILayout.Space(20);
         if (GUILayout.Button("保存事件数据")) SaveEventNodeData();
 
         EditorGUILayout.EndScrollView();
     }
 
     private void DrawTriggerConditionGroup()
+{
+    GUILayout.Space(20);
+    GUILayout.Label("触发条件组", EditorStyles.boldLabel);
+    if (triggerGroup == null && GUILayout.Button("新建 Trigger 条件组"))
     {
-        GUILayout.Space(10);
-        GUILayout.Label("触发条件组", EditorStyles.boldLabel);
-        if (triggerGroup == null && GUILayout.Button("新建 Trigger 条件组"))
-        {
-            triggerGroup = CreateAndSaveSO<TriggerConditionGroup>($"{eventID}_TriggerGroup");
-        }
-
-        triggerGroup = (TriggerConditionGroup)EditorGUILayout.ObjectField("条件组资源", triggerGroup, typeof(TriggerConditionGroup), false);
-
-        if (triggerGroup != null)
-        {
-            int removeIndex = -1;
-            for (int i = 0; i < triggerGroup.conditions.Count; i++)
-            {
-                string key = $"EventEditor_Foldout_TriggerCondition_{i}";
-                bool expanded = GetFoldout(key, false);
-                expanded = EditorGUILayout.Foldout(expanded, $"Trigger 条件 {i + 1}", true);
-                SetFoldout(key, expanded);
-
-                if (expanded)
-                {
-                    EditorGUI.indentLevel++;
-                    triggerGroup.conditions[i] = (EventTriggerConditionSO)EditorGUILayout.ObjectField(triggerGroup.conditions[i], typeof(EventTriggerConditionSO), false);
-                    if (triggerGroup.conditions[i] != null)
-                    {
-                        var editor = Editor.CreateEditor(triggerGroup.conditions[i]);
-                        editor?.OnInspectorGUI();
-                    }
-                    if (GUILayout.Button("移除条件")) removeIndex = i;
-                    EditorGUI.indentLevel--;
-                }
-            }
-
-            if (removeIndex >= 0)
-            {
-                TryDeleteAsset(triggerGroup.conditions[removeIndex]);
-                triggerGroup.conditions.RemoveAt(removeIndex);
-                EditorUtility.SetDirty(triggerGroup);
-                AssetDatabase.SaveAssets();
-            }
-
-            // if (GUILayout.Button("添加新 Trigger 条件"))
-            // {
-            //     var cond = CreateAndSaveSO<EventTriggerConditionSO>($"TriggerCond_{eventID}_{triggerGroup.conditions.Count}");
-            //     triggerGroup.conditions.Add(cond);
-            //     EditorUtility.SetDirty(triggerGroup);
-            //     AssetDatabase.SaveAssets();
-            // }
-        }
+        triggerGroup = CreateAndSaveSO<TriggerConditionGroup>($"{eventID}_TriggerGroup");
     }
 
-    private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int indent)
-    {
-        GUILayout.Label("结算条件组", EditorStyles.boldLabel);
-        if (branch.matchConditions == null && GUILayout.Button("新建 Resolve 条件组"))
-        {
-            branch.matchConditions = CreateAndSaveSO<ResolveConditionGroup>($"{eventID}_ResolveGroup_{index}");
-        }
+    triggerGroup = (TriggerConditionGroup)EditorGUILayout.ObjectField("条件组资源", triggerGroup, typeof(TriggerConditionGroup), false);
 
-        branch.matchConditions = (ResolveConditionGroup)EditorGUILayout.ObjectField("条件组资源", branch.matchConditions, typeof(ResolveConditionGroup), false);
-
-        if (branch.matchConditions != null)
-        {
-            int removeIndex = -1;
-            for (int i = 0; i < branch.matchConditions.conditions.Count; i++)
-            {
-                string key = $"EventEditor_Foldout_ResolveCondition_{index}_{i}";
-                bool expanded = GetFoldout(key, false);
-                expanded = EditorGUILayout.Foldout(expanded, $"Resolve 条件 {i + 1}", true);
-                SetFoldout(key, expanded);
-
-                if (expanded)
-                {
-                    EditorGUI.indentLevel++;
-                    branch.matchConditions.conditions[i] = (EventResolveConditionSO)EditorGUILayout.ObjectField(branch.matchConditions.conditions[i], typeof(EventResolveConditionSO), false);
-                    if (branch.matchConditions.conditions[i] != null)
-                    {
-                        var editor = Editor.CreateEditor(branch.matchConditions.conditions[i]);
-                        editor?.OnInspectorGUI();
-                    }
-                    if (GUILayout.Button("移除条件")) removeIndex = i;
-                    EditorGUI.indentLevel--;
-                }
-            }
-
-            if (removeIndex >= 0)
-            {
-                TryDeleteAsset(branch.matchConditions.conditions[removeIndex]);
-                branch.matchConditions.conditions.RemoveAt(removeIndex);
-                EditorUtility.SetDirty(branch.matchConditions);
-                AssetDatabase.SaveAssets();
-            }
-
-            // if (GUILayout.Button("添加新 Resolve 条件"))
-            // {
-            //     var cond = CreateAndSaveSO<EventResolveConditionSO>($"ResolveCond_{eventID}_{index}_{branch.matchConditions.conditions.Count}");
-            //     branch.matchConditions.conditions.Add(cond);
-            //     EditorUtility.SetDirty(branch.matchConditions);
-            //     AssetDatabase.SaveAssets();
-            // }
-        }
-    }
-
-    private void DrawEffectList(List<EventEffectSO> list, string prefix, int indent)
+    if (triggerGroup != null)
     {
         int removeIndex = -1;
-
-        for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < triggerGroup.conditions.Count; i++)
         {
-            string key = $"EventEditor_Foldout_Effect_{prefix}_{i}";
+            string key = $"EventEditor_Foldout_TriggerCondition_{i}";
             bool expanded = GetFoldout(key, false);
-            expanded = EditorGUILayout.Foldout(expanded, $"效果 {i + 1}", true);
+            expanded = EditorGUILayout.Foldout(expanded, $"Trigger 条件 {i + 1}", true);
             SetFoldout(key, expanded);
 
             if (expanded)
             {
                 EditorGUI.indentLevel++;
-                list[i] = (EventEffectSO)EditorGUILayout.ObjectField(list[i], typeof(EventEffectSO), false);
-                if (list[i] != null)
+                triggerGroup.conditions[i] = (EventTriggerConditionSO)EditorGUILayout.ObjectField(triggerGroup.conditions[i], typeof(EventTriggerConditionSO), false);
+                if (triggerGroup.conditions[i] != null)
                 {
-                    var editor = Editor.CreateEditor(list[i]);
+                    var editor = Editor.CreateEditor(triggerGroup.conditions[i]);
                     editor?.OnInspectorGUI();
                 }
-                if (GUILayout.Button("移除效果")) removeIndex = i;
+                if (GUILayout.Button("移除条件")) removeIndex = i;
                 EditorGUI.indentLevel--;
             }
         }
 
         if (removeIndex >= 0)
         {
-            TryDeleteAsset(list[removeIndex]);
-            list.RemoveAt(removeIndex);
+            TryDeleteAsset(triggerGroup.conditions[removeIndex]);
+            triggerGroup.conditions.RemoveAt(removeIndex);
+            EditorUtility.SetDirty(triggerGroup);
+            AssetDatabase.SaveAssets();
         }
 
-        GUILayout.BeginHorizontal();
-        if (GUILayout.Button("添加 GiveCard 效果"))
+        GUILayout.Space(20); // 增加垂直间距
+
+        // 按钮排布优化：使用垂直布局并添加适当间距
+        GUILayout.BeginVertical("box");
+        
+        if (GUILayout.Button("添加 手牌数量范围 触发条件"))
         {
-            var effect = CreateAndSaveSO<GiveFilteredRandomCardEffect>($"{eventName}_{prefix}_GiveCard_{list.Count}");
-            list.Add(effect);
+            var cond = CreateAndSaveSO<HandCardCountTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.conditions.Count}");
+            triggerGroup.conditions.Add(cond);
+            EditorUtility.SetDirty(triggerGroup);
+            AssetDatabase.SaveAssets();
         }
-        if (GUILayout.Button("添加 TriggerEvent 效果"))
+
+        GUILayout.Space(10); // 按钮间距
+
+        if (GUILayout.Button("添加 卡牌范围过滤 触发条件"))
         {
-            var effect = CreateAndSaveSO<TriggerEventEffect>($"{eventName}_{prefix}_TriggerEvent_{list.Count}");
-            list.Add(effect);
+            var cond = CreateAndSaveSO<CardCountRangeFilterTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.conditions.Count}");
+            triggerGroup.conditions.Add(cond);
+            EditorUtility.SetDirty(triggerGroup);
+            AssetDatabase.SaveAssets();
         }
-        GUILayout.EndHorizontal();
+
+        GUILayout.Space(10); // 按钮间距
+
+        if (GUILayout.Button("添加 特定卡牌存在 触发条件"))
+        {
+            var cond = CreateAndSaveSO<SpecificCardExistsTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.conditions.Count}");
+            triggerGroup.conditions.Add(cond);
+            EditorUtility.SetDirty(triggerGroup);
+            AssetDatabase.SaveAssets();
+        }
+
+        GUILayout.Space(10); // 按钮间距
+
+        if (GUILayout.Button("添加 角色属性范围 触发条件"))
+        {
+            var cond = CreateAndSaveSO<RoleStatRangeTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.conditions.Count}");
+            triggerGroup.conditions.Add(cond);
+            EditorUtility.SetDirty(triggerGroup);
+            AssetDatabase.SaveAssets();
+        }
+
+        GUILayout.Space(10); // 按钮间距
+
+        if (GUILayout.Button("添加 角色属性范围曲线映射 触发条件"))
+        {
+            var cond = CreateAndSaveSO<RoleStatRangeCurveMapTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.conditions.Count}");
+            triggerGroup.conditions.Add(cond);
+            EditorUtility.SetDirty(triggerGroup);
+            AssetDatabase.SaveAssets();
+        }
+
+        GUILayout.Space(10); // 按钮间距
+
+        if (GUILayout.Button("添加 回合数范围 触发条件"))
+        {
+            var cond = CreateAndSaveSO<TurnCountTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.conditions.Count}");
+            triggerGroup.conditions.Add(cond);
+            EditorUtility.SetDirty(triggerGroup);
+            AssetDatabase.SaveAssets();
+        }
+
+        GUILayout.EndVertical(); // 结束垂直布局
     }
+}
+
+
+
+private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int indent)
+{
+    GUILayout.Label("结算条件组", EditorStyles.boldLabel);
+    if (branch.matchConditions == null && GUILayout.Button("新建 Resolve 条件组"))
+    {
+        branch.matchConditions = CreateAndSaveSO<ResolveConditionGroup>($"{eventID}_ResolveGroup_{index}");
+    }
+
+    branch.matchConditions = (ResolveConditionGroup)EditorGUILayout.ObjectField("条件组资源", branch.matchConditions, typeof(ResolveConditionGroup), false);
+
+    if (branch.matchConditions != null)
+    {
+        int removeIndex = -1;
+        for (int i = 0; i < branch.matchConditions.conditions.Count; i++)
+        {
+            string key = $"EventEditor_Foldout_ResolveCondition_{index}_{i}";
+            bool expanded = GetFoldout(key, false);
+            expanded = EditorGUILayout.Foldout(expanded, $"Resolve 条件 {i + 1}", true);
+            SetFoldout(key, expanded);
+
+            if (expanded)
+            {
+                EditorGUI.indentLevel++;
+                branch.matchConditions.conditions[i] = (EventResolveConditionSO)EditorGUILayout.ObjectField(branch.matchConditions.conditions[i], typeof(EventResolveConditionSO), false);
+                if (branch.matchConditions.conditions[i] != null)
+                {
+                    var editor = Editor.CreateEditor(branch.matchConditions.conditions[i]);
+                    editor?.OnInspectorGUI();
+                }
+                if (GUILayout.Button("移除条件")) removeIndex = i;
+                EditorGUI.indentLevel--;
+            }
+        }
+
+        if (removeIndex >= 0)
+        {
+            TryDeleteAsset(branch.matchConditions.conditions[removeIndex]);
+            branch.matchConditions.conditions.RemoveAt(removeIndex);
+            EditorUtility.SetDirty(branch.matchConditions);
+            AssetDatabase.SaveAssets();
+        }
+
+        GUILayout.Space(20); // 增加一些间距
+        
+        // 结算条件按钮（垂直排列）
+        GUILayout.BeginVertical("box");
+
+        if (GUILayout.Button("添加 卡牌匹配范围 结算条件"))
+        {
+            var cond = CreateAndSaveSO<CardMatchRangeResolveCondition>($"ResolveCond_{eventID}_{branch.matchConditions.conditions.Count}");
+            branch.matchConditions.conditions.Add(cond);
+            EditorUtility.SetDirty(branch.matchConditions);
+            AssetDatabase.SaveAssets();
+        }
+
+        GUILayout.Space(10); // 按钮间距
+
+        if (GUILayout.Button("添加 角色属性范围 结算条件"))
+        {
+            var cond = CreateAndSaveSO<RoleStatRangeResolveCondition>($"ResolveCond_{eventID}_{branch.matchConditions.conditions.Count}");
+            branch.matchConditions.conditions.Add(cond);
+            EditorUtility.SetDirty(branch.matchConditions);
+            AssetDatabase.SaveAssets();
+        }
+
+        GUILayout.EndVertical(); // 结束垂直布局
+    }
+}
+
+
+    private void DrawEffectList(List<EventEffectSO> list, string prefix, int indent)
+{
+    int removeIndex = -1;
+
+    GUILayout.BeginVertical("box");
+    
+    // 循环遍历效果
+    for (int i = 0; i < list.Count; i++)
+    {
+        string key = $"EventEditor_Foldout_Effect_{prefix}_{i}";
+        bool expanded = GetFoldout(key, false);
+        expanded = EditorGUILayout.Foldout(expanded, $"效果 {i + 1}", true);
+        SetFoldout(key, expanded);
+
+        if (expanded)
+        {
+            EditorGUI.indentLevel++;
+            list[i] = (EventEffectSO)EditorGUILayout.ObjectField(list[i], typeof(EventEffectSO), false);
+            if (list[i] != null)
+            {
+                var editor = Editor.CreateEditor(list[i]);
+                editor?.OnInspectorGUI();
+            }
+            if (GUILayout.Button("移除效果")) removeIndex = i;
+            EditorGUI.indentLevel--;
+        }
+    }
+
+    // 移除效果
+    if (removeIndex >= 0)
+    {
+        TryDeleteAsset(list[removeIndex]);
+        list.RemoveAt(removeIndex);
+    }
+
+    // 按钮排布优化：使用垂直布局并添加适当间距
+    GUILayout.Space(10); // 增加间距，使按钮之间不拥挤
+
+    GUILayout.BeginVertical("box");
+
+    // 添加不同类型的效果按钮
+    if (GUILayout.Button("添加 GiveCard 效果"))
+    {
+        var effect = CreateAndSaveSO<GiveFilteredRandomCardEffect>($"{eventName}_{prefix}_GiveCard_{list.Count}");
+        list.Add(effect);
+    }
+
+    GUILayout.Space(10); // 按钮间距
+
+    if (GUILayout.Button("添加 TriggerEvent 效果"))
+    {
+        var effect = CreateAndSaveSO<TriggerEventEffect>($"{eventName}_{prefix}_TriggerEvent_{list.Count}");
+        list.Add(effect);
+    }
+
+    GUILayout.Space(10); // 按钮间距
+
+    if (GUILayout.Button("添加 ChangeStat 效果"))
+    {
+        var effect = CreateAndSaveSO<ChangeStatEffect>($"{eventName}_{prefix}_ChangeStat_{list.Count}");
+        list.Add(effect);
+    }
+
+    GUILayout.Space(10); // 按钮间距
+
+    if (GUILayout.Button("添加 PlayScenario 效果"))
+    {
+        var effect = CreateAndSaveSO<PlayScenarioEffect>($"{eventName}_{prefix}_PlayScenario_{list.Count}");
+        list.Add(effect);
+    }
+
+    GUILayout.Space(10); // 按钮间距
+
+    if (GUILayout.Button("添加 RemoveFilteredCard 效果"))
+    {
+        var effect = CreateAndSaveSO<RemoveFilteredCardEffect>($"{eventName}_{prefix}_RemoveFilteredCard_{list.Count}");
+        list.Add(effect);
+    }
+
+    GUILayout.Space(10); // 按钮间距
+
+    if (GUILayout.Button("添加 Debug 效果"))
+    {
+        var effect = CreateAndSaveSO<DebugEffect>($"{eventName}_{prefix}_Debug_{list.Count}");
+        list.Add(effect);
+    }
+
+    GUILayout.EndVertical(); // 结束垂直布局
+    GUILayout.EndVertical(); // 结束外部垂直布局
+}
 
     private void SaveEventNodeData()
     {
@@ -296,7 +421,7 @@ public class EventNodeEditorWindow : EditorWindow
         return so;
     }
 
-    private void TryDeleteAsset(Object obj)
+    private void TryDeleteAsset(UnityEngine.Object obj)
     {
         if (obj == null) return;
         string path = AssetDatabase.GetAssetPath(obj);

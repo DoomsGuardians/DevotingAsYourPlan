@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Events/Effects/Remove Filtered Hand Card")]
-public class RemoveFilteredHandCardEffect : EventEffectSO
+[CreateAssetMenu(menuName = "Events/Effects/移除手牌")]
+public class RemoveFilteredCardEffect : EventEffectSO
 {
     [Header("删除数量限制")]
     [Tooltip("最多删除几张（设为 0 表示全部）")]
