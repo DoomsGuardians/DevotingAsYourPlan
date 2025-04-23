@@ -288,95 +288,112 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
 
 
     private void DrawEffectList(List<EventEffectSO> list, string prefix, int indent)
-{
-    int removeIndex = -1;
+    {
+        int removeIndex = -1;
 
-    GUILayout.BeginVertical("box");
+        GUILayout.BeginVertical("box");
     
-    // 循环遍历效果
-    for (int i = 0; i < list.Count; i++)
-    {
-        string key = $"EventEditor_Foldout_Effect_{prefix}_{i}";
-        bool expanded = GetFoldout(key, false);
-        expanded = EditorGUILayout.Foldout(expanded, $"效果 {i + 1}", true);
-        SetFoldout(key, expanded);
-
-        if (expanded)
+        // 循环遍历效果
+        for (int i = 0; i < list.Count; i++)
         {
-            EditorGUI.indentLevel++;
-            list[i] = (EventEffectSO)EditorGUILayout.ObjectField(list[i], typeof(EventEffectSO), false);
-            if (list[i] != null)
+            string key = $"EventEditor_Foldout_Effect_{prefix}_{i}";
+            bool expanded = GetFoldout(key, false);
+            expanded = EditorGUILayout.Foldout(expanded, $"效果 {i + 1}", true);
+            SetFoldout(key, expanded);
+
+            if (expanded)
             {
-                var editor = Editor.CreateEditor(list[i]);
-                editor?.OnInspectorGUI();
+                EditorGUI.indentLevel++;
+                list[i] = (EventEffectSO)EditorGUILayout.ObjectField(list[i], typeof(EventEffectSO), false);
+                if (list[i] != null)
+                {
+                    var editor = Editor.CreateEditor(list[i]);
+                    editor?.OnInspectorGUI();
+                }
+                if (GUILayout.Button("移除效果")) removeIndex = i;
+                EditorGUI.indentLevel--;
             }
-            if (GUILayout.Button("移除效果")) removeIndex = i;
-            EditorGUI.indentLevel--;
         }
+
+        // 移除效果
+        if (removeIndex >= 0)
+        {
+            TryDeleteAsset(list[removeIndex]);
+            list.RemoveAt(removeIndex);
+        }
+
+        // 按钮排布优化：使用垂直布局并添加适当间距
+        GUILayout.Space(10); // 增加间距，使按钮之间不拥挤
+
+        GUILayout.BeginVertical("box");
+
+        // 添加不同类型的效果按钮
+        if (GUILayout.Button("添加 给予随机卡牌 效果"))
+        {
+            var effect = CreateAndSaveSO<GiveFilteredRandomCardEffect>($"{eventName}_{prefix}_GiveCard_{list.Count}");
+            list.Add(effect);
+        }
+
+        GUILayout.Space(10); // 按钮间距
+
+        // 添加不同类型的效果按钮
+        if (GUILayout.Button("添加 给予卡牌 效果"))
+        {
+            var effect = CreateAndSaveSO<GiveSpecificCardEffect>($"{eventName}_{prefix}_GiveCard_{list.Count}");
+            list.Add(effect);
+        }
+
+        GUILayout.Space(10); // 按钮间距
+        
+        if (GUILayout.Button("添加 后续事件 效果"))
+        {
+            var effect = CreateAndSaveSO<TriggerEventEffect>($"{eventName}_{prefix}_TriggerEvent_{list.Count}");
+            list.Add(effect);
+        }
+
+        GUILayout.Space(10); // 按钮间距
+
+        if (GUILayout.Button("添加 角色属性 效果"))
+        {
+            var effect = CreateAndSaveSO<ChangeStatEffect>($"{eventName}_{prefix}_ChangeStat_{list.Count}");
+            list.Add(effect);
+        }
+        
+        GUILayout.Space(10); // 按钮间距
+
+        if (GUILayout.Button("添加 角色历史属性 效果"))
+        {
+            var effect = CreateAndSaveSO<ChangeStatHistorialEffect>($"{eventName}_{prefix}_ChangeStat_{list.Count}");
+            list.Add(effect);
+        }
+
+        GUILayout.Space(10); // 按钮间距
+
+        if (GUILayout.Button("添加 播放台本 效果"))
+        {
+            var effect = CreateAndSaveSO<PlayScenarioEffect>($"{eventName}_{prefix}_PlayScenario_{list.Count}");
+            list.Add(effect);
+        }
+
+        GUILayout.Space(10); // 按钮间距
+
+        if (GUILayout.Button("添加 去除卡牌 效果"))
+        {
+            var effect = CreateAndSaveSO<RemoveFilteredCardEffect>($"{eventName}_{prefix}_RemoveFilteredCard_{list.Count}");
+            list.Add(effect);
+        }
+
+        GUILayout.Space(10); // 按钮间距
+
+        if (GUILayout.Button("添加 Debug 效果"))
+        {
+            var effect = CreateAndSaveSO<DebugEffect>($"{eventName}_{prefix}_Debug_{list.Count}");
+            list.Add(effect);
+        }
+
+        GUILayout.EndVertical(); // 结束垂直布局
+        GUILayout.EndVertical(); // 结束外部垂直布局
     }
-
-    // 移除效果
-    if (removeIndex >= 0)
-    {
-        TryDeleteAsset(list[removeIndex]);
-        list.RemoveAt(removeIndex);
-    }
-
-    // 按钮排布优化：使用垂直布局并添加适当间距
-    GUILayout.Space(10); // 增加间距，使按钮之间不拥挤
-
-    GUILayout.BeginVertical("box");
-
-    // 添加不同类型的效果按钮
-    if (GUILayout.Button("添加 GiveCard 效果"))
-    {
-        var effect = CreateAndSaveSO<GiveFilteredRandomCardEffect>($"{eventName}_{prefix}_GiveCard_{list.Count}");
-        list.Add(effect);
-    }
-
-    GUILayout.Space(10); // 按钮间距
-
-    if (GUILayout.Button("添加 TriggerEvent 效果"))
-    {
-        var effect = CreateAndSaveSO<TriggerEventEffect>($"{eventName}_{prefix}_TriggerEvent_{list.Count}");
-        list.Add(effect);
-    }
-
-    GUILayout.Space(10); // 按钮间距
-
-    if (GUILayout.Button("添加 ChangeStat 效果"))
-    {
-        var effect = CreateAndSaveSO<ChangeStatEffect>($"{eventName}_{prefix}_ChangeStat_{list.Count}");
-        list.Add(effect);
-    }
-
-    GUILayout.Space(10); // 按钮间距
-
-    if (GUILayout.Button("添加 PlayScenario 效果"))
-    {
-        var effect = CreateAndSaveSO<PlayScenarioEffect>($"{eventName}_{prefix}_PlayScenario_{list.Count}");
-        list.Add(effect);
-    }
-
-    GUILayout.Space(10); // 按钮间距
-
-    if (GUILayout.Button("添加 RemoveFilteredCard 效果"))
-    {
-        var effect = CreateAndSaveSO<RemoveFilteredCardEffect>($"{eventName}_{prefix}_RemoveFilteredCard_{list.Count}");
-        list.Add(effect);
-    }
-
-    GUILayout.Space(10); // 按钮间距
-
-    if (GUILayout.Button("添加 Debug 效果"))
-    {
-        var effect = CreateAndSaveSO<DebugEffect>($"{eventName}_{prefix}_Debug_{list.Count}");
-        list.Add(effect);
-    }
-
-    GUILayout.EndVertical(); // 结束垂直布局
-    GUILayout.EndVertical(); // 结束外部垂直布局
-}
 
     private void SaveEventNodeData()
     {

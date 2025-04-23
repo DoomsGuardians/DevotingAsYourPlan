@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Events/Effects/基于历史幅度增减")]
-public class ChangeStatByDeltaEffect : EventEffectSO
+public class ChangeStatHistorialEffect : EventEffectSO
 {
     public RoleType targetRole;
 
