@@ -43,14 +43,22 @@ public class CardPoolEditorWindow : EditorWindow
         GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1));
 
         EditorGUILayout.BeginHorizontal();
+
         GUI.backgroundColor = new Color(0.9f, 1f, 0.9f);
         editingPool = (CardPool)EditorGUILayout.ObjectField("编辑中卡池", editingPool, typeof(CardPool), false);
         GUI.backgroundColor = Color.white;
+
+        if (GUILayout.Button("🔄 刷新卡牌", GUILayout.Width(100)))
+        {
+            RefreshCardList();
+            Debug.Log("✅ 卡牌列表已刷新！");
+        }
 
         if (GUILayout.Button("➕ 创建新卡池", GUILayout.Width(140)))
         {
             CreateNewPool();
         }
+
         EditorGUILayout.EndHorizontal();
 
         if (editingPool == null)
