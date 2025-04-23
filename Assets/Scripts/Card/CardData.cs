@@ -16,6 +16,9 @@ public class CardData : ScriptableObject
 
     public bool isUnique = false;
 
+    [Header("事件损耗")] 
+    public int decrease;
+    
     [Header("词条系统")]
     public List<CardEntry> entries;
 }
