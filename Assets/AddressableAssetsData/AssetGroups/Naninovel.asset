@@ -77,6 +77,13 @@ MonoBehaviour:
     m_SerializedLabels:
     - Naninovel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6cc2ee7b3d11391439dd5a06d85daa22
+    m_Address: Naninovel/Backgrounds/MainBackground/TestIllus
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Naninovel
+    - Scripts/TestEvent
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6f9836a3c4f777741b1962979d97e485
     m_Address: Naninovel/TextPrinters/Chat
     m_ReadOnly: 0

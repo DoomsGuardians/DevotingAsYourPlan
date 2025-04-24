@@ -19,7 +19,7 @@ public static class EventInstanceExtensions
                 if (state != null)
                 {
                     // 等待动画播放完毕
-                    await UniTask.Delay((int)(clip.Clip.length * 1000+500)); 
+                    await UniTask.Delay((int)(clip.Clip.length * 1000)); 
                 }
                 else
                 {

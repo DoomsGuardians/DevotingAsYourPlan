@@ -9,9 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e00e0762ea042689b342f010d1d316d, type: 3}
-  m_Name: ProjectStats
+  m_Script: {fileID: 11500000, guid: e98aa4b58b11e9d4ca9dd8a4bf7bb71d, type: 3}
+  m_Name: ScriptGraphState
   m_EditorClassIdentifier: 
-  TotalScriptsCount: 1
-  TotalCommandCount: 7
-  TotalWordsCount: 3
+  NodesState:
+  - scriptGuid: 9aa22fa99042aa54193983e4158e2cc2
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 104
+      height: 77
