@@ -12,7 +12,7 @@ public class PlayScenarioEffect : EventEffectSO
     [Tooltip("是否等待剧本播放完成再继续流程")]
     public bool waitForFinish = true;
 
-    public override async Cysharp.Threading.Tasks.UniTask ApplyAsync()
+    public override async Cysharp.Threading.Tasks.UniTask ApplyAsync(EventInstance instance)
     {
         if (!Engine.Initialized) await RuntimeInitializer.Initialize();
         // 1.Enable Naninovel input.
@@ -71,7 +71,7 @@ public class PlayScenarioEffect : EventEffectSO
         player.OnStop -= (script) => completionTask.TrySetResult();
     }
 
-    public override void Apply()
+    public override void Apply(EventInstance instance)
     {
     }
 

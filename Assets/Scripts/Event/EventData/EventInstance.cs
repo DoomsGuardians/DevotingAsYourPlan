@@ -59,6 +59,26 @@ public class EventInstance : MonoBehaviour
         
         await PlayEntryAnimation();
     }
+
+    public async UniTask ShowEnd(string name, string desc, Sprite img)
+    {
+        this.name = name;
+        this.sourceRole = GameManager.Instance.GetRole(data.sourceRole);
+        if (titleText && name != null)
+        {
+            titleText.text = name;
+        }
+        if(descText && desc!=null)
+        {
+            descText.text = desc;
+        }
+
+        if (illust && img)
+        {
+            illust.sprite = img;
+        }
+        await InputUtility.WaitForClickAsync();
+    }
     
     /// 播放入场动画
     private async UniTask PlayEntryAnimation()

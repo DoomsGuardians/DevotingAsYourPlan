@@ -27,7 +27,7 @@ public class GiveFilteredRandomCardEffect : EventEffectSO
     [Tooltip("稀有度 0~3 的权重，分别对应 普通/稀有/史诗/传说")]
     public List<int> rarityWeights = new() { 60, 30, 10, 1 };
 
-    public override void Apply()
+    public override void Apply(EventInstance instance)
     {
         List<CardData> pool = cardPoolOverride != null
             ? new List<CardData>(cardPoolOverride.cards)

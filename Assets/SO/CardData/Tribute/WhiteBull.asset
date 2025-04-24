@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: WhiteBull
   m_EditorClassIdentifier: 
   cardName: WhiteBull
-  description: This is a Rare Bull here
+  description: "\u8FD9\u662F\u4E00\u4E2A\u7A00\u6709\u7684\u8D21\u54C1"
   illustration: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   cardType: 1
   rarity: 2
   maxLife: 5
   isUnique: 0
+  decrease: 0
   entries: []

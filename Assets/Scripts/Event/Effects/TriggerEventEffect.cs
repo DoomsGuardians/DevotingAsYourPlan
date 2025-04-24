@@ -8,7 +8,7 @@ public class TriggerEventEffect : EventEffectSO
 {
     public EventNodeData eventToQueue;
 
-    public override void Apply()
+    public override void Apply(EventInstance instance)
     {
         if (eventToQueue != null)
         {

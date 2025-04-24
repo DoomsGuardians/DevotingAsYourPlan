@@ -22,7 +22,7 @@ MonoBehaviour:
   - label: "1\u5F20\u8D21\u54C1\u5361"
     matchConditions: {fileID: 11400000, guid: 69dd9710484602d4b95beea0291f90e2, type: 2}
     effects:
-    - {fileID: 11400000, guid: 85ece533b135fed4599fa2d8f96d0a7e, type: 2}
+    - {fileID: 11400000, guid: 597743b221730b84b90ea8e33ba520d6, type: 2}
   - label: "1\u5F20\u52B3\u529B\u5361"
     matchConditions: {fileID: 11400000, guid: 3ccd2e6b2b907254083bc28b05e3e186, type: 2}
     effects:

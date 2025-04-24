@@ -287,7 +287,7 @@ public class EventManager
                 {
                     Debug.Log($"[事件处理] 【{evt.data.eventName}】匹配分支【{branch.label}】");
 
-                    await ExecuteEffectsAsync(branch.effects);
+                    await ExecuteEffectsAsync(evt, branch.effects);
                     matched = true;
 
                     await CleanupEventAsync(evt);
@@ -300,7 +300,7 @@ public class EventManager
             {
                 Debug.Log($"[事件处理] 【{evt.data.eventName}】过期未匹配任何分支");
 
-                await ExecuteEffectsAsync(evt.data.expiredEffects);
+                await ExecuteEffectsAsync(evt, evt.data.expiredEffects);
             
                 await CleanupEventAsync(evt);
             }
@@ -334,11 +334,11 @@ public class EventManager
     }
 
 
-    public async UniTask ExecuteEffectsAsync(List<EventEffectSO>effects)
+    public async UniTask ExecuteEffectsAsync(EventInstance evt, List<EventEffectSO>effects)
     {
         foreach (var effect in effects)
         {
-            await effect.ApplyAsync(); // 统一调用 async，自动适配新旧效果
+            await effect.ApplyAsync(evt); // 统一调用 async，自动适配新旧效果
         }
     }
 

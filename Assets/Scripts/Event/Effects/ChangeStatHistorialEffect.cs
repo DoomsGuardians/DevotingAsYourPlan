@@ -17,7 +17,7 @@ public class ChangeStatHistorialEffect : EventEffectSO
     [Tooltip("无历史记录时跳过（否则使用 0 作为前值）")]
     public bool skipIfNoHistory = true;
 
-    public override void Apply()
+    public override void Apply(EventInstance instance)
     {
         var role = GameManager.Instance.GetRole(targetRole);
         var history = role.GetStatHistory(statKey);

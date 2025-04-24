@@ -6,7 +6,7 @@ public class GiveSpecificCardEffect : EventEffectSO
     [Tooltip("要给予的卡牌名称（需与 CardData.cardName 完全匹配）")]
     public string cardName;
 
-    public override void Apply()
+    public override void Apply(EventInstance instance)
     {
         GameManager.Instance.CardManager.DrawCard(cardName);
     }

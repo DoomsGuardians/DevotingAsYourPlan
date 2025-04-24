@@ -5,7 +5,7 @@ public class DebugEffect : EventEffectSO
 {
     [TextArea]
     public string debugString;
-    public override void Apply()
+    public override void Apply(EventInstance instance)
     {
         Debug.Log($"事件效果Debug触发了,{debugString}");
     }

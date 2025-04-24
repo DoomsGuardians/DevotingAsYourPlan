@@ -146,12 +146,15 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     {
         PointerEnterEvent.Invoke(this);
         isHovering = true;
+        //delayCoroutine = StartCoroutine(ShowDelayed());
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         PointerExitEvent.Invoke(this);
         isHovering = false;
+        //if (delayCoroutine != null) StopCoroutine(delayCoroutine);
+        //Tooltip.Instance.Hide();
     }
 
 
@@ -225,6 +228,14 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     {
         if(cardVisual != null)
         Destroy(cardVisual.gameObject);
+    }
+    
+    private Coroutine delayCoroutine;
+
+    private IEnumerator ShowDelayed()
+    {
+        yield return new WaitForSeconds(.2f);
+        Tooltip.Instance.Show(runtimeData.data.description);
     }
     
 }

@@ -19,7 +19,7 @@ public class RemoveFilteredCardEffect : EventEffectSO
     public bool filterByName = false;
     public string cardName;
 
-    public override void Apply()
+    public override void Apply(EventInstance instance)
     {
         var hand = GameManager.Instance.playerCardHolder.cards;
 

@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Kevin
   m_EditorClassIdentifier: 
   cardName: Kevin
-  description: This is a  Your First Believer here
+  description: "\u8FD9\u662F\u4F60\u7684\u7B2C\u4E00\u7684\u4FE1\u5F92"
   illustration: {fileID: 21300000, guid: ec5818c959bedf84dbe85b0e399e1f47, type: 3}
   cardType: 2
   rarity: 3
   maxLife: 50
   isUnique: 1
+  decrease: 0
   entries:
   - {fileID: 11400000, guid: 589c0f6ca098fb046b365ea6bc503345, type: 2}

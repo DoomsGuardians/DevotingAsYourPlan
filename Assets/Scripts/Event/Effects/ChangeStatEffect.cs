@@ -20,7 +20,7 @@ public class ChangeStatEffect : EventEffectSO
     [Tooltip("波动范围（±X）")]
     public float variance = 0f;
 
-    public override void Apply()
+    public override void Apply(EventInstance instance)
     {
         var role = GameManager.Instance.GetRole(targetRole);
         float appliedValue = value + Random.Range(-variance, variance);
