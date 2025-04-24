@@ -73,6 +73,16 @@ public class GameManager : MonoSingleton<GameManager>
     public async UniTask ProcessPlayerDefaultTrigger() => await EventManager.ProcessPlayerDefault();
 
     public async UniTask ResolveEventEffect() => await EventManager.ResolveEventsEffectAsync();
+
+    public void TickCoolDown() => EventManager.TickCooldowns();
+
+    public void TickEvents() => EventManager.TickEvents();
+
+    public void TickCards() => CardManager.TickCards();
+
+    public void RefreshCards() => CardManager.RefreshCards();
+
+    public void SettleAllRoles() => RoleManager.SettleAllRoles();
     
     public override bool IsNotDestroyOnLoad() => false;
 }

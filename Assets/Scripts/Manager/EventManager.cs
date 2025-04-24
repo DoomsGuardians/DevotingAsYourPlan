@@ -83,6 +83,13 @@ public class EventManager
                     continue;
                 }
 
+                // 如果事件有冷却时间且没有加入到 cooldownTimers 中，就加入
+                if (data.cooldownTurns > 0 && !cooldownTimers.ContainsKey(data.eventID))
+                {
+                    cooldownTimers[data.eventID] = data.cooldownTurns; // 初始化冷却时间
+                    Debug.Log($"[冷却设置] {data.eventName} 设置初始冷却 {data.cooldownTurns} 回合");
+                }
+
                 bool canTrigger = data.triggerConditions.EvaluateAll(data);
                 if (canTrigger)
                 {
@@ -120,6 +127,14 @@ public class EventManager
                     Debug.Log($"[事件跳过] {data.eventName} 冷却中，剩余 {cooldown} 回合");
                     continue;
                 }
+
+                // 如果事件有冷却时间且没有加入到 cooldownTimers 中，就加入
+                if (data.cooldownTurns > 0 && !cooldownTimers.ContainsKey(data.eventID))
+                {
+                    cooldownTimers[data.eventID] = data.cooldownTurns; // 初始化冷却时间
+                    Debug.Log($"[冷却设置] {data.eventName} 设置初始冷却 {data.cooldownTurns} 回合");
+                }
+
                 bool canTrigger = data.triggerConditions.EvaluateAll(data);
                 if (canTrigger)
                 {
@@ -137,7 +152,6 @@ public class EventManager
                 if(GameManager.Instance.eventHolders[i].childCount>=3) break;
             }
         }
-
     }
     private async UniTask ProcessDefault()
     {
@@ -160,6 +174,14 @@ public class EventManager
                     Debug.Log($"[事件跳过] {data.eventName} 冷却中，剩余 {cooldown} 回合");
                     continue;
                 }
+
+                // 如果事件有冷却时间且没有加入到 cooldownTimers 中，就加入
+                if (data.cooldownTurns > 0 && !cooldownTimers.ContainsKey(data.eventID))
+                {
+                    cooldownTimers[data.eventID] = data.cooldownTurns; // 初始化冷却时间
+                    Debug.Log($"[冷却设置] {data.eventName} 设置初始冷却 {data.cooldownTurns} 回合");
+                }
+
                 bool canTrigger = data.triggerConditions.EvaluateAll(data);
                 if (canTrigger)
                 {
@@ -197,6 +219,14 @@ public class EventManager
                     Debug.Log($"[事件跳过] {data.eventName} 冷却中，剩余 {cooldown} 回合");
                     continue;
                 }
+
+                // 如果事件有冷却时间且没有加入到 cooldownTimers 中，就加入
+                if (data.cooldownTurns > 0 && !cooldownTimers.ContainsKey(data.eventID))
+                {
+                    cooldownTimers[data.eventID] = data.cooldownTurns; // 初始化冷却时间
+                    Debug.Log($"[冷却设置] {data.eventName} 设置初始冷却 {data.cooldownTurns} 回合");
+                }
+
                 bool canTrigger = data.triggerConditions.EvaluateAll(data);
                 if (canTrigger)
                 {
@@ -216,6 +246,27 @@ public class EventManager
             } 
         }
         await GameManager.Instance.TransitionToStateAsync(TurnPhase.DrawCard);
+    }
+
+    // 每回合递减冷却时间
+    public void TickCooldowns()
+    {
+        List<string> cooldownKeys = new List<string>(cooldownTimers.Keys);
+        foreach (string eventID in cooldownKeys)
+        {
+            if (cooldownTimers[eventID] > 0)
+            {
+                cooldownTimers[eventID]--; // 减少冷却时间
+                Debug.Log($"[冷却] {eventID} 冷却中，剩余 {cooldownTimers[eventID]} 回合");
+            }
+
+            // 如果冷却结束，移除事件
+            if (cooldownTimers[eventID] <= 0)
+            {
+                cooldownTimers.Remove(eventID);
+                Debug.Log($"[冷却完成] {eventID} 冷却结束");
+            }
+        }
     }
 
     #endregion
