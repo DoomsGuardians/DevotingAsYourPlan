@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a887b8cd50a564418c462fa64301f01, type: 3}
   m_Name: "\u4FE1\u5F92\u53610~10"
   m_EditorClassIdentifier: 
-  minCount: 1
+  minCount: 0
   maxCount: 10
   filterByType: 1
   cardTypeFilter: 2

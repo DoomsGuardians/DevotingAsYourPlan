@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e59bba2fe274b45a23dfb1ac0ad63f, type: 3}
   m_Name: "\u73A9\u5BB6\u6D4B\u8BD5\u4E8B\u4EF6 4"
   m_EditorClassIdentifier: 
-  eventID: 
+  eventID: "\u73A9\u5BB6\u6D4B\u8BD5\u884C\u52A84"
   eventName: "\u73A9\u5BB6\u6D4B\u8BD5\u884C\u52A84"
   sourceRole: 0
+  isUnique: 0
+  cooldownTurns: 0
   triggerConditions: {fileID: 11400000, guid: 0be340afaf0059e42855b61d418c7c10, type: 2}
   outcomeBranches:
   - label: "1\u5F20\u8D21\u54C1\u5361"

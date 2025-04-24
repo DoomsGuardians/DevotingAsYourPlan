@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e59bba2fe274b45a23dfb1ac0ad63f, type: 3}
   m_Name: "\u7FA4\u4F17\u6D4B\u8BD5\u4E8B\u4EF6-\u4E8B\u4EF6_1"
   m_EditorClassIdentifier: 
-  eventID: 
+  eventID: "\u6D4B\u8BD5\u4E8B\u4EF6-\u4E8B\u4EF6_1"
   eventName: "\u6D4B\u8BD5\u4E8B\u4EF6-\u4E8B\u4EF6_1"
   sourceRole: 1
   isUnique: 0
