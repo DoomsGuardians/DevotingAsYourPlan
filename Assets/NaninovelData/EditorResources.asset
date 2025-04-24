@@ -115,6 +115,6 @@ MonoBehaviour:
       guid: 9aa22fa99042aa54193983e4158e2cc2
   - Id: Backgrounds/b00d646b-38e2-4bd9-9ccc-d289418b55db
     Resources:
-    - name: mountain
+    - name: bg
       pathPrefix: Backgrounds/MainBackground
-      guid: ec5818c959bedf84dbe85b0e399e1f47
+      guid: 0b1fbaf1d5117824eaf32e7b02fbc4c1
