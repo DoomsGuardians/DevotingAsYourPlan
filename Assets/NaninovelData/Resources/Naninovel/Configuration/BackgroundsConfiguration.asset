@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultDuration: 0.35
   DefaultEasing: 0
-  AutoShowOnModify: 0
+  AutoShowOnModify: 1
   SceneOrigin: {x: 0.5, y: 0}
   ZOffset: 100
   ZStep: 0.1
@@ -77,7 +77,7 @@ MonoBehaviour:
         y: 0
         width: 1
         height: 1
-      MatchMode: 1
+      MatchMode: 0
       CustomMatchRatio: 0
       Poses: []
       ScenePathRoot: Assets/Scenes

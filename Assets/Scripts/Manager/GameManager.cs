@@ -13,7 +13,7 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private GameObject actionSlotPrefab;
     [SerializeField] private List<RoleData> roleDataConfigs;
     [SerializeField] private RoleStatDefinitionTable statDefinitionTable;
-    [SerializeField] private List<EventNodeData> defaultEventNodeDatas;
+    [SerializeField] private EventNodeDataPool defaultEventNodeDatas;
     public List<RectTransform> eventHolders;
     
     #region 回合制状态机
@@ -37,7 +37,7 @@ public class GameManager : MonoSingleton<GameManager>
         
         CardManager.Initialize(defaultCardPool, playerCardHolder);
         RoleManager.Initialize(roleDataConfigs, statDefinitionTable);
-        EventManager.Initialize(defaultEventNodeDatas, eventSlotPrefab, actionSlotPrefab, eventHolders);
+        EventManager.Initialize(defaultEventNodeDatas.eventNodeDataList, eventSlotPrefab, actionSlotPrefab, eventHolders);
         Debug.Log("GameManager初始化完成");
         turnStateMachine = new TurnStateManager(this);
     }

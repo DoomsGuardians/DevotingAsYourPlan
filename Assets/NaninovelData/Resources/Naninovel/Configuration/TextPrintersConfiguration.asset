@@ -18,7 +18,7 @@ MonoBehaviour:
   SceneOrigin: {x: 0.5, y: 0}
   ZOffset: 0
   ZStep: 0
-  DefaultPrinterId: Dialogue
+  DefaultPrinterId: Fullscreen
   DefaultBaseRevealSpeed: 0.5
   DefaultBaseAutoDelay: 0.5
   MaxRevealDelay: 0.06

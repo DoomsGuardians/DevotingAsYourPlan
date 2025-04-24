@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Events/Event Node")]
+[CreateAssetMenu(menuName = "Events/事件节点")]
 public class EventNodeData : ScriptableObject
 {
     [Tooltip("事件ID")]
