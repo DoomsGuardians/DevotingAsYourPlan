@@ -128,8 +128,9 @@ public class CardManager : Singleton<CardManager>
     {
         var drawSequence = new List<Func<UniTask>>
         {
-            () => DrawAndDelay(CardType.Labor),
             () => DrawAndDelay("Kevin"),
+            () => DrawAndDelay("我"),
+            () => DrawAndDelay(CardType.Labor),
             () => DrawAndDelay(CardType.Tribute)
         };
 
@@ -216,6 +217,12 @@ public class CardManager : Singleton<CardManager>
             for (int i = holder.cards.Count - 1; i >= 0; i--)
             {
                 var card = holder.cards[i];
+                if (card.runtimeData.entries.Any(entry => entry.entryName == "我"))
+                {
+                    card.runtimeData.remainingLife =
+                        (int)GameManager.Instance.RoleManager.GetRole(RoleType.Player).GetStat("健康度");
+                    continue;
+                }
                 card.runtimeData.TickLife();
                 if (card.runtimeData.IsExpired())
                 {

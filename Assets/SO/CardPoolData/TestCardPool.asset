@@ -15,6 +15,7 @@ MonoBehaviour:
   poolName: "\u6807\u51C6\u5361\u6C60"
   description: 
   cards:
+  - {fileID: 11400000, guid: 15ab4895e5902f2438d76e07c0f2561b, type: 2}
   - {fileID: 11400000, guid: f8a8be7a31f6162468c7209060048083, type: 2}
   - {fileID: 11400000, guid: 1dd7bfa6cd08da940a90146ce9705ebe, type: 2}
   - {fileID: 11400000, guid: fe3dcd1cc0ba48742aa980d77a9b4a6f, type: 2}

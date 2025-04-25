@@ -8,11 +8,11 @@ public class EndTurnState : TurnState
     {
         Debug.Log("进入结束阶段");
 
+        gameManager.SettleAllRoles();
         gameManager.TickCards();
         gameManager.RefreshCards();
         gameManager.TickEvents();
         gameManager.TickCoolDown();
-        gameManager.SettleAllRoles();
 
         await UniTask.Yield(); // 可选：给 UI 一帧显示空隙
         await gameManager.TransitionToStateAsync(TurnPhase.StartTurn);

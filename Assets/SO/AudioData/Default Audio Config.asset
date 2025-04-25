@@ -37,3 +37,5 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 7a03dc11aa1a0374790019e3e578ecdc, type: 3}
   - key: event_done
     clip: {fileID: 8300000, guid: 0ced268fd655683449f0ba94d25bed86, type: 3}
+  - key: event_close
+    clip: {fileID: 8300000, guid: bb2b3f1fe64b9bd42aec1f2ee6ec0eeb, type: 3}

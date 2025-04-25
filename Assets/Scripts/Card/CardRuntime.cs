@@ -20,7 +20,7 @@ public class CardRuntime
 
     public bool IsExpired() => remainingLife <= 0;
 
-    public void ApplyPassiveEffects()
+    public void ApplyEntryEffects()
     {
         foreach (var entry in entries)
         {

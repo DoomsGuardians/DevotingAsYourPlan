@@ -111,6 +111,28 @@ public static class StaticCheatDebugCommand
         Debug.Log(sb.ToString());
     }
 
+    [Command("SetRoleStat.Name")]
+    [Command("srs.name")]
+    public static void SetRoleStatByName(string name, string statname, float value)
+    {
+        if (!isCheating)
+        {
+            Debug.Log("尚未开启作弊模式，无法使用指令");
+            return;
+        }
+
+        if (System.Enum.TryParse<RoleType>(name, true, out var roleType))
+        {
+            GameManager.Instance.RoleManager.GetRole(roleType).SetStat(statname, value);
+        }
+        else
+        {
+            Debug.LogWarning($"找不到名为 {name} 的角色类型！");
+        }
+    }
+    
+    
+    
     [Command("GiveCard")]
     [Command("givecard")]
     [Command("gc")]
