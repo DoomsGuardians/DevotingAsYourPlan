@@ -12,7 +12,6 @@ public class TriggerEventEffect : EventEffectSO
     {
         if (eventToQueue != null)
         {
-            
             GameManager.Instance.EventManager.QueueEvent(eventToQueue);
             Debug.Log($"[事件效果] 已排入事件链队列：{eventToQueue.eventName}");
         }

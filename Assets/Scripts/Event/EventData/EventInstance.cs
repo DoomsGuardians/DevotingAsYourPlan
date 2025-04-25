@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Animancer;
 using UnityEngine.EventSystems;
 using Cysharp.Threading.Tasks;
+using System.Linq;
 
 public class EventInstance : MonoBehaviour
 {
@@ -31,6 +32,13 @@ public class EventInstance : MonoBehaviour
 
     [SerializeField] public List<ClipTransition> clips;
     
+    [HideInInspector] public int RaritySum
+    {
+        get
+        {
+            return cardHolder.cards.Sum(card => card.runtimeData.data.rarity);
+        }
+    }
 
     public async UniTask Initialize(EventNodeData data)
     {

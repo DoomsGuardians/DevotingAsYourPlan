@@ -21,6 +21,7 @@ public class RemoveFilteredCardEffect : EventEffectSO
 
     public override void Apply(EventInstance instance)
     {
+        amount = (int)(1 + rarityFactor * instance.RaritySum) * amount;
         var hand = GameManager.Instance.playerCardHolder.cards;
 
         var candidates = hand.Where(c =>

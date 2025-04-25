@@ -4,7 +4,7 @@
 public class ShowEndEffect : EventEffectSO
 {
     [Tooltip("事件结束的新名字")]
-    public string name = "事件结束";
+    public string endName = "事件结束";
     [TextArea(10,60)]
     [Tooltip("事件结束的新描述")]
     public string desc = "事件结束描述";
@@ -18,7 +18,7 @@ public class ShowEndEffect : EventEffectSO
     public override async Cysharp.Threading.Tasks.UniTask ApplyAsync(EventInstance eventInstance)
     {
         // 调用 EventInstance 的 ShowEnd 方法
-        await eventInstance.ShowEnd(name, desc, img);  // 你可以根据需要传递合适的参数
+        await eventInstance.ShowEnd(endName, desc, img);  // 你可以根据需要传递合适的参数
     }
     
     public override string Description => "显示事件结束信息";

@@ -29,6 +29,7 @@ public class GiveFilteredRandomCardEffect : EventEffectSO
 
     public override void Apply(EventInstance instance)
     {
+        amount = (int)(1 + rarityFactor * instance.RaritySum) * amount;
         List<CardData> pool = cardPoolOverride != null
             ? new List<CardData>(cardPoolOverride.cards)
             : GameManager.Instance.CardManager.allCards;

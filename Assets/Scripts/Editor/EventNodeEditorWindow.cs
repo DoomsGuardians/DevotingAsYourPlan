@@ -382,6 +382,22 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
             var effect = CreateAndSaveSO<RemoveFilteredCardEffect>($"{eventName}_{prefix}_RemoveFilteredCard_{list.Count}");
             list.Add(effect);
         }
+                
+        GUILayout.Space(10); // 按钮间距
+
+        if (GUILayout.Button("添加 在事件上展示结果 效果"))
+        {
+            var effect = CreateAndSaveSO<ShowEndEffect>($"{eventName}_{prefix}_Debug_{list.Count}");
+            list.Add(effect);
+        }
+        
+        GUILayout.Space(10); // 按钮间距
+
+        if (GUILayout.Button("添加 阻止自身再次触发 效果"))
+        {
+            var effect = CreateAndSaveSO<PreventSelfTriggerEffect>($"{eventName}_{prefix}_Debug_{list.Count}");
+            list.Add(effect);
+        }
 
         GUILayout.Space(10); // 按钮间距
 
@@ -390,6 +406,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
             var effect = CreateAndSaveSO<DebugEffect>($"{eventName}_{prefix}_Debug_{list.Count}");
             list.Add(effect);
         }
+
 
         GUILayout.EndVertical(); // 结束垂直布局
         GUILayout.EndVertical(); // 结束外部垂直布局

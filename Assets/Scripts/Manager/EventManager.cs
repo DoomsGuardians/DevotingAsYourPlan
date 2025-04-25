@@ -358,5 +358,17 @@ public class EventManager
 
     #endregion
 
+    #region 功能函数
+
+    public void RemoveEventFromPool(EventInstance evt)
+    {
+        pendingEvents.Remove(evt.data);
+        defaultEvents.Remove(evt.data);
+        cooldownTimers.Remove(evt.data.eventID);
+        triggeredEventIDs.Remove(evt.data.eventID);
+    }
+
+    #endregion
+
 }
 

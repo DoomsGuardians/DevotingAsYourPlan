@@ -23,7 +23,7 @@ public class ChangeStatEffect : EventEffectSO
     public override void Apply(EventInstance instance)
     {
         var role = GameManager.Instance.GetRole(targetRole);
-        float appliedValue = value + Random.Range(-variance, variance);
+        float appliedValue = (1 + rarityFactor * instance.RaritySum) * (value + Random.Range(-variance, variance));
 
         switch (mode)
         {

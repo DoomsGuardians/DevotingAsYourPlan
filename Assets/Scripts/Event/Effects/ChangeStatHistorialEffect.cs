@@ -41,7 +41,7 @@ public class ChangeStatHistorialEffect : EventEffectSO
 
         if (invertDelta) delta = -delta;
 
-        float change = delta * multiplier;
+        float change = (1 + rarityFactor * instance.RaritySum) * delta * multiplier;
         role.AddStat(statKey, change);
 
         Debug.Log($"[变化增减] {targetRole} 的 {statKey} 从 {previous} → {current}，Δ={delta:F2} × {multiplier} = {change:F2}");
