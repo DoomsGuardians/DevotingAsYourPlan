@@ -413,6 +413,7 @@ GameObject:
   - component: {fileID: 7763394201133815162}
   - component: {fileID: 8706008890534579410}
   - component: {fileID: 2334473732273976654}
+  - component: {fileID: 7710748325040926101}
   m_Layer: 5
   m_Name: TitleText
   m_TagString: Untagged
@@ -536,6 +537,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &7710748325040926101
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4759848246324967716}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &4840401969066378952
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,6 +606,7 @@ MonoBehaviour:
   data: {fileID: 0}
   remainingLife: 0
   resolved: 0
+  rectTransform: {fileID: 3722158100010479610}
   cardHolder: {fileID: 1197325923649570964}
   titleText: {fileID: 2334473732273976654}
   descText: {fileID: 4448795917250085878}
@@ -600,15 +614,7 @@ MonoBehaviour:
   illust: {fileID: 5717552160907176603}
   animancer: {fileID: 6233432941294691564}
   clips:
-  - _FadeDuration: 0.25
-    _Speed: 1
-    _Events:
-      _NormalizedTimes: []
-      _Callbacks: []
-      _Names: []
-    _Clip: {fileID: 7400000, guid: a024b0165f5bb3a4a9179f477f302643, type: 2}
-    _NormalizedStartTime: NaN
-  - _FadeDuration: 0.25
+  - _FadeDuration: 0
     _Speed: 1
     _Events:
       _NormalizedTimes: []
@@ -616,7 +622,15 @@ MonoBehaviour:
       _Names: []
     _Clip: {fileID: 7400000, guid: c5deca91d6f742d4dbd656279ab04fe6, type: 2}
     _NormalizedStartTime: NaN
-  - _FadeDuration: 0.25
+  - _FadeDuration: 0
+    _Speed: 1
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: 7400000, guid: a024b0165f5bb3a4a9179f477f302643, type: 2}
+    _NormalizedStartTime: NaN
+  - _FadeDuration: 0
     _Speed: 1
     _Events:
       _NormalizedTimes: []
@@ -624,13 +638,29 @@ MonoBehaviour:
       _Names: []
     _Clip: {fileID: 7400000, guid: 6ec8423bfa65b8449ade3464ea1bfa66, type: 2}
     _NormalizedStartTime: NaN
-  - _FadeDuration: 0.25
+  - _FadeDuration: 0
     _Speed: 1
     _Events:
       _NormalizedTimes: []
       _Callbacks: []
       _Names: []
-    _Clip: {fileID: 7400000, guid: 9fa8f87b54398234eb61709510b099be, type: 2}
+    _Clip: {fileID: 7400000, guid: 2b9bc9c04ebb1064fa8e7e3d4a7c7be2, type: 2}
+    _NormalizedStartTime: NaN
+  - _FadeDuration: 0
+    _Speed: 1
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: 7400000, guid: 99878b732495ca04e9e72eb52d0c721a, type: 2}
+    _NormalizedStartTime: NaN
+  - _FadeDuration: 0
+    _Speed: 1
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: 7400000, guid: 64d5db5af5259a84eab7828499b2113c, type: 2}
     _NormalizedStartTime: NaN
   references:
     version: 2
@@ -696,7 +726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: -1
+  m_MinWidth: 310
   m_MinHeight: -1
   m_PreferredWidth: 310
   m_PreferredHeight: -1
@@ -1155,6 +1185,7 @@ GameObject:
   - component: {fileID: 8576082693972488752}
   - component: {fileID: 7868090631989740661}
   - component: {fileID: 8785500666565634096}
+  - component: {fileID: 6568461212309790911}
   m_Layer: 5
   m_Name: EventShadowContainer
   m_TagString: Untagged
@@ -1205,6 +1236,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: 0, y: 0, z: 0, w: 0}
   m_Softness: {x: 50, y: 50}
+--- !u!225 &6568461212309790911
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8261494270241230997}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &8721079108126986834
 GameObject:
   m_ObjectHideFlags: 0
@@ -1267,6 +1310,7 @@ GameObject:
   - component: {fileID: 6909852686438286315}
   - component: {fileID: 2473208723822704725}
   - component: {fileID: 8364508440480596206}
+  - component: {fileID: 75615937844021761}
   m_Layer: 5
   m_Name: EventIllustrationContainer
   m_TagString: Untagged
@@ -1317,6 +1361,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: 0, y: 0, z: 0, w: -100}
   m_Softness: {x: 0, y: 200}
+--- !u!225 &75615937844021761
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8748892787348896245}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &9101738426790937397
 GameObject:
   m_ObjectHideFlags: 0

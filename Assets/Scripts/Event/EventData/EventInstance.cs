@@ -4,9 +4,10 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Animancer;
-using UnityEngine.EventSystems;
+using DG.Tweening;
 using Cysharp.Threading.Tasks;
 using System.Linq;
+using Cysharp.Threading.Tasks.Triggers;
 
 public class EventInstance : MonoBehaviour
 {
@@ -15,9 +16,12 @@ public class EventInstance : MonoBehaviour
     public int remainingLife;
     public bool resolved;
     public Role sourceRole;
+    private bool isFold = true;
 
     [Header("UI组件")] 
     
+    [SerializeField] RectTransform rectTransform;
+
     public HorizontalCardHolder cardHolder;
     
     [SerializeField] private TMP_Text titleText;
@@ -68,10 +72,46 @@ public class EventInstance : MonoBehaviour
         await PlayEntryAnimation();
     }
 
+    public async UniTask PlayAndDestroyAfterAnim()
+    {
+        if (animancer != null && clips != null && clips.Count > 0)
+        {
+
+               var clipIndex = Mathf.Min(3, clips.Count - 1);  // 只使用有效的索引
+                var clip = clips[clipIndex];
+
+                if (clip != null)
+                {
+                    Debug.Log($"isFold是{isFold}");
+                    // 播放动画
+                    await animancer.Play(clip);
+                    await animancer.Stop(clip);
+                }
+                else
+                {
+                    Debug.LogError("[EventInstanceExtensions] 无效的动画剪辑");
+                } 
+            
+        }
+        else
+        {
+            Debug.LogError("[EventInstanceExtensions] Animancer 或动画剪辑列表为空");
+        }
+    }
+
     public async UniTask ShowEnd(string name, string desc, Sprite img)
     {
+        if(clips[4] == null || clips[4] == null)
+        {
+            return;
+        }
+        EventShowContainer.Instance.PlayEventShowAnimation();
+
+        await animancer?.Play(clips[4]);
+        animancer?.Stop(clips[4]);
+
+        
         this.name = name;
-        this.sourceRole = GameManager.Instance.GetRole(data.sourceRole);
         if (titleText && name != null)
         {
             titleText.text = name;
@@ -85,7 +125,16 @@ public class EventInstance : MonoBehaviour
         {
             illust.sprite = img;
         }
+
+        // 记录当前 UI 元素的世界位置
+        rectTransform.SetParent(EventShowContainer.Instance.panel, true);
+        transform.localScale = Vector3.one;
+        rectTransform.pivot = new Vector2(.5f, .5f);
+        rectTransform.DOScale(new Vector3(2f, 2f, 1f), .5f).SetEase(Ease.InQuad);
+        animancer?.Play(clips[5]);
+        await rectTransform.DOLocalMove(Vector3.zero, .5f).SetEase(Ease.InQuad).AsyncWaitForCompletion();
         await InputUtility.WaitForClickAsync();
+        EventShowContainer.Instance.PlayEventHideAnimation();
     }
     
     /// 播放入场动画
@@ -96,7 +145,8 @@ public class EventInstance : MonoBehaviour
             // 播放第一个入场动画
             await animancer.Play(clips[2]);
             // 等待动画播放完毕
-            await UniTask.Delay((int)(clips[2].Clip.length * 1000-200)); ; // 等待动画播放完成
+            //await UniTask.Delay((int)(clips[2].Clip.length * 1000-200)); // 等待动画播放完成
+            await animancer.Stop(clips[2]);
         }
         else
         {
@@ -104,9 +154,30 @@ public class EventInstance : MonoBehaviour
         }
     }
     
-    public void ToggleCardShow(bool value)
+    public async UniTask ToggleCardShow(bool value)
     {
-        cardHolder.ToggleShow(value);
+        if(isFold == value) return;
+        isFold = value;
+        Debug.Log($"变成了{value}");
+        if (animancer != null)
+        {
+            if (isFold)
+            {
+
+                animancer.Play(clips[0]);
+                await UniTask.Delay((int)(clips[0].Clip.length * 700));
+                cardHolder.ToggleShow(value);
+                cardHolder.isFold = isFold;
+                //await animancer.Stop(clips[0]);
+            }
+            else
+            {
+                cardHolder.ToggleShow(value);
+                cardHolder.isFold = isFold;
+                await animancer.Play(clips[1]);
+                //await animancer.Stop(clips[1]);
+            }
+        }    
     }
     
     public void TickLife()

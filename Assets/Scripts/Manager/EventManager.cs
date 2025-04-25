@@ -287,6 +287,8 @@ public class EventManager
                 {
                     Debug.Log($"[事件处理] 【{evt.data.eventName}】匹配分支【{branch.label}】");
 
+                    TransferCardsOutOfEvent(evt);
+
                     await ExecuteEffectsAsync(evt, branch.effects);
                     matched = true;
 
@@ -299,6 +301,8 @@ public class EventManager
             if (!matched && evt.IsExpired())
             {
                 Debug.Log($"[事件处理] 【{evt.data.eventName}】过期未匹配任何分支");
+
+                await TransferCardsOutOfEvent(evt);
 
                 await ExecuteEffectsAsync(evt, evt.data.expiredEffects);
             
@@ -315,15 +319,6 @@ public class EventManager
 
     public async UniTask CleanupEventAsync(EventInstance evt)
     {
-        // 卡牌转移给玩家
-        evt.ToggleCardShow(true);
-        var cards = new List<Card>(evt.cardHolder.cards);
-        for (int i = cards.Count - 1; i >= 0; i--)
-        {
-            evt.cardHolder.RemoveCard(cards[i]);
-            GameManager.Instance.playerCardHolder.TransferCard(cards[i]);
-        }
-
         // 销毁事件之前，确保动画播放完成
         await evt.PlayAndDestroyAfterAnim();
         Debug.Log($"[事件处理] 清理【{evt.data.eventName}】过期分支");
@@ -333,6 +328,17 @@ public class EventManager
         GameObject.Destroy(evt.gameObject);
     }
 
+    public async UniTask TransferCardsOutOfEvent(EventInstance evt)
+    {
+        // 卡牌转移给玩家
+        await evt.ToggleCardShow(false);
+        var cards = new List<Card>(evt.cardHolder.cards);
+        for (int i = cards.Count - 1; i >= 0; i--)
+        {
+            evt.cardHolder.RemoveCard(cards[i]);
+            GameManager.Instance.playerCardHolder.TransferCard(cards[i]);
+        }
+    }
 
     public async UniTask ExecuteEffectsAsync(EventInstance evt, List<EventEffectSO>effects)
     {

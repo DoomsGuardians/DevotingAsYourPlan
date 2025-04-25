@@ -593,6 +593,7 @@ MonoBehaviour:
   data: {fileID: 0}
   remainingLife: 0
   resolved: 0
+  rectTransform: {fileID: 3722158100010479610}
   cardHolder: {fileID: 1197325923649570964}
   titleText: {fileID: 2334473732273976654}
   descText: {fileID: 0}
@@ -600,15 +601,7 @@ MonoBehaviour:
   illust: {fileID: 5717552160907176603}
   animancer: {fileID: 6233432941294691564}
   clips:
-  - _FadeDuration: 0.25
-    _Speed: 1
-    _Events:
-      _NormalizedTimes: []
-      _Callbacks: []
-      _Names: []
-    _Clip: {fileID: 7400000, guid: f50d817261b676d408e0adbd431682f0, type: 2}
-    _NormalizedStartTime: NaN
-  - _FadeDuration: 0.25
+  - _FadeDuration: 0
     _Speed: 1
     _Events:
       _NormalizedTimes: []
@@ -616,7 +609,15 @@ MonoBehaviour:
       _Names: []
     _Clip: {fileID: 7400000, guid: 5944139fa6b63d940a96a2e5f1878661, type: 2}
     _NormalizedStartTime: NaN
-  - _FadeDuration: 0.25
+  - _FadeDuration: 0
+    _Speed: 1
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: 7400000, guid: f50d817261b676d408e0adbd431682f0, type: 2}
+    _NormalizedStartTime: NaN
+  - _FadeDuration: 0
     _Speed: 1
     _Events:
       _NormalizedTimes: []
@@ -624,7 +625,7 @@ MonoBehaviour:
       _Names: []
     _Clip: {fileID: 7400000, guid: bd7eef20b6ba82243a1505d2513da046, type: 2}
     _NormalizedStartTime: NaN
-  - _FadeDuration: 0.16666667
+  - _FadeDuration: 0
     _Speed: 1
     _Events:
       _NormalizedTimes: []
@@ -697,7 +698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
   m_MinWidth: -1
-  m_MinHeight: -1
+  m_MinHeight: 100
   m_PreferredWidth: -1
   m_PreferredHeight: 110
   m_FlexibleWidth: -1

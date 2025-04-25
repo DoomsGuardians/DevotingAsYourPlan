@@ -237,15 +237,13 @@ public class CardVisual : MonoBehaviour
     {
         if (isFold)
         {
-            DOVirtual.DelayedCall(0.3f, () => {
-                canvasGroup.DOFade(1f, 0.5f);
-            });
-            canvasGroup.interactable = true;
+            canvasGroup.DOFade(0f, 0.1f);
+            canvasGroup.interactable = false;
         }
         else
         {
-            canvasGroup.DOFade(0f, 0.2f);
-            canvasGroup.interactable = false;
+            canvasGroup.DOFade(1f, 0.3f);
+            canvasGroup.interactable = true;
         }
     }
     

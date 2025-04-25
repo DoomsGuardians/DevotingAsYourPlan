@@ -10,9 +10,9 @@ public class SwitchToAdventureMode : Command
 {
     public override async UniTask Execute (AsyncToken asyncToken)
     {
-        // // 1. Disable Naninovel input.
-        // var inputManager = Engine.GetService<IInputManager>();
-        // inputManager.ProcessInput = false;
+        // 1. Disable Naninovel input.
+        var inputManager = Engine.GetService<IInputManager>();
+        inputManager.ProcessInput = false;
 
         // 2. Stop script player.
         var scriptPlayer = Engine.GetService<IScriptPlayer>();
