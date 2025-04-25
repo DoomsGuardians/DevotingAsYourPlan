@@ -58,6 +58,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         cardVisual.Initialize(this);
         // 可以同步设置 Visual 上的数据
         cardVisual?.SetVisual(data);
+        AudioManager.Instance.PlaySFX("card_place");
     }
 
 
@@ -112,6 +113,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        AudioManager.Instance.PlaySFX("card_place");
         EndDragEvent.Invoke(this);
         isDragging = false;
         canvas.GetComponent<GraphicRaycaster>().enabled = true;
@@ -144,6 +146,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        AudioManager.Instance.PlaySFX("card_hover");
         PointerEnterEvent.Invoke(this);
         isHovering = true;
         //delayCoroutine = StartCoroutine(ShowDelayed());

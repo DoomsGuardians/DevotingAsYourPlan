@@ -68,7 +68,7 @@ public class EventInstance : MonoBehaviour
         {
             illust.sprite = data.icon;
         }
-        
+        AudioManager.Instance.PlaySFX("event_in");
         await PlayEntryAnimation();
     }
 
@@ -82,7 +82,7 @@ public class EventInstance : MonoBehaviour
 
                 if (clip != null)
                 {
-                    Debug.Log($"isFold是{isFold}");
+                    AudioManager.Instance.PlaySFX("event_done");
                     // 播放动画
                     await animancer.Play(clip);
                     await animancer.Stop(clip);
@@ -132,6 +132,7 @@ public class EventInstance : MonoBehaviour
         rectTransform.pivot = new Vector2(.5f, .5f);
         rectTransform.DOScale(new Vector3(2f, 2f, 1f), .5f).SetEase(Ease.InQuad);
         animancer?.Play(clips[5]);
+        AudioManager.Instance.PlaySFX("turn_transition");
         await rectTransform.DOLocalMove(Vector3.zero, .5f).SetEase(Ease.InQuad).AsyncWaitForCompletion();
         await InputUtility.WaitForClickAsync();
         EventShowContainer.Instance.PlayEventHideAnimation();
@@ -163,7 +164,7 @@ public class EventInstance : MonoBehaviour
         {
             if (isFold)
             {
-
+                AudioManager.Instance.PlaySFX("event_close");
                 animancer.Play(clips[0]);
                 await UniTask.Delay((int)(clips[0].Clip.length * 700));
                 cardHolder.ToggleShow(value);
@@ -172,6 +173,7 @@ public class EventInstance : MonoBehaviour
             }
             else
             {
+                AudioManager.Instance.PlaySFX("event_open");
                 cardHolder.ToggleShow(value);
                 cardHolder.isFold = isFold;
                 await animancer.Play(clips[1]);

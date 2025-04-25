@@ -10,6 +10,7 @@ public class StartTurnState : TurnState
         Debug.Log("进入开始阶段");
         gameManager.turnStateMachine.TurnNum++;
         Debug.Log($"这是第{gameManager.turnStateMachine.TurnNum}回合");
+        AudioManager.Instance.PlaySFX("turn_transition");
         await TurnStateHandler.Instance.TurnStateAnim($"{startAge+gameManager.turnStateMachine.TurnNum}年", $"我，{20+gameManager.turnStateMachine.TurnNum}岁");
         await gameManager.ProcessPlayerDefaultTrigger();
     }

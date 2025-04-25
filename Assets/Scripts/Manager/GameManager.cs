@@ -45,6 +45,9 @@ public class GameManager : MonoSingleton<GameManager>
     private async void Start()
     {
         Debug.Log("开始游戏启动流程");
+        
+        // 随机播放背景音乐
+        AudioManager.Instance.PlayRandomBGM("bgm_reverberation_protocol", "bgm_you_mean_it", "bgm_confession_beneath_the_smile");
         await TransitionToStateAsync(TurnPhase.StartTurn);
     }
 
