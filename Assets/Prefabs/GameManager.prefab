@@ -990,8 +990,8 @@ RectTransform:
   - {fileID: 6203019164210345793}
   - {fileID: 7442638803031313583}
   - {fileID: 2792611708282554655}
-  - {fileID: 936902539111781615}
   - {fileID: 705837786891886420}
+  - {fileID: 936902539111781615}
   m_Father: {fileID: 2243948201318764746}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2516,12 +2516,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
+  m_fontSize: 18
   m_fontSizeBase: 20
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 6
+  m_fontSizeMax: 18
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7013cabf4b26e844fa4d1d1dc4a7942b, type: 3}
+  m_Name: "Exogenesis\u6807\u51C6\u5957\u724C"
+  m_EditorClassIdentifier: 
+  poolName: 
+  description: 
+  cards:
+  - {fileID: 11400000, guid: 7dab9c9b2206a874f967a7e4f127c848, type: 2}
+  - {fileID: 11400000, guid: 92f4e19431a45a94eb9e389558d10105, type: 2}
+  - {fileID: 11400000, guid: 413b720c891f82946ba41ae781f9c738, type: 2}
+  - {fileID: 11400000, guid: e80297eeeac253740ab731d84de637f1, type: 2}
+  - {fileID: 11400000, guid: 93bc606554d6ae44fba5653cc878c5cb, type: 2}
+  - {fileID: 11400000, guid: 99fc3b227be9d9b47ba92a5b3e019568, type: 2}
+  - {fileID: 11400000, guid: c2485b4f334a3024d8c7571e0269823c, type: 2}
+  tags: []

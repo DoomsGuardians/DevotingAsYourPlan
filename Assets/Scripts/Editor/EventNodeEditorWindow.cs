@@ -23,11 +23,14 @@ public class EventNodeEditorWindow : EditorWindow
 
     private Vector2 scroll;
     private Dictionary<string, bool> foldoutStates = new();
+    
+    private EventNodeData loadedEventNode;
 
     [MenuItem("LevityTools/Event Node Editor")]
     public static void ShowWindow()
     {
-        GetWindow<EventNodeEditorWindow>("Levity事件编辑器");
+        var window = GetWindow<EventNodeEditorWindow>("Levity事件编辑器");
+        window.minSize = new Vector2(800, 600); // 设置最小窗口尺寸
     }
 
     private void OnEnable()
@@ -43,6 +46,16 @@ public class EventNodeEditorWindow : EditorWindow
     private void OnGUI()
     {
         scroll = EditorGUILayout.BeginScrollView(scroll);
+
+        GUILayout.Label("加载已有事件数据", EditorStyles.boldLabel);
+        loadedEventNode = (EventNodeData)EditorGUILayout.ObjectField("事件数据", loadedEventNode, typeof(EventNodeData), false);
+
+        if (loadedEventNode != null && GUILayout.Button("加载该事件数据"))
+        {
+            LoadEventNodeData(loadedEventNode);
+        }
+
+        GUILayout.Space(20);
 
         GUILayout.Label("事件基本信息", EditorStyles.boldLabel);
         eventName = EditorGUILayout.TextField("事件名称", eventName);
@@ -157,7 +170,7 @@ public class EventNodeEditorWindow : EditorWindow
         
         if (GUILayout.Button("添加 手牌数量范围 触发条件"))
         {
-            var cond = CreateAndSaveSO<HandCardCountTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.conditions.Count}");
+            var cond = CreateAndSaveSO<HandCardCountTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.name}_手牌数量范围_{triggerGroup.conditions.Count}");
             triggerGroup.conditions.Add(cond);
             EditorUtility.SetDirty(triggerGroup);
             AssetDatabase.SaveAssets();
@@ -167,7 +180,7 @@ public class EventNodeEditorWindow : EditorWindow
 
         if (GUILayout.Button("添加 卡牌范围过滤 触发条件"))
         {
-            var cond = CreateAndSaveSO<CardCountRangeFilterTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.conditions.Count}");
+            var cond = CreateAndSaveSO<CardCountRangeFilterTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.name}_卡牌范围过滤_{triggerGroup.conditions.Count}");
             triggerGroup.conditions.Add(cond);
             EditorUtility.SetDirty(triggerGroup);
             AssetDatabase.SaveAssets();
@@ -177,7 +190,7 @@ public class EventNodeEditorWindow : EditorWindow
 
         if (GUILayout.Button("添加 特定卡牌存在 触发条件"))
         {
-            var cond = CreateAndSaveSO<SpecificCardExistsTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.conditions.Count}");
+            var cond = CreateAndSaveSO<SpecificCardExistsTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.name}_特定卡牌存在_{triggerGroup.conditions.Count}");
             triggerGroup.conditions.Add(cond);
             EditorUtility.SetDirty(triggerGroup);
             AssetDatabase.SaveAssets();
@@ -187,7 +200,7 @@ public class EventNodeEditorWindow : EditorWindow
 
         if (GUILayout.Button("添加 角色属性范围 触发条件"))
         {
-            var cond = CreateAndSaveSO<RoleStatRangeTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.conditions.Count}");
+            var cond = CreateAndSaveSO<RoleStatRangeTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.name}_角色属性范围_{triggerGroup.conditions.Count}");
             triggerGroup.conditions.Add(cond);
             EditorUtility.SetDirty(triggerGroup);
             AssetDatabase.SaveAssets();
@@ -197,7 +210,7 @@ public class EventNodeEditorWindow : EditorWindow
 
         if (GUILayout.Button("添加 角色属性范围曲线映射 触发条件"))
         {
-            var cond = CreateAndSaveSO<RoleStatRangeCurveMapTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.conditions.Count}");
+            var cond = CreateAndSaveSO<RoleStatRangeCurveMapTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.name}_角色属性范围曲线映射_{triggerGroup.conditions.Count}");
             triggerGroup.conditions.Add(cond);
             EditorUtility.SetDirty(triggerGroup);
             AssetDatabase.SaveAssets();
@@ -207,7 +220,7 @@ public class EventNodeEditorWindow : EditorWindow
 
         if (GUILayout.Button("添加 回合数范围 触发条件"))
         {
-            var cond = CreateAndSaveSO<TurnCountTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.conditions.Count}");
+            var cond = CreateAndSaveSO<TurnCountTriggerCondition>($"TriggerCond_{eventID}_{triggerGroup.name}_回合数范围_{triggerGroup.conditions.Count}");
             triggerGroup.conditions.Add(cond);
             EditorUtility.SetDirty(triggerGroup);
             AssetDatabase.SaveAssets();
@@ -268,7 +281,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
 
         if (GUILayout.Button("添加 卡牌匹配范围 结算条件"))
         {
-            var cond = CreateAndSaveSO<CardMatchRangeResolveCondition>($"ResolveCond_{eventID}_{branch.matchConditions.conditions.Count}");
+            var cond = CreateAndSaveSO<CardMatchRangeResolveCondition>($"ResolveCond_{eventID}_{branch.label}_卡牌匹配范围_{branch.matchConditions.conditions.Count}");
             branch.matchConditions.conditions.Add(cond);
             EditorUtility.SetDirty(branch.matchConditions);
             AssetDatabase.SaveAssets();
@@ -278,7 +291,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
 
         if (GUILayout.Button("添加 角色属性范围 结算条件"))
         {
-            var cond = CreateAndSaveSO<RoleStatRangeResolveCondition>($"ResolveCond_{eventID}_{branch.matchConditions.conditions.Count}");
+            var cond = CreateAndSaveSO<RoleStatRangeResolveCondition>($"ResolveCond_{eventID}_{branch.label}_角色属性范围_{branch.matchConditions.conditions.Count}");
             branch.matchConditions.conditions.Add(cond);
             EditorUtility.SetDirty(branch.matchConditions);
             AssetDatabase.SaveAssets();
@@ -332,7 +345,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
         // 添加不同类型的效果按钮
         if (GUILayout.Button("添加 给予随机卡牌 效果"))
         {
-            var effect = CreateAndSaveSO<GiveFilteredRandomCardEffect>($"{eventName}_{prefix}_GiveCard_{list.Count}");
+            var effect = CreateAndSaveSO<GiveFilteredRandomCardEffect>($"{eventName}_{prefix}_给予随机卡牌_{list.Count}");
             list.Add(effect);
         }
 
@@ -341,7 +354,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
         // 添加不同类型的效果按钮
         if (GUILayout.Button("添加 给予卡牌 效果"))
         {
-            var effect = CreateAndSaveSO<GiveSpecificCardEffect>($"{eventName}_{prefix}_GiveCard_{list.Count}");
+            var effect = CreateAndSaveSO<GiveSpecificCardEffect>($"{eventName}_{prefix}_给予卡牌_{list.Count}");
             list.Add(effect);
         }
 
@@ -349,7 +362,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
         
         if (GUILayout.Button("添加 后续事件 效果"))
         {
-            var effect = CreateAndSaveSO<TriggerEventEffect>($"{eventName}_{prefix}_TriggerEvent_{list.Count}");
+            var effect = CreateAndSaveSO<TriggerEventEffect>($"{eventName}_{prefix}_后续事件_{list.Count}");
             list.Add(effect);
         }
 
@@ -357,7 +370,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
 
         if (GUILayout.Button("添加 角色属性 效果"))
         {
-            var effect = CreateAndSaveSO<ChangeStatEffect>($"{eventName}_{prefix}_ChangeStat_{list.Count}");
+            var effect = CreateAndSaveSO<ChangeStatEffect>($"{eventName}_{prefix}_角色属性_{list.Count}");
             list.Add(effect);
         }
         
@@ -365,7 +378,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
 
         if (GUILayout.Button("添加 角色历史属性 效果"))
         {
-            var effect = CreateAndSaveSO<ChangeStatHistorialEffect>($"{eventName}_{prefix}_ChangeStat_{list.Count}");
+            var effect = CreateAndSaveSO<ChangeStatHistorialEffect>($"{eventName}_{prefix}_角色历史属性_{list.Count}");
             list.Add(effect);
         }
 
@@ -373,7 +386,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
 
         if (GUILayout.Button("添加 播放台本 效果"))
         {
-            var effect = CreateAndSaveSO<PlayScenarioEffect>($"{eventName}_{prefix}_PlayScenario_{list.Count}");
+            var effect = CreateAndSaveSO<PlayScenarioEffect>($"{eventName}_{prefix}_播放台本_{list.Count}");
             list.Add(effect);
         }
 
@@ -381,7 +394,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
 
         if (GUILayout.Button("添加 去除卡牌 效果"))
         {
-            var effect = CreateAndSaveSO<RemoveFilteredCardEffect>($"{eventName}_{prefix}_RemoveFilteredCard_{list.Count}");
+            var effect = CreateAndSaveSO<RemoveFilteredCardEffect>($"{eventName}_{prefix}_去除卡牌_{list.Count}");
             list.Add(effect);
         }
                 
@@ -389,7 +402,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
 
         if (GUILayout.Button("添加 在事件上展示结果 效果"))
         {
-            var effect = CreateAndSaveSO<ShowEndEffect>($"{eventName}_{prefix}_Debug_{list.Count}");
+            var effect = CreateAndSaveSO<ShowEndEffect>($"{eventName}_{prefix}_在事件上展示结果_{list.Count}");
             list.Add(effect);
         }
         
@@ -397,7 +410,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
 
         if (GUILayout.Button("添加 阻止自身再次触发 效果"))
         {
-            var effect = CreateAndSaveSO<PreventSelfTriggerEffect>($"{eventName}_{prefix}_Debug_{list.Count}");
+            var effect = CreateAndSaveSO<PreventSelfTriggerEffect>($"{eventName}_{prefix}_阻止自身再次触发_{list.Count}");
             list.Add(effect);
         }
 
@@ -419,7 +432,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
         string path = $"Assets/SO/EventData/EventContainer/{eventName}";
         Directory.CreateDirectory(path);
 
-        var node = ScriptableObject.CreateInstance<EventNodeData>();
+        EventNodeData node = loadedEventNode != null ? loadedEventNode : ScriptableObject.CreateInstance<EventNodeData>();
         node.eventName = eventName;
         node.eventID = eventID;
         node.sourceRole = roleType;
@@ -433,10 +446,15 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
         node.expiredEffects = expiredEffects;
         node.outcomeBranches = branches;
 
-        AssetDatabase.CreateAsset(node, $"{path}/{eventID}_EventNode.asset");
+        if (loadedEventNode == null)
+        {
+            AssetDatabase.CreateAsset(node, $"{path}/{eventID}_EventNode.asset");
+        }
+
+        EditorUtility.SetDirty(node);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-        EditorUtility.DisplayDialog("保存成功", $"事件及资源保存到：{path}", "OK");
+        EditorUtility.DisplayDialog("保存成功", $"事件数据已保存到：{path}", "OK");
     }
 
     private T CreateAndSaveSO<T>(string fileName) where T : ScriptableObject
@@ -493,5 +511,21 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
     {
         foreach (var kvp in states)
             EditorPrefs.SetBool(kvp.Key, kvp.Value);
+    }
+    
+    private void LoadEventNodeData(EventNodeData node)
+    {
+        eventName = node.eventName;
+        eventID = node.eventID;
+        roleType = node.sourceRole;
+        description = node.description;
+        icon = node.icon;
+        duration = node.duration;
+        isUnique = node.isUnique;
+        cooldownTurns = node.cooldownTurns;
+        decreaseFactor = node.decreaseFactor;
+        triggerGroup = node.triggerConditions;
+        expiredEffects = node.expiredEffects != null ? new List<EventEffectSO>(node.expiredEffects) : new List<EventEffectSO>();
+        branches = node.outcomeBranches != null ? new List<EventOutcomeBranch>(node.outcomeBranches) : new List<EventOutcomeBranch>();
     }
 }

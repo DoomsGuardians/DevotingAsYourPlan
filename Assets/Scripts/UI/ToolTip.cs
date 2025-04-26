@@ -3,6 +3,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Text;
 
 public class Tooltip : MonoBehaviour
 {
@@ -26,7 +27,14 @@ public class Tooltip : MonoBehaviour
     public async void Show(CardRuntime cardRuntime)
     {
         if(cardRuntime == null)return;
-        tooltipText.text = cardRuntime.data.description;
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine(cardRuntime.data.cardName);
+        sb.AppendLine(cardRuntime.data.description);
+        foreach (var entry in cardRuntime.entries)
+        {
+            sb.AppendLine($"{entry.entryName}:{entry.description}");
+        }
+        tooltipText.text = sb.ToString();
         tooltipTitle.text = cardRuntime.data.cardName;
         tooltipRemainingLife.text = $"{cardRuntime.remainingLife}";
         cardImage.sprite = cardRuntime.data.illustration;

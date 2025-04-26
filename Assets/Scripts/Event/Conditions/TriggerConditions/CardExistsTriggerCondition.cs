@@ -9,6 +9,13 @@ public class SpecificCardExistsTriggerCondition : EventTriggerConditionSO
     [Tooltip("是否为反向判断（即卡牌不存在时触发）")]
     public bool invert = false;
 
+    [Tooltip("是否检测该卡牌剩余寿命")] 
+    public bool isCheckLife = false;
+    
+    [Header("数量区间")]
+    public int minCount = 1;
+    public int maxCount = 999;
+    
     public override bool Evaluate(EventNodeData context)
     {
         if (targetCard == null)
@@ -20,7 +27,12 @@ public class SpecificCardExistsTriggerCondition : EventTriggerConditionSO
         var hand = GameManager.Instance.playerCardHolder.cards;
         bool exists = hand.Exists(c => c.runtimeData.data == targetCard);
 
-        Debug.Log($"[🃏 卡牌判断] {targetCard.cardName} {(exists ? "存在" : "不存在")} → {(invert ? "反向判断" : "正常判断")}");
+        Debug.Log($"[卡牌判断] {targetCard.cardName} {(exists ? "存在" : "不存在")} → {(invert ? "反向判断" : "正常判断")}");
+
+        if (isCheckLife)
+        {
+            exists = hand.Find(c => c.runtimeData.data == targetCard).runtimeData.remainingLife >= minCount && hand.Find(c => c.runtimeData.data == targetCard).runtimeData.remainingLife <= maxCount;
+        }
 
         return invert ? !exists : exists;
     }
