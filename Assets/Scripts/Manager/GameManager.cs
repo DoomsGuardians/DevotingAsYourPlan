@@ -9,7 +9,7 @@ using System.Linq;
 public class GameManager : MonoSingleton<GameManager>
 {
     [Header("配置资源")]
-    [SerializeField] private CardPool defaultCardPool;
+    [SerializeField] private CardPool defaultCardPool; //默认牌库
     [SerializeField] public HorizontalCardHolder playerCardHolder;
     [SerializeField] private GameObject eventSlotPrefab;
     [SerializeField] private GameObject actionSlotPrefab;
@@ -17,7 +17,8 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private RoleStatDefinitionTable statDefinitionTable;
     [SerializeField] private EventNodeDataPool defaultEventNodeDatas;
     [SerializeField] public TurnTransitionTextSO turnTransitionText;
-
+    [SerializeField] private CardPool initialCardPool; // 玩家初始套牌
+    
     [SerializeField] private List<CardEntry> runtimeEntries;
     
     public List<RectTransform> eventHolders;
@@ -54,6 +55,7 @@ public class GameManager : MonoSingleton<GameManager>
         
         // 随机播放背景音乐
         AudioManager.Instance.PlayRandomBGM("bgm_reverberation_protocol", "bgm_you_mean_it", "bgm_confession_beneath_the_smile");
+        CardManager.LoadInitialCards(playerCardHolder, initialCardPool);
         await TransitionToStateAsync(TurnPhase.StartTurn);
     }
 

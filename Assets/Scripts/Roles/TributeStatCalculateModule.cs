@@ -13,7 +13,6 @@ public class TributeStatCalculateModule :IStatCalculatorModule, IRarityCalculato
         float F = Mathf.Max(0, roles[RoleType.People].GetStat("粮储")/roles[RoleType.People].GetStat("人口数")-1f) ;
         float E = roles[RoleType.World].GetStat("异象潮位");
         float Dev = roles[RoleType.People].GetStat("发展度");   
-        Debug.Log($"{ Mathf.Log(S/100f+1) } * {(1 + E / 100f)} * { (1f + F * 0.5f)  * (1 + Dev / 150f) }");
         return Mathf.Clamp( Mathf.Floor( (Mathf.Log(S / 100f +1f) )* (1f + P / 100f) * (1 - M / 100f) * (1 + D / 100f) * (1 + O / 100f) * (1 + E / 100f) * (1f + F * 0.5f)  * (1 + Dev / 150f)), 0f, 5f ); 
     }
 

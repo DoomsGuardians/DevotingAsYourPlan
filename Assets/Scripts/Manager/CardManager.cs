@@ -42,6 +42,11 @@ public class CardManager
         allCards = pool.cards.Distinct().ToList();
     }
 
+    public void MergeCardsFromPool(CardPool pool)
+    {
+        allCards.AddRange(pool.cards.Distinct().Where(card => !allCards.Contains(card)));
+    }
+
     private readonly Dictionary<int, int> rarityWeights = new()
     {
         { 0, 60 },
@@ -437,6 +442,18 @@ public class CardManager
             } 
             RefreshCards();
             ResolveCardsExpired(card, evt.cardHolder);
+        }
+    }
+    
+    public void LoadInitialCards(HorizontalCardHolder playerCardHolder, CardPool pool)
+    {
+        foreach (var cardData in pool.cards)
+        {
+            CardRuntime cardRuntime = CreateCard(cardData);
+            if (cardRuntime != null)
+            {
+                playerCardHolder.AddCard(cardRuntime);
+            }
         }
     }
 }

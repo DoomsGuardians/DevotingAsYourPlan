@@ -2037,6 +2037,7 @@ MonoBehaviour:
   statDefinitionTable: {fileID: 11400000, guid: a35175a889d64ef438d2c495e2744f36, type: 2}
   defaultEventNodeDatas: {fileID: 11400000, guid: 3b779cc51764d244fa3e4a1874ea1005, type: 2}
   turnTransitionText: {fileID: 11400000, guid: 7567d0d342423014da57bf99263d45bc, type: 2}
+  initialCardPool: {fileID: 11400000, guid: 73237c727b2f6c540990519b32a80a0e, type: 2}
   runtimeEntries:
   - {fileID: 11400000, guid: 541d9819beb558542b616a6ddf8544a6, type: 2}
   - {fileID: 11400000, guid: b7d767317efcfaf49aaa371a6ac2cd04, type: 2}
