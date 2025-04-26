@@ -9,7 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8fc463fd1edcc446bbb8bd2af02f829, type: 3}
-  m_Name: "\u6B63\u7EDF\u5F02\u7AEF\u516C\u5F0F"
+  m_Script: {fileID: 11500000, guid: 688ae953c0e6c334e92611bb6e7008f9, type: 3}
+  m_Name: "\u52B3\u529B\u53611~999"
   m_EditorClassIdentifier: 
-  formula: "|Player.\u795E\u79D8\u6027/200|+|Player.\u795E\u683C\u6027/200|-People.\u987A\u4ECE\u6B63\u7EDF\u5EA6/200"
+  minCount: 1
+  maxCount: 999
+  filterByName: 0
+  nameFilter: 
+  filterByType: 1
+  typeFilter: 0
+  filterByEntry: 0
+  entryFilter: {fileID: 0}

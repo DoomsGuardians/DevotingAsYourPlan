@@ -20,7 +20,7 @@ MonoBehaviour:
   - key: "\u4FE1\u4F17\u6570"
     value: 1
   - key: "\u7CAE\u50A8"
-    value: 6000
+    value: 10000
   - key: "\u53D1\u5C55\u5EA6"
     value: -20
   - key: "\u987A\u4ECE\u6B63\u7EDF\u5EA6"

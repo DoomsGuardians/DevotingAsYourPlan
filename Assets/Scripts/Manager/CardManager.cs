@@ -8,7 +8,8 @@ using Random = UnityEngine.Random;
 public class CardManager  
 {
     public List<CardData> allCards; 
-    
+    LaborStatCalculateModule laborStatCalculateModule = new LaborStatCalculateModule();
+    TributeStatCalculateModule tributeStatCalculateModule = new TributeStatCalculateModule();
     public CardData GetCardByExactName(string cardName)
     {
         return allCards.FirstOrDefault(c => 
@@ -116,6 +117,66 @@ public class CardManager
         return filtered.First();
     }
 
+    public CardData GetCard(CardQuery query, Dictionary<int, int> customRarityWeights)
+    {
+        var filtered = allCards.Where(card =>
+        {
+            if (!string.IsNullOrEmpty(query.nameContains) && !card.cardName.Contains(query.nameContains))
+                return false;
+
+            if (query.typeFilter.HasValue && card.cardType != query.typeFilter.Value)
+                return false;
+
+            if (query.rarityMin.HasValue && card.rarity < query.rarityMin.Value)
+                return false;
+
+            if (query.rarityMax.HasValue && card.rarity > query.rarityMax.Value)
+                return false;
+
+            if (query.excludeUniques && card.isUnique)
+                return false;
+
+            if (query.requiredEntries != null && query.requiredEntries.Count > 0)
+            {
+                var entryNames = card.entries.Select(e => e.entryName).ToHashSet();
+                if (query.matchAllEntries)
+                {
+                    if (!query.requiredEntries.All(entryNames.Contains))
+                        return false;
+                }
+                else
+                {
+                    if (!query.requiredEntries.Any(entryNames.Contains))
+                        return false;
+                }
+            }
+
+            return true;
+        }).ToList();
+
+        if (filtered.Count == 0)
+            return null;
+
+        if (query.randomPick)
+        {
+            int totalWeight = filtered.Sum(c => customRarityWeights.TryGetValue(c.rarity, out var w) ? w : 1);
+            int roll = UnityEngine.Random.Range(0, totalWeight);
+            int acc = 0;
+
+            foreach (var card in filtered)
+            {
+                int weight = customRarityWeights.TryGetValue(card.rarity, out var w) ? w : 1;
+                acc += weight;
+                if (roll < acc)
+                    return card;
+            }
+
+            return filtered.Last();
+        }
+
+        return filtered.First();
+    }
+    
     public HorizontalCardHolder playerCardHolder;
 
     public void Initialize(CardPool cardPool,HorizontalCardHolder playerCardHolder)
@@ -128,12 +189,19 @@ public class CardManager
     
     public async UniTask DrawCardsAsync()
     {
+        int laborNum = Mathf.RoundToInt(laborStatCalculateModule.Calculate(GameManager.Instance.RoleManager.GetRoles()));
+        int tributeNum = Mathf.RoundToInt(tributeStatCalculateModule.Calculate(GameManager.Instance.RoleManager.GetRoles()));
+
+        var customWeight = tributeStatCalculateModule.CalculateRarity(GameManager.Instance.RoleManager.GetRoles());
+        
+        Debug.Log(string.Join(", ", customWeight.Select(kvp => $"({kvp.Key}, {kvp.Value})")));
+        
         var drawSequence = new List<Func<UniTask>>
         {
-            () => DrawAndDelay("Kevin"),
-            () => DrawAndDelay("我"),
-            () => DrawAndDelay(CardType.Labor),
-            () => DrawAndDelay(CardType.Tribute)
+            // () => DrawAndDelay("Kevin"),
+            // () => DrawAndDelay("我"),
+            () => DrawAndDelay(CardType.Labor, laborNum),
+            () => DrawAndDelay(CardType.Tribute, customWeight, tributeNum)
         };
         
         foreach (var task in drawSequence)
@@ -147,12 +215,26 @@ public class CardManager
         DrawCard(type);
         await UniTask.Delay(200);
     }
+    
+    private async UniTask DrawAndDelay(CardType type, Dictionary<int, int> rarityWeight)
+    {
+        DrawCard(type, rarityWeight);
+        await UniTask.Delay(200);
+    }
 
     private async UniTask DrawAndDelay(CardType type, int amount)
     {
         for (int i = 0; i < amount; i++)
         {
-            DrawAndDelay(type);
+            await DrawAndDelay(type);
+        }
+    }
+    
+    private async UniTask DrawAndDelay(CardType type, Dictionary<int, int> rarityWeight, int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            await DrawAndDelay(type, rarityWeight);
         }
     }
     
@@ -233,6 +315,34 @@ public class CardManager
                     .Random(weighted: true)
                     .Build();
         CardData selected = GetCard(query);
+        if (selected == null)
+        {
+            Debug.LogWarning($"未找到【{type}】类型的卡牌！");
+            return;
+        }
+        if (HasAlreadyCreated(selected))
+        {
+            Debug.LogWarning($"唯一卡【{selected.name}】已经抽取过，无法再次生成！");
+            return;
+        }
+        CardRuntime runtime = CreateCard(selected);
+        GiveConformityOrthodoxyEntries(runtime);
+        if (runtime == null)
+        {
+            Debug.LogWarning($"创建卡牌【{selected.name}】失败！");
+            return;
+        }
+        playerCardHolder.AddCard(runtime);
+    }
+    
+    public void DrawCard (CardType type, Dictionary<int, int> rarityWeight)
+    {
+        var query = CardQueryBuilder.New()
+            .WithType(type)
+            .ExcludeUniques()
+            .Random(weighted: true)
+            .Build();
+        CardData selected = GetCard(query, rarityWeight);
         if (selected == null)
         {
             Debug.LogWarning($"未找到【{type}】类型的卡牌！");
