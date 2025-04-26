@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoleManager
+public class 
+    RoleManager
 {
     private Dictionary<RoleType, Role> roles = new();
     private RoleStatDefinitionTable definitionTable;
@@ -29,6 +30,11 @@ public class RoleManager
     public Role GetRole(RoleType type) => roles[type];
     public string GetStatDisplayName(string key) => definitionTable.GetStat(key)?.displayName ?? key;
     public string GetStatDescription(string key) => definitionTable.GetStat(key)?.description ?? "";
+
+    public Dictionary<RoleType, Role> GetRoles()
+    {
+        return roles;
+    }
     
     public void SettleAllRoles()
     {

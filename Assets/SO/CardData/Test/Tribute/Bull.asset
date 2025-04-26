@@ -19,5 +19,5 @@ MonoBehaviour:
   rarity: 1
   maxLife: 2
   isUnique: 0
-  decrease: 0
+  decrease: 1
   entries: []

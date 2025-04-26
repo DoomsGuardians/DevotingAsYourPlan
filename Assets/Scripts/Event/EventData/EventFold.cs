@@ -11,7 +11,6 @@ public class EventFold : MonoBehaviour, IPointerClickHandler
     public async void OnPointerClick(PointerEventData eventData)
     {
         isFold = !isFold;
-        Debug.Log($"变成了{isFold}");
         await evt.ToggleCardShow(isFold);
         evt.cardHolder.isFold = isFold;
     }

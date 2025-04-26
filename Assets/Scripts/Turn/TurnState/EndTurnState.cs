@@ -7,7 +7,11 @@ public class EndTurnState : TurnState
     public override async UniTask EnterAsync()
     {
         Debug.Log("进入结束阶段");
-
+        if (gameManager.turnTransitionText.TurnStrings[10] != "" && gameManager.turnTransitionText.TurnStrings[11] != "")
+        {
+            AudioManager.Instance.PlaySFX("turn_transition");
+            await TurnStateHandler.Instance.TurnStateAnim(gameManager.turnTransitionText.TurnStrings[10], gameManager.turnTransitionText.TurnStrings[11]);
+        }
         gameManager.SettleAllRoles();
         gameManager.TickCards();
         gameManager.RefreshCards();

@@ -15,6 +15,7 @@ public class EventNodeEditorWindow : EditorWindow
     private int duration = 2;
     private bool isUnique = false;
     private int cooldownTurns = 0;
+    private float decreaseFactor = 1f;
 
     private TriggerConditionGroup triggerGroup;
     private List<EventOutcomeBranch> branches = new();
@@ -55,7 +56,8 @@ public class EventNodeEditorWindow : EditorWindow
         GUILayout.Label("高级选项", EditorStyles.boldLabel);
         isUnique = EditorGUILayout.Toggle("是否为唯一事件", isUnique);
         cooldownTurns = EditorGUILayout.IntSlider("冷却回合数", cooldownTurns, 0, 10);
-
+        decreaseFactor = EditorGUILayout.FloatField("损耗系数", decreaseFactor);
+        
         DrawTriggerConditionGroup();
 
         GUILayout.Space(20);
@@ -426,6 +428,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
         node.duration = duration;
         node.isUnique = isUnique;
         node.cooldownTurns = cooldownTurns;
+        node.decreaseFactor = decreaseFactor;
         node.triggerConditions = triggerGroup;
         node.expiredEffects = expiredEffects;
         node.outcomeBranches = branches;

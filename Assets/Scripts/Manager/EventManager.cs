@@ -286,12 +286,10 @@ public class EventManager
                 if (branch.matchConditions.EvaluateAll(evt))
                 {
                     Debug.Log($"[事件处理] 【{evt.data.eventName}】匹配分支【{branch.label}】");
-
+                    GameManager.Instance.CardManager.ResolveCardsDecrease(evt);
                     TransferCardsOutOfEvent(evt);
-
                     await ExecuteEffectsAsync(evt, branch.effects);
                     matched = true;
-
                     await CleanupEventAsync(evt);
                     break;
                 }

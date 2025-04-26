@@ -19,6 +19,6 @@ MonoBehaviour:
   rarity: 3
   maxLife: 50
   isUnique: 1
-  decrease: 0
+  decrease: 1
   entries:
   - {fileID: 11400000, guid: 589c0f6ca098fb046b365ea6bc503345, type: 2}

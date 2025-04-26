@@ -18,3 +18,6 @@ MonoBehaviour:
   cardType: 0
   rarity: 0
   maxLife: 1
+  isUnique: 0
+  decrease: 1
+  entries: []

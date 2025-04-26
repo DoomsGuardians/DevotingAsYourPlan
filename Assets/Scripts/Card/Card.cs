@@ -149,15 +149,15 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         AudioManager.Instance.PlaySFX("card_hover");
         PointerEnterEvent.Invoke(this);
         isHovering = true;
-        //delayCoroutine = StartCoroutine(ShowDelayed());
+        delayCoroutine = StartCoroutine(ShowDelayed());
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         PointerExitEvent.Invoke(this);
         isHovering = false;
-        //if (delayCoroutine != null) StopCoroutine(delayCoroutine);
-        //Tooltip.Instance.Hide();
+        if (delayCoroutine != null) StopCoroutine(delayCoroutine);
+        Tooltip.Instance.Hide();
     }
 
 
@@ -237,8 +237,9 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     private IEnumerator ShowDelayed()
     {
-        yield return new WaitForSeconds(.2f);
-        Tooltip.Instance.Show(runtimeData.data.description);
+        yield return new WaitForSeconds(1f);
+        
+        Tooltip.Instance.Show(runtimeData.data.illustration ,runtimeData.data.description);
     }
     
 }

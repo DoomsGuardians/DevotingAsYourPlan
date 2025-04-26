@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using Random = UnityEngine.Random;
 
-public class CardManager : Singleton<CardManager>
+public class CardManager  
 {
     public List<CardData> allCards; 
-
+    
     public CardData GetCardByExactName(string cardName)
     {
         return allCards.FirstOrDefault(c => 
@@ -123,7 +124,8 @@ public class CardManager : Singleton<CardManager>
         this.playerCardHolder = playerCardHolder;
         Debug.Log($"卡片管理器初始化了");
     }
-
+    
+    
     public async UniTask DrawCardsAsync()
     {
         var drawSequence = new List<Func<UniTask>>
@@ -133,7 +135,7 @@ public class CardManager : Singleton<CardManager>
             () => DrawAndDelay(CardType.Labor),
             () => DrawAndDelay(CardType.Tribute)
         };
-
+        
         foreach (var task in drawSequence)
         {
             await task();
@@ -146,13 +148,78 @@ public class CardManager : Singleton<CardManager>
         await UniTask.Delay(200);
     }
 
+    private async UniTask DrawAndDelay(CardType type, int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            DrawAndDelay(type);
+        }
+    }
+    
     private async UniTask DrawAndDelay(string name)
     {
         DrawCard(name);
         await UniTask.Delay(200);
     }
 
+    /// <summary>
+    /// 这个方法用于动态赋予正统异端词条
+    /// </summary>
+    /// <param name="type"></param>
+    public void GiveConformityOrthodoxyEntries(CardRuntime cardRuntime)
+    {
+        if (cardRuntime.entries == null)
+        {
+            Debug.Log("卡牌runtim的词条未初始化"); // 初始化为一个空列表
+        }
+        
+        ConformityOrthodoxyStatCalculateModule calculateModule = new ConformityOrthodoxyStatCalculateModule();
+        
+        float factor = calculateModule.Calculate(GameManager.Instance.RoleManager.GetRoles());
 
+        float random = Random.Range(0f, 1f);
+        
+        if (random < Mathf.Abs(factor))
+        {
+            if (factor >= 0)
+            {
+                //处理赋予正统逻辑
+                if (cardRuntime.entries.Any(e => e.entryName == "正统")) return;
+                CardEntry entry = cardRuntime.entries.Find(e => e.entryName == "异端");
+                if (entry)
+                {
+                    cardRuntime.entries.Remove(entry);
+                }
+                else
+                {
+                    cardRuntime.entries.Add(GameManager.Instance.GetEntry("正统"));
+                }
+            }
+            else
+            {
+                if (cardRuntime.entries.Any(e => e.entryName == "异端")) return;
+                CardEntry entry = cardRuntime.entries.Find(e => e.entryName == "正统");
+                if (entry)
+                {
+                    cardRuntime.entries.Remove(entry);
+                }
+                else
+                {
+                    cardRuntime.entries.Add(GameManager.Instance.GetEntry("异端"));
+                }
+            }
+        }
+    }
+
+    public void GiveConformityOrthodoxyEntries(List<Card> cards)
+    {
+        foreach (var card in cards)
+        {
+            GiveConformityOrthodoxyEntries(card.runtimeData);
+            card.RefreshCardInfo();
+        }
+    }
+    
 
     /// <summary>
     /// 这个重载用于根据卡牌冲类抽取一张随机的卡牌
@@ -177,6 +244,7 @@ public class CardManager : Singleton<CardManager>
             return;
         }
         CardRuntime runtime = CreateCard(selected);
+        GiveConformityOrthodoxyEntries(runtime);
         if (runtime == null)
         {
             Debug.LogWarning($"创建卡牌【{selected.name}】失败！");
@@ -202,6 +270,7 @@ public class CardManager : Singleton<CardManager>
             return;
         }
         CardRuntime runtime = CreateCard(selected);
+        GiveConformityOrthodoxyEntries(runtime);
         if (runtime == null)
         {
             Debug.LogWarning($"创建卡牌【{name}】失败！");
@@ -232,11 +301,32 @@ public class CardManager : Singleton<CardManager>
         }
     }
 
+    public void ResolveCardsExpired(Card card, HorizontalCardHolder holder)
+    {
+        if (card.runtimeData.IsExpired()) { holder.DestroyCard(card); }
+    }
+    
     public void RefreshCards()
     {
         foreach (var holder in CardHolderManager.Holders)
         {
             holder.RefreshCardsInfo();
+        }
+    }
+
+    public void ResolveCardsDecrease(EventInstance evt)
+    {
+        for (int i = evt.cardHolder.cards.Count - 1; i >= 0; i--)
+        {
+            var card = evt.cardHolder.cards[i];
+            Debug.Log($"{card.runtimeData.remainingLife}-={(int)(card.runtimeData.data.decrease * evt.data.decreaseFactor)}");
+            card.runtimeData.remainingLife -= (int)(card.runtimeData.data.decrease * evt.data.decreaseFactor);
+            if (card.runtimeData.entries.Any(entry => entry.entryName == "我"))
+            {
+                GameManager.Instance.RoleManager.GetRole(RoleType.Player).SetStat("健康度",card.runtimeData.remainingLife);
+            } 
+            RefreshCards();
+            ResolveCardsExpired(card, evt.cardHolder);
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
+using Naninovel.Commands;
+using System.Linq;
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -14,6 +16,10 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private List<RoleData> roleDataConfigs;
     [SerializeField] private RoleStatDefinitionTable statDefinitionTable;
     [SerializeField] private EventNodeDataPool defaultEventNodeDatas;
+    [SerializeField] public TurnTransitionTextSO turnTransitionText;
+
+    [SerializeField] private List<CardEntry> runtimeEntries;
+    
     public List<RectTransform> eventHolders;
     
     #region 回合制状态机
@@ -61,12 +67,21 @@ public class GameManager : MonoSingleton<GameManager>
         await turnStateMachine.TransitionToStateAsync(phase);
     }
 
+    public CardEntry GetEntry(string specificName)
+    {
+        var entry = runtimeEntries.FirstOrDefault(e => e.entryName == specificName);
+        if (entry == null)
+        {
+            Debug.LogWarning($"未能找到名为 {specificName} 的条目！");
+            return null;  // 返回 null 或者其他错误处理
+        }
+        return entry;
+    }
 
     public async UniTask DrawCardsAsync()//此后将用于处理每回合开始人民奉献给玩家的卡牌
     {
-        
+        CardManager.GiveConformityOrthodoxyEntries(playerCardHolder.cards);
         await CardManager.DrawCardsAsync();
-        
     }
 
     public Role GetRole(RoleType type) => RoleManager.GetRole(type);

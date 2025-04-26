@@ -20,15 +20,25 @@ public class EventShowContainer : MonoBehaviour
 
     private void Awake() => Instance = this;
 
-    public  void PlayEventShowAnimation()
+    public void PlayEventShowAnimation()
     {
-        canvasGroup.DOFade(1, 1.5f);
-        rectTransform.DOAnchorPos(inPos, 1f).SetEase(Ease.InQuad);
+        canvasGroup.DOFade(1, 1f);
+        rectTransform.DOAnchorPos(inPos, .5f).SetEase(Ease.InQuad);
     }
 
-    public  void PlayEventHideAnimation()
+    public void PlayEventHideAnimation()
     {
-        canvasGroup.DOFade(0, 1.5f);
-        rectTransform.DOAnchorPos(outPos, 1f).SetEase(Ease.OutSine);
+        canvasGroup.DOFade(0, 1f);
+        rectTransform.DOAnchorPos(outPos, .5f).SetEase(Ease.OutQuad);
+    }
+    
+    public void PlayCardShowAnimation()
+    {
+        canvasGroup.DOFade(1, .5f);
+    }
+    
+    public void PlayCardHideAnimation()
+    {
+        canvasGroup.DOFade(0, .5f);
     }
 }
