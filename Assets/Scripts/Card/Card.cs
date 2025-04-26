@@ -239,7 +239,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     {
         yield return new WaitForSeconds(1f);
         
-        Tooltip.Instance.Show(runtimeData.data.illustration ,runtimeData.data.description);
+        Tooltip.Instance.Show(runtimeData);
     }
     
 }

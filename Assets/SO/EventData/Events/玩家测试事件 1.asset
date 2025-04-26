@@ -17,6 +17,7 @@ MonoBehaviour:
   sourceRole: 0
   isUnique: 0
   cooldownTurns: 5
+  decreaseFactor: 1
   triggerConditions: {fileID: 11400000, guid: 0be340afaf0059e42855b61d418c7c10, type: 2}
   outcomeBranches:
   - label: "1\u5F20\u8D21\u54C1\u5361"
@@ -25,6 +26,10 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 85ece533b135fed4599fa2d8f96d0a7e, type: 2}
   - label: "1\u5F20\u52B3\u529B\u5361"
     matchConditions: {fileID: 11400000, guid: 3ccd2e6b2b907254083bc28b05e3e186, type: 2}
+    effects:
+    - {fileID: 11400000, guid: 97eee12aed4fd1a4da17ae87780acfa7, type: 2}
+  - label: "\u4FDD\u5E95\u5206\u652F"
+    matchConditions: {fileID: 11400000, guid: fb4b5deb3303cd1478b33ce02af07433, type: 2}
     effects:
     - {fileID: 11400000, guid: 97eee12aed4fd1a4da17ae87780acfa7, type: 2}
   expiredEffects:

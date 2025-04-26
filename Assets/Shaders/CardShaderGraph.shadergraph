@@ -680,7 +680,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "_Power",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": 0.20000000298023225,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -1211,7 +1211,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "_Frequency",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": 0.3499999940395355,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -2440,7 +2440,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "_Power",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": 0.8700000047683716,
     "m_DefaultValue": 0.0,
     "m_Labels": []

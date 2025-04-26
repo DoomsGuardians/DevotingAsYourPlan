@@ -82,6 +82,11 @@ public class CardVisual : MonoBehaviour
         cardImage.sprite = data.data.illustration;
         shaderCode.editionIndex = data.data.rarity;
     }
+
+    public void ShowLifeDecrease(float decrease)
+    {
+        remainLifeText.text = $"{parentCard.runtimeData.remainingLife}<sup>-{(int)(decrease * parentCard.runtimeData.data.decrease)}</sup>";
+    }
     
     private void Start()
     {

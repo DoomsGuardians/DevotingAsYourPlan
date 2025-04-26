@@ -8,6 +8,7 @@ using System.Linq;
 
 public class HorizontalCardHolder : MonoBehaviour
 {
+    [SerializeField] private EventInstance evt;
     [SerializeField] private Card selectedCard;
     [SerializeReference] private Card hoveredCard;
 
@@ -53,6 +54,11 @@ public class HorizontalCardHolder : MonoBehaviour
         card.BeginDragEvent.AddListener(BeginDrag);
         card.EndDragEvent.AddListener(EndDrag);
     }
+
+    public void ShowCardLifeDecrease(Card card)
+    {
+        card.cardVisual.ShowLifeDecrease(evt.data.decreaseFactor);
+    }
     
     public void TransferCard(Card card)
     {
@@ -68,7 +74,18 @@ public class HorizontalCardHolder : MonoBehaviour
         
         if (card.cardVisual != null)
             card.cardVisual.UpdateIndex(transform.childCount);
+        
+        if (this == GameManager.Instance.playerCardHolder)
+        {
+            RefreshCardsInfo();
+        }
+        else
+        {
+            ShowCardLifeDecrease(card);
+        }
     }
+    
+    
     
     public void RemoveCard(Card card)
     {
@@ -81,6 +98,8 @@ public class HorizontalCardHolder : MonoBehaviour
         
         if (card.cardVisual != null)
             card.cardVisual.UpdateIndex(transform.childCount);
+        
+        RefreshCardsInfo();
     }
     
     public void DestroyCard(Card card)

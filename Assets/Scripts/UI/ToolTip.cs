@@ -9,8 +9,10 @@ public class Tooltip : MonoBehaviour
     public static Tooltip Instance;
 
     [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private RectTransform panel;               // Tooltip 背景面板
-    [SerializeField] private TextMeshProUGUI tooltipText; // Tooltip 文本内容
+    [SerializeField] private RectTransform panel;       
+    [SerializeField] private TextMeshProUGUI tooltipTitle; // Tooltip 背景面板
+    [SerializeField] private TextMeshProUGUI tooltipText; 
+    [SerializeField] private TextMeshProUGUI tooltipRemainingLife;// Tooltip 文本内容
     [SerializeField] private Image cardImage;
     [SerializeField] private Vector2 padding = new Vector2(16, 16); // 内边距（文本距离边框的距离）
 
@@ -21,11 +23,13 @@ public class Tooltip : MonoBehaviour
         Hide();
     }
 
-    public async void Show(Sprite img, string content)
+    public async void Show(CardRuntime cardRuntime)
     {
-        if(content == null && !img)return;
-        tooltipText.text = content;
-        cardImage.sprite = img;
+        if(cardRuntime == null)return;
+        tooltipText.text = cardRuntime.data.description;
+        tooltipTitle.text = cardRuntime.data.cardName;
+        tooltipRemainingLife.text = $"{cardRuntime.remainingLife}";
+        cardImage.sprite = cardRuntime.data.illustration;
         // 更新 Tooltip 面板的大小，使其适应文本内容
         UpdateTooltipSize();
 
