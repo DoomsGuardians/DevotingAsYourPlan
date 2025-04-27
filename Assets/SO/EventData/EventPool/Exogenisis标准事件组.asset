@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventPoolName: "Exogenisis\u6807\u51C6\u4E8B\u4EF6\u7EC4"
   eventNodeDataList:
-  - {fileID: 11400000, guid: b94e1f607ca2fae4aac61d3c8438c72f, type: 2}
+  - {fileID: 11400000, guid: 8d959d90c4510644db7f2cc95f336457, type: 2}
+  - {fileID: 11400000, guid: 57f0940168f737946b12191003d65a35, type: 2}

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4b792e417aa3a4ba3b70890b79d019, type: 3}
+  m_Name: "TriggerCond_Exogenesis_Player_\u5E03\u9053_Exogenesis_Player_\u5E03\u9053_TriggerGroup_RoleStatRangeTriggerCondition_0"
+  m_EditorClassIdentifier: 
+  role: 0
+  statKey: "\u5065\u5EB7\u5EA6"
+  minValue: 0
+  maxValue: 999
+  invert: 0

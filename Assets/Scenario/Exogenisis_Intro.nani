@@ -1,0 +1,39 @@
+@back bg time:1
+@printer Fullscreen
+@sfx seat_on_chair
+阴冷的空气和昏暗跳动的光线刺激着人类的神经
+你不知道他们是怎么做到的——这座保管所既干燥又寒冷，像个被时间遗忘的冰窖
+你也并不在乎
+@resetText
+@sfx page_in_books volume:0.4
+@bgm bgm_weird_intro volume:0.02 fade:5
+你的注意力牢牢钉在手中的那本破旧书卷上
+你的工作，就是理解它。
+准确来说这本书是一份人物年记，作者从某人二十岁起，逐年记录其一生的行踪与思想，直到他死去为止
+直至主角逝世
+@resetText
+这本不应该成为一个问题
+问题出在主角身上
+——他是教会的教祖
+而他的一言一行，与你所学的教会正史完全对不上
+@resetText
+@sfx pages_in_books volume:0.4
+因此，从专业角度讲这玩意应该归入“待鉴定的伪经抄录0079号”
+而你，就是那个负责在摇曳火光下阅读它、拆解它、判断它的异典纠察官
+@resetText
+听起来是一份很无聊的工作？
+你也曾这么想。
+所以你开始在脑海里拼接文字描绘的世界——试图看清那个模糊的、神秘的主角。
+你开始代入他，想象他的一生。
+@resetText
+直到，你成了他。
+@stopBgm bgm_weird_intro fade:5
+@resetText
+@sfx clock_hit volume:0.4
+气温又低了一点。
+@sfx page_in_books volume:0.4
+你收回漂浮的意识，再次把注意力投向那些怪异的文字。
+@hideAll time:1
+@wait 1
+@exitDialogMode
+@stop

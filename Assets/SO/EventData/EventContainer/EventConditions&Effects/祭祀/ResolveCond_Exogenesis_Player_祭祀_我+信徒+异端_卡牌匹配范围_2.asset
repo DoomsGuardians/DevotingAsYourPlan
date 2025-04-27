@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688ae953c0e6c334e92611bb6e7008f9, type: 3}
+  m_Name: "ResolveCond_Exogenesis_Player_\u796D\u7940_\u6211+\u4FE1\u5F92+\u5F02\u7AEF_\u5361\u724C\u5339\u914D\u8303\u56F4_2"
+  m_EditorClassIdentifier: 
+  minCount: 1
+  maxCount: 999
+  filterByName: 0
+  nameFilter: 
+  filterByType: 0
+  typeFilter: 0
+  filterByEntry: 1
+  entryFilter: {fileID: 11400000, guid: ed6d6b0cc3e48d543849a4df234d685f, type: 2}

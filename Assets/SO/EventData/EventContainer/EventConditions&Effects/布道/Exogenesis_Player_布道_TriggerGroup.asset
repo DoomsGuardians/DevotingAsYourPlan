@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 723709bd3bcb74c438f475819fdb4f52, type: 3}
+  m_Name: "Exogenesis_Player_\u5E03\u9053_TriggerGroup"
+  m_EditorClassIdentifier: 
+  mode: 0
+  conditions:
+  - {fileID: 11400000, guid: 283caffddc1ca7847b14725ba5a62fd5, type: 2}
+  - {fileID: 11400000, guid: c7c3521e66dcdc54f9ef8db184513307, type: 2}
+  - {fileID: 11400000, guid: 05941f1479486df43878fc1c25566d47, type: 2}

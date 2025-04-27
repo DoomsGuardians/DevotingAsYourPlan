@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b77ed64c783cb449c9a9abe5420619, type: 3}
+  m_Name: Expgenisis_Audio_Config
+  m_EditorClassIdentifier: 
+  audioClips:
+  - key: btn_invalid
+    clip: {fileID: 8300000, guid: cb164bb67ad13ba4fa22608b7812809a, type: 3}
+  - key: btn_hover
+    clip: {fileID: 8300000, guid: 1c1654ed696600b46ad934401e7a6209, type: 3}
+  - key: btn_click
+    clip: {fileID: 8300000, guid: 9d023c1497f498f4ba92e270b540d57e, type: 3}
+  - key: card_hover
+    clip: {fileID: 8300000, guid: 707480844c25c4149bf5f91cfc9199ed, type: 3}
+  - key: card_place
+    clip: {fileID: 8300000, guid: 7197da26749309f4488a93ad5f3a699f, type: 3}
+  - key: turn_transition
+    clip: {fileID: 8300000, guid: ba5f2a7f2e6b585489a3a9238313975a, type: 3}
+  - key: event_in
+    clip: {fileID: 8300000, guid: 5752b7d6d5d3adf4dae28d0c8d7f5101, type: 3}
+  - key: bgm_reverberation_protocol
+    clip: {fileID: 8300000, guid: cb380c6357c431048857418efd8cf015, type: 3}
+  - key: bgm_you_mean_it
+    clip: {fileID: 8300000, guid: 3bd8fb22fb1d0ac4e8ea66584808359b, type: 3}
+  - key: bgm_confession_beneath_the_smile
+    clip: {fileID: 8300000, guid: 660ad0b8742dd55449178c9d2b40c72d, type: 3}
+  - key: event_open
+    clip: {fileID: 8300000, guid: 7a03dc11aa1a0374790019e3e578ecdc, type: 3}
+  - key: event_done
+    clip: {fileID: 8300000, guid: 0ced268fd655683449f0ba94d25bed86, type: 3}
+  - key: event_close
+    clip: {fileID: 8300000, guid: bb2b3f1fe64b9bd42aec1f2ee6ec0eeb, type: 3}
+  - key: bgm_relax_theme
+    clip: {fileID: 8300000, guid: ede377030240eaa4c827515f2ab2430d, type: 3}
+  - key: bgm_reader_theme
+    clip: {fileID: 8300000, guid: ee5a8f87b60a24843af9a468d0a9cbc9, type: 3}
+  - key: bgm_outer_theme
+    clip: {fileID: 8300000, guid: e2f72cd843bf30f40822b67ebeba6095, type: 3}
+  - key: bgm_vanish_theme
+    clip: {fileID: 8300000, guid: e5727304c4960ec4bbf2b1ca39bfa02e, type: 3}
+  - key: bgm_weird_intro
+    clip: {fileID: 8300000, guid: 316eb19bff59c2947a1c3d5d0bbff245, type: 3}

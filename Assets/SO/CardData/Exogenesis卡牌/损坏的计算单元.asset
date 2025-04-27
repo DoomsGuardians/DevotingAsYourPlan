@@ -17,8 +17,8 @@ MonoBehaviour:
   illustration: {fileID: 0}
   cardType: 0
   rarity: 2
-  maxLife: 5
+  maxLife: 2
   isUnique: 0
-  decrease: 5
+  decrease: 2
   entries:
   - {fileID: 11400000, guid: cd3e193b3de09c7429ff729df192c846, type: 2}

@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 public class AudioManager : MonoSingleton<AudioManager>
 {
-    [SerializeField] private AudioConfig audioConfig;
+    [SerializeField] public AudioConfig audioConfig;
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioSource sfxSource;
 

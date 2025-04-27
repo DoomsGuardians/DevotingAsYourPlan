@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
-using Naninovel.Commands;
+using Naninovel;
 using System.Linq;
 
 public class GameManager : MonoSingleton<GameManager>
@@ -18,10 +18,67 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private EventNodeDataPool defaultEventNodeDatas;
     [SerializeField] public TurnTransitionTextSO turnTransitionText;
     [SerializeField] private CardPool initialCardPool; // 玩家初始套牌
-    
     [SerializeField] private List<CardEntry> runtimeEntries;
-    
     public List<RectTransform> eventHolders;
+    [SerializeField] private string IntroScenario;
+
+    #region NaniNovel相关
+
+    public async Cysharp.Threading.Tasks.UniTask PlayScenarioAsync(string scriptName)
+    {
+        if (!Engine.Initialized) await RuntimeInitializer.Initialize();
+        // 1.Enable Naninovel input.
+        var inputManager = Engine.GetService<IInputManager>();
+        inputManager.ProcessInput = true;
+        
+        if (string.IsNullOrEmpty(scriptName))
+        {
+            Debug.LogWarning("[NaninovelEffect] 未设置剧本名");
+            return;
+        }
+
+        var player = Engine.GetService<IScriptPlayer>();
+        if (player == null)
+        {
+            Debug.LogError("[NaninovelEffect] 无法获取 IScriptPlayer");
+            return;
+        }
+
+        try
+        {
+            Debug.Log($"[NaninovelEffect] 播放剧本：{scriptName}");
+
+            // Play the script
+            await player.LoadAndPlay(scriptName);
+
+            // Wait for the script to finish using the event system
+            await WaitForScriptToFinish(player);
+            
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"[NaninovelEffect] 播放剧本时出错：{ex.Message}");
+        }
+
+        return;
+    }
+
+    // Helper method to wait for script to finish
+    private async Cysharp.Threading.Tasks.UniTask WaitForScriptToFinish(IScriptPlayer player)
+    {
+        // This callback will be called when the script finishes
+        var completionTask = new Cysharp.Threading.Tasks.UniTaskCompletionSource();
+        var script = player.PlayedScript;
+        player.OnStop += (script) => completionTask.TrySetResult(); // Subscribe to script finished event
+
+        await completionTask.Task; // Wait until the script finishes
+
+        // Unsubscribe from the events once done
+        player.OnStop -= (script) => completionTask.TrySetResult();
+    }
+
+    #endregion
+    
     
     #region 回合制状态机
         public TurnStateManager turnStateMachine;
@@ -53,8 +110,10 @@ public class GameManager : MonoSingleton<GameManager>
     {
         Debug.Log("开始游戏启动流程");
         
+        if(IntroScenario!=null)
+        await PlayScenarioAsync(IntroScenario);
         // 随机播放背景音乐
-        AudioManager.Instance.PlayRandomBGM("bgm_reverberation_protocol", "bgm_you_mean_it", "bgm_confession_beneath_the_smile");
+        AudioManager.Instance.PlayRandomBGM(AudioManager.Instance.audioConfig.GetKeysByPrefix("bgm_").ToArray());
         CardManager.LoadInitialCards(playerCardHolder, initialCardPool);
         await TransitionToStateAsync(TurnPhase.StartTurn);
     }
@@ -64,7 +123,7 @@ public class GameManager : MonoSingleton<GameManager>
         turnStateMachine.Update();
     }
 
-    public async UniTask TransitionToStateAsync(TurnPhase phase)
+    public async Cysharp.Threading.Tasks.UniTask TransitionToStateAsync(TurnPhase phase)
     {
         await turnStateMachine.TransitionToStateAsync(phase);
     }
@@ -80,7 +139,7 @@ public class GameManager : MonoSingleton<GameManager>
         return entry;
     }
 
-    public async UniTask DrawCardsAsync()//此后将用于处理每回合开始人民奉献给玩家的卡牌
+    public async Cysharp.Threading.Tasks.UniTask DrawCardsAsync()//此后将用于处理每回合开始人民奉献给玩家的卡牌
     {
         CardManager.GiveConformityOrthodoxyEntries(playerCardHolder.cards);
         await CardManager.DrawCardsAsync();
@@ -88,11 +147,11 @@ public class GameManager : MonoSingleton<GameManager>
 
     public Role GetRole(RoleType type) => RoleManager.GetRole(type);
 
-    public async UniTask ProcessEventTrigger() => await EventManager.ProcessEventTrigger();
+    public async Cysharp.Threading.Tasks.UniTask ProcessEventTrigger() => await EventManager.ProcessEventTrigger();
 
-    public async UniTask ProcessPlayerDefaultTrigger() => await EventManager.ProcessPlayerDefault();
+    public async Cysharp.Threading.Tasks.UniTask ProcessPlayerDefaultTrigger() => await EventManager.ProcessPlayerDefault();
 
-    public async UniTask ResolveEventEffect() => await EventManager.ResolveEventsEffectAsync();
+    public async Cysharp.Threading.Tasks.UniTask ResolveEventEffect() => await EventManager.ResolveEventsEffectAsync();
 
     public void TickCoolDown() => EventManager.TickCooldowns();
 

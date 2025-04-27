@@ -28,11 +28,21 @@ public class Tooltip : MonoBehaviour
     {
         if(cardRuntime == null)return;
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine(cardRuntime.data.cardName);
-        sb.AppendLine(cardRuntime.data.description);
+
+// 卡牌名称 - 大字号加粗
+        sb.AppendLine($"<b><size=115%>{cardRuntime.data.cardName}</size></b>");
+
+// 卡牌描述 - 缩进 + 略小字号
+        sb.AppendLine($"<size=90%>\t<i>{cardRuntime.data.description}</i></size>");
+
+// 条目列表
         foreach (var entry in cardRuntime.entries)
         {
-            sb.AppendLine($"{entry.entryName}:{entry.description}");
+            // 条目标题
+            sb.AppendLine($"<b><size=80%>{entry.entryName}</size></b>");
+
+            // 条目描述 - 缩进 + 小字号
+            sb.AppendLine($"<size=65%>\t{entry.description}</size>");
         }
         tooltipText.text = sb.ToString();
         tooltipTitle.text = cardRuntime.data.cardName;

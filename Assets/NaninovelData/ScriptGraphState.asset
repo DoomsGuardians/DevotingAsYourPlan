@@ -18,5 +18,12 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 104
-      height: 77
+      width: 105.333336
+      height: 78.666664
+  - scriptGuid: 8c9a20e26e177ea4bb0cba94668fe8af
+    position:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 139.33333
+      height: 78.666664
