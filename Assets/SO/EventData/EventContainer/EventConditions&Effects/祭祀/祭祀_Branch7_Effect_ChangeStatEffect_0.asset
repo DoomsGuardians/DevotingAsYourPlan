@@ -17,4 +17,6 @@ MonoBehaviour:
   statKey: "\u987A\u4ECE\u6B63\u7EDF\u5EA6"
   mode: 0
   value: 1
-  variance: 1
+  variance: 2
+  specificEntry: {fileID: 11400000, guid: 3a43543ebf4e9c14eabb611126d7f5b9, type: 2}
+  entryactor: -1

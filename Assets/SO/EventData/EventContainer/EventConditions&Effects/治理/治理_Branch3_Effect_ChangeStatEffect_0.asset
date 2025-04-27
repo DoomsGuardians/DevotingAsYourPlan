@@ -18,3 +18,5 @@ MonoBehaviour:
   mode: 0
   value: 2
   variance: 0
+  specificEntry: {fileID: 0}
+  entryactor: 1

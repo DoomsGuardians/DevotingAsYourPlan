@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01fe49c37202ad040baf0848c45b71ed, type: 3}
-  m_Name: "\u5E03\u9053_Branch2_Effect_\u89D2\u8272\u5C5E\u6027_2"
+  m_Script: {fileID: 11500000, guid: 1d891110ba7efaa4eb0c65aadedb4957, type: 3}
+  m_Name: "\u796D\u7940_Branch7_Effect_\u89D2\u8272\u5386\u53F2\u5C5E\u6027_1"
   m_EditorClassIdentifier: 
   rarityFactor: 0
   targetRole: 1
-  statKey: "\u987A\u4ECE\u6B63\u7EDF\u5EA6"
-  mode: 0
-  value: 1
-  variance: 1
-  specificEntry: {fileID: 11400000, guid: ed6d6b0cc3e48d543849a4df234d685f, type: 2}
-  entryactor: -1
+  statKey: "\u7CAE\u50A8"
+  multiplier: 0.5
+  invertDelta: 0
+  skipIfNoHistory: 1

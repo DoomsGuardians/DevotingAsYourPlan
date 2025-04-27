@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01fe49c37202ad040baf0848c45b71ed, type: 3}
-  m_Name: "\u5E03\u9053_Branch2_Effect_\u89D2\u8272\u5C5E\u6027_2"
+  m_Name: "\u796D\u7940_Branch1_Effect_\u89D2\u8272\u5C5E\u6027_1"
   m_EditorClassIdentifier: 
-  rarityFactor: 0
-  targetRole: 1
-  statKey: "\u987A\u4ECE\u6B63\u7EDF\u5EA6"
+  rarityFactor: 0.1
+  targetRole: 0
+  statKey: "\u795E\u683C\u6027"
   mode: 0
-  value: 1
+  value: -1
   variance: 1
-  specificEntry: {fileID: 11400000, guid: ed6d6b0cc3e48d543849a4df234d685f, type: 2}
-  entryactor: -1
+  entryName: 
+  entryactor: 1

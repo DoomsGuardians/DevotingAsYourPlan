@@ -16,7 +16,7 @@ MonoBehaviour:
   targetRole: 0
   statKey: "\u4FE1\u5949\u5EA6"
   mode: 0
-  value: -1
+  value: -3
   variance: 1
   entryName: "\u5065\u5EB7\u5EA6"
   entryactor: 1

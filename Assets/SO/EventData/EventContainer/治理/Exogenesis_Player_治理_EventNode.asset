@@ -67,9 +67,14 @@ MonoBehaviour:
     matchConditions: {fileID: 11400000, guid: 20476eee771b91a438a54b99e1a611c0, type: 2}
     effects:
     - {fileID: 11400000, guid: d5e592b92c21dd9439d4797f4f8c39c3, type: 2}
+    - {fileID: 11400000, guid: ef07ad62ec61a3844bf3b38e5068836a, type: 2}
   - label: "\u52B3\u5DE5"
     matchConditions: {fileID: 11400000, guid: 99655b269c9a34b4da5112270ac43527, type: 2}
-    effects: []
+    effects:
+    - {fileID: 11400000, guid: ffea28fc8e5260b4eb9225b7f85b5c6d, type: 2}
+    - {fileID: 11400000, guid: 2d1323d46e016dd43bb0bbe36659dec5, type: 2}
+    - {fileID: 11400000, guid: 9a6513437a3c72c4f9ca3d081ec3924b, type: 2}
+    - {fileID: 11400000, guid: 52b98846d1f10b04f81a6424bd8aa625, type: 2}
   expiredEffects: []
   description: "\u4E8B\u4EF6\u63CF\u8FF0..."
   icon: {fileID: 0}

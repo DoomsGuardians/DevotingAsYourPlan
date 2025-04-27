@@ -37,6 +37,7 @@ MonoBehaviour:
     effects:
     - {fileID: 11400000, guid: 1638e460ea29d5549aac54b783a1dfbb, type: 2}
     - {fileID: 11400000, guid: b8203e4dc7502c844a51c41fc72daec1, type: 2}
+    - {fileID: 11400000, guid: 04545839ac10fc6458d74cf0d5f32d4a, type: 2}
   - label: "\u6211+\u52B3\u5DE5"
     matchConditions: {fileID: 11400000, guid: 634cd564f80c2d44380391043b23ac77, type: 2}
     effects:
@@ -53,6 +54,7 @@ MonoBehaviour:
   - label: "\u8D21\u54C1+\u52B3\u5DE5"
     matchConditions: {fileID: 11400000, guid: 31397c88ae0b7af4d9e9cb386a9b76c4, type: 2}
     effects:
+    - {fileID: 11400000, guid: 16192983b89b8864e8df75eb0c919d8b, type: 2}
     - {fileID: 11400000, guid: 2694615dea363e2419866c41ad0840c6, type: 2}
     - {fileID: 11400000, guid: 13908ede5a11c3d40a1d81eaee015d6a, type: 2}
     - {fileID: 11400000, guid: 9d4918891c1804545a91c220d18f6064, type: 2}

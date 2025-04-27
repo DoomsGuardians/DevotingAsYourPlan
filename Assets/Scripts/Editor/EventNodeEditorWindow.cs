@@ -26,6 +26,10 @@ public class EventNodeEditorWindow : EditorWindow
 
     private EventNodeData loadedEventNode;
 
+    private int highlightEffectIndex = -1;
+    private double highlightStartTime = 0;
+    private const double highlightDuration = 1.0; // 秒数
+
     [MenuItem("LevityTools/Event Node Editor")]
     public static void ShowWindow()
     {
@@ -429,16 +433,21 @@ public class EventNodeEditorWindow : EditorWindow
                 }
 
                 GUILayout.EndHorizontal();
-
-                if (GUILayout.Button("移除效果", GUILayout.Height(28))) removeIndex = i;
                 EditorGUI.indentLevel--;
             }
         }
 
         // 循环结束后统一处理交换
-        if (swapFrom >= 0 && swapTo >= 0)
+        if (swapFrom >= 0 && swapTo >= 0 &&
+            swapFrom < list.Count && swapTo < list.Count)
         {
             (list[swapFrom], list[swapTo]) = (list[swapTo], list[swapFrom]);
+
+            highlightEffectIndex = swapTo;
+            highlightStartTime = EditorApplication.timeSinceStartup;
+
+            if (list[highlightEffectIndex] != null)
+                EditorGUIUtility.PingObject(list[highlightEffectIndex]);
         }
 
         // 移除效果
@@ -466,6 +475,15 @@ public class EventNodeEditorWindow : EditorWindow
         if (GUILayout.Button("添加 给予卡牌 效果", GUILayout.Height(28)))
         {
             var effect = CreateAndSaveSO<GiveSpecificCardEffect>($"{eventName}_{prefix}_给予卡牌_{list.Count}");
+            list.Add(effect);
+        }
+
+        GUILayout.Space(10);
+
+        //设定特定卡牌的效果
+        if (GUILayout.Button("添加 修改特定卡牌 效果", GUILayout.Height(28)))
+        {
+            var effect = CreateAndSaveSO<SetSpecificCardEffect>($"{eventName}_{prefix}_修改卡牌_{list.Count}");
             list.Add(effect);
         }
 
@@ -570,11 +588,14 @@ public class EventNodeEditorWindow : EditorWindow
         EditorUtility.DisplayDialog("保存成功", $"事件数据已保存到：{path}", "OK");
     }
 
-    private T CreateAndSaveSO<T>(string fileName) where T : ScriptableObject
+    private T CreateAndSaveSO<T>(string baseFileName) where T : ScriptableObject
     {
-        string path = $"Assets/SO/EventData/EventContainer/EventConditions&Effects/{eventName}";
-        Directory.CreateDirectory(path);
-        string assetPath = $"{path}/{fileName}.asset";
+        string dir = $"Assets/SO/EventData/EventContainer/EventConditions&Effects/{eventName}";
+        Directory.CreateDirectory(dir);
+
+        string uniqueID = Guid.NewGuid().ToString("N");
+        string fileName = $"{baseFileName}_{uniqueID}.asset";
+        string path = Path.Combine(dir, fileName);
 
         T so = ScriptableObject.CreateInstance<T>();
 
@@ -583,7 +604,7 @@ public class EventNodeEditorWindow : EditorWindow
         else if (so is ResolveConditionGroup resolve)
             resolve.conditions = new List<EventResolveConditionSO>();
 
-        AssetDatabase.CreateAsset(so, assetPath);
+        AssetDatabase.CreateAsset(so, path);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
         return so;

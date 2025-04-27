@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Serialization;
 
 public enum ChangeMode
 {
@@ -21,8 +22,8 @@ public class ChangeStatEffect : EventEffectSO
 
     [Tooltip("波动范围（±X）")] public float variance = 0f;
 
-    [Tooltip("特定词条数量影响因子（1+词条数/卡牌总数）乘数")] [RoleStatKey]
-    public string entryName;
+    [FormerlySerializedAs("entryName")] [Tooltip("特定词条数量影响因子（1+词条数/卡牌总数）乘数")]
+    public CardEntry specificEntry;
 
     [Tooltip("特定词条数量影响因子乘数 为0就没有效果哦")] public int entryactor = 1;
 
@@ -33,10 +34,10 @@ public class ChangeStatEffect : EventEffectSO
 
         int finalFactor = 1;
 
-        if (entryName != null && statKey == entryName)
+        if (specificEntry != null && statKey == specificEntry.entryName)
         {
             finalFactor = entryactor * (1 + GameManager.Instance.playerCardHolder.cards.Count(c =>
-                    c.runtimeData.entries.Any(e => e.entryName == entryName)) /
+                    c.runtimeData.entries.Any(e => e == specificEntry)) /
                 GameManager.Instance.playerCardHolder.cards.Count());
         }
 
@@ -62,6 +63,6 @@ public class ChangeStatEffect : EventEffectSO
     }
 
     public override string Description =>
-        $"{targetRole} 的 {statKey} {(mode == ChangeMode.Add ? "+=" : (mode == ChangeMode.Set ? "设为" : "乘以"))} {entryactor * (1 + GameManager.Instance.playerCardHolder.cards.Count(c => c.runtimeData.entries.Any(e => e.entryName == entryName)) / GameManager.Instance.playerCardHolder.cards.Count())} * {value}" +
+        $"{targetRole} 的 {statKey} {(mode == ChangeMode.Add ? "+=" : (mode == ChangeMode.Set ? "设为" : "乘以"))} {entryactor * (1 + GameManager.Instance.playerCardHolder.cards.Count(c => c.runtimeData.entries.Any(e => e == specificEntry)) / GameManager.Instance.playerCardHolder.cards.Count())} * {value}" +
         (variance > 0 ? $" ±{variance}" : "");
 }
