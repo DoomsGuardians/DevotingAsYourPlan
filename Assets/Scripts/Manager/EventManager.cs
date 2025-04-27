@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 public class EventManager
 {
-    
     public List<EventInstance> activeEvents;
-    
+
     private List<EventNodeData> pendingEvents = new();
 
     private List<EventNodeData> defaultEvents = new();
@@ -27,12 +26,13 @@ public class EventManager
     private GameObject actionSlot;
 
     private List<RectTransform> eventHolders;
-    
+
     private const int MAX_PLAYER_ACTION_COUNT = 4;
 
     private const int PLAYER_INDEX = 0;
-    
-    public void Initialize(List<EventNodeData> defaultList, GameObject eventPrefab, GameObject actionPrefab, List<RectTransform> holder)
+
+    public void Initialize(List<EventNodeData> defaultList, GameObject eventPrefab, GameObject actionPrefab,
+        List<RectTransform> holder)
     {
         activeEvents = new();
         defaultEvents = defaultList;
@@ -43,6 +43,7 @@ public class EventManager
     }
 
     #region 处理事件触发
+
     /// <summary>
     /// 加入一个待检测是否生成的事件（由事件分支或 TriggerEffect 调用）
     /// </summary>
@@ -54,6 +55,7 @@ public class EventManager
             Debug.Log($"[事件队列] 已加入等待触发事件：{data.eventName}");
         }
     }
+
     /// <summary>
     /// 在 NPC 阶段调用，判断条件，生成满足条件的事件
     /// </summary>
@@ -63,11 +65,12 @@ public class EventManager
         await ProcessPending();
         await GameManager.Instance.TransitionToStateAsync(TurnPhase.EndTurn);
     }
+
     private async UniTask ProcessPending()
     {
-        if (GameManager.Instance.eventHolders[PLAYER_INDEX].childCount <= MAX_PLAYER_ACTION_COUNT)
+        if (eventHolders.Count == 1)
         {
-            foreach (var data in pendingEvents.FindAll((EventNodeData s) => (int)s.sourceRole == PLAYER_INDEX)?.ToArray())
+            foreach (var data in pendingEvents?.ToArray())
             {
                 // 是否唯一事件已触发
                 if (data.isUnique && triggeredEventIDs.Contains(data.eventID))
@@ -93,7 +96,8 @@ public class EventManager
                 bool canTrigger = data.triggerConditions.EvaluateAll(data);
                 if (canTrigger)
                 {
-                    EventInstance instance = GameObject.Instantiate(actionSlot, eventHolders[PLAYER_INDEX]).GetComponent<EventInstance>();
+                    EventInstance instance = GameObject.Instantiate(eventSlot, eventHolders[PLAYER_INDEX])
+                        .GetComponent<EventInstance>();
                     await instance.Initialize(data);
                     activeEvents.Add(instance);
 
@@ -104,62 +108,113 @@ public class EventManager
                 {
                     Debug.Log($"[事件保留] 条件不满足 → 保留事件：{data.eventName}");
                 }
-                if(GameManager.Instance.eventHolders[PLAYER_INDEX].childCount>=4) break;
-            } 
+            }
         }
 
-        //处理其他角色
-        for (int i = PLAYER_INDEX+1; i <= GameManager.Instance.eventHolders.Count-1 ; i++)
+
+        else
         {
-            if (GameManager.Instance.eventHolders[i].childCount >= 3) continue;
-            foreach (var data in pendingEvents.FindAll((EventNodeData s) => (int)s.sourceRole == i)?.ToArray())
+            if (GameManager.Instance.eventHolders[PLAYER_INDEX].childCount <= MAX_PLAYER_ACTION_COUNT)
             {
-                // 是否唯一事件已触发
-                if (data.isUnique && triggeredEventIDs.Contains(data.eventID))
+                foreach (var data in pendingEvents.FindAll((EventNodeData s) => (int)s.sourceRole == PLAYER_INDEX)
+                             ?.ToArray())
                 {
-                    Debug.Log($"[事件跳过] 唯一事件已触发过：{data.eventName}");
-                    continue;
-                }
+                    // 是否唯一事件已触发
+                    if (data.isUnique && triggeredEventIDs.Contains(data.eventID))
+                    {
+                        Debug.Log($"[事件跳过] 唯一事件已触发过：{data.eventName}");
+                        continue;
+                    }
 
-                // 是否在冷却中
-                if (cooldownTimers.TryGetValue(data.eventID, out int cooldown) && cooldown > 0)
-                {
-                    Debug.Log($"[事件跳过] {data.eventName} 冷却中，剩余 {cooldown} 回合");
-                    continue;
-                }
+                    // 是否在冷却中
+                    if (cooldownTimers.TryGetValue(data.eventID, out int cooldown) && cooldown > 0)
+                    {
+                        Debug.Log($"[事件跳过] {data.eventName} 冷却中，剩余 {cooldown} 回合");
+                        continue;
+                    }
 
-                // 如果事件有冷却时间且没有加入到 cooldownTimers 中，就加入
-                if (data.cooldownTurns > 0 && !cooldownTimers.ContainsKey(data.eventID))
-                {
-                    cooldownTimers[data.eventID] = data.cooldownTurns; // 初始化冷却时间
-                    Debug.Log($"[冷却设置] {data.eventName} 设置初始冷却 {data.cooldownTurns} 回合");
-                }
+                    // 如果事件有冷却时间且没有加入到 cooldownTimers 中，就加入
+                    if (data.cooldownTurns > 0 && !cooldownTimers.ContainsKey(data.eventID))
+                    {
+                        cooldownTimers[data.eventID] = data.cooldownTurns; // 初始化冷却时间
+                        Debug.Log($"[冷却设置] {data.eventName} 设置初始冷却 {data.cooldownTurns} 回合");
+                    }
 
-                bool canTrigger = data.triggerConditions.EvaluateAll(data);
-                if (canTrigger)
-                {
-                    EventInstance instance = GameObject.Instantiate(eventSlot, eventHolders[i]).GetComponent<EventInstance>();
-                    await instance.Initialize(data);
-                    activeEvents.Add(instance);
+                    bool canTrigger = data.triggerConditions.EvaluateAll(data);
+                    if (canTrigger)
+                    {
+                        EventInstance instance = GameObject.Instantiate(actionSlot, eventHolders[PLAYER_INDEX])
+                            .GetComponent<EventInstance>();
+                        await instance.Initialize(data);
+                        activeEvents.Add(instance);
 
-                    Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
-                    pendingEvents.Remove(data);
+                        Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
+                        pendingEvents.Remove(data);
+                    }
+                    else
+                    {
+                        Debug.Log($"[事件保留] 条件不满足 → 保留事件：{data.eventName}");
+                    }
+
+                    if (GameManager.Instance.eventHolders[PLAYER_INDEX].childCount >= 4) break;
                 }
-                else
+            }
+
+            //处理其他角色
+            for (int i = PLAYER_INDEX + 1; i <= GameManager.Instance.eventHolders.Count - 1; i++)
+            {
+                if (GameManager.Instance.eventHolders[i].childCount >= 3) continue;
+                foreach (var data in pendingEvents.FindAll((EventNodeData s) => (int)s.sourceRole == i)?.ToArray())
                 {
-                    Debug.Log($"[事件保留] 条件不满足 → 保留事件：{data.eventName}");
+                    // 是否唯一事件已触发
+                    if (data.isUnique && triggeredEventIDs.Contains(data.eventID))
+                    {
+                        Debug.Log($"[事件跳过] 唯一事件已触发过：{data.eventName}");
+                        continue;
+                    }
+
+                    // 是否在冷却中
+                    if (cooldownTimers.TryGetValue(data.eventID, out int cooldown) && cooldown > 0)
+                    {
+                        Debug.Log($"[事件跳过] {data.eventName} 冷却中，剩余 {cooldown} 回合");
+                        continue;
+                    }
+
+                    // 如果事件有冷却时间且没有加入到 cooldownTimers 中，就加入
+                    if (data.cooldownTurns > 0 && !cooldownTimers.ContainsKey(data.eventID))
+                    {
+                        cooldownTimers[data.eventID] = data.cooldownTurns; // 初始化冷却时间
+                        Debug.Log($"[冷却设置] {data.eventName} 设置初始冷却 {data.cooldownTurns} 回合");
+                    }
+
+                    bool canTrigger = data.triggerConditions.EvaluateAll(data);
+                    if (canTrigger)
+                    {
+                        EventInstance instance = GameObject.Instantiate(eventSlot, eventHolders[i])
+                            .GetComponent<EventInstance>();
+                        await instance.Initialize(data);
+                        activeEvents.Add(instance);
+
+                        Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
+                        pendingEvents.Remove(data);
+                    }
+                    else
+                    {
+                        Debug.Log($"[事件保留] 条件不满足 → 保留事件：{data.eventName}");
+                    }
+
+                    if (GameManager.Instance.eventHolders[i].childCount >= 3) break;
                 }
-                if(GameManager.Instance.eventHolders[i].childCount>=3) break;
             }
         }
     }
+
     private async UniTask ProcessDefault()
     {
-        //处理其他角色
-        for (int i = PLAYER_INDEX+1; i <= GameManager.Instance.eventHolders.Count-1 ; i++)
+        if (eventHolders.Count == 1)
         {
-            if (GameManager.Instance.eventHolders[i].childCount >= 3) continue;
-            foreach (var data in defaultEvents.FindAll((EventNodeData s) => (int)s.sourceRole == i)?.ToArray())
+            //处理其他角色
+            foreach (var data in defaultEvents.FindAll((EventNodeData s) => s.sourceRole != RoleType.Player)?.ToArray())
             {
                 // 是否唯一事件已触发
                 if (data.isUnique && triggeredEventIDs.Contains(data.eventID))
@@ -185,7 +240,8 @@ public class EventManager
                 bool canTrigger = data.triggerConditions.EvaluateAll(data);
                 if (canTrigger)
                 {
-                    EventInstance instance = GameObject.Instantiate(eventSlot, eventHolders[i]).GetComponent<EventInstance>();
+                    EventInstance instance = GameObject.Instantiate(eventSlot, eventHolders[PLAYER_INDEX])
+                        .GetComponent<EventInstance>();
                     await instance.Initialize(data);
                     activeEvents.Add(instance);
 
@@ -195,16 +251,64 @@ public class EventManager
                 {
                     Debug.Log($"[事件保留] 条件不满足 -> 保留事件：{data.eventName}");
                 }
-                if(GameManager.Instance.eventHolders[i].childCount>=3) break;
+            }
+        }
+        else
+        {
+            //处理其他角色
+            for (int i = PLAYER_INDEX + 1; i <= GameManager.Instance.eventHolders.Count - 1; i++)
+            {
+                if (GameManager.Instance.eventHolders[i].childCount >= 3) continue;
+                foreach (var data in defaultEvents.FindAll((EventNodeData s) => (int)s.sourceRole == i)?.ToArray())
+                {
+                    // 是否唯一事件已触发
+                    if (data.isUnique && triggeredEventIDs.Contains(data.eventID))
+                    {
+                        Debug.Log($"[事件跳过] 唯一事件已触发过：{data.eventName}");
+                        continue;
+                    }
+
+                    // 是否在冷却中
+                    if (cooldownTimers.TryGetValue(data.eventID, out int cooldown) && cooldown > 0)
+                    {
+                        Debug.Log($"[事件跳过] {data.eventName} 冷却中，剩余 {cooldown} 回合");
+                        continue;
+                    }
+
+                    // 如果事件有冷却时间且没有加入到 cooldownTimers 中，就加入
+                    if (data.cooldownTurns > 0 && !cooldownTimers.ContainsKey(data.eventID))
+                    {
+                        cooldownTimers[data.eventID] = data.cooldownTurns; // 初始化冷却时间
+                        Debug.Log($"[冷却设置] {data.eventName} 设置初始冷却 {data.cooldownTurns} 回合");
+                    }
+
+                    bool canTrigger = data.triggerConditions.EvaluateAll(data);
+                    if (canTrigger)
+                    {
+                        EventInstance instance = GameObject.Instantiate(eventSlot, eventHolders[i])
+                            .GetComponent<EventInstance>();
+                        await instance.Initialize(data);
+                        activeEvents.Add(instance);
+
+                        Debug.Log($"[事件生成] 满足条件 -> 创建事件：{data.eventName}");
+                    }
+                    else
+                    {
+                        Debug.Log($"[事件保留] 条件不满足 -> 保留事件：{data.eventName}");
+                    }
+
+                    if (GameManager.Instance.eventHolders[i].childCount >= 3) break;
+                }
             }
         }
     }
 
     public async UniTask ProcessPlayerDefault()
     {
-        if (GameManager.Instance.eventHolders[PLAYER_INDEX].childCount <= MAX_PLAYER_ACTION_COUNT)
+        if (eventHolders.Count == 1)
         {
-            foreach (var data in defaultEvents.FindAll((EventNodeData s) => (int)s.sourceRole == PLAYER_INDEX)?.ToArray())
+            foreach (var data in defaultEvents.FindAll((EventNodeData s) => (int)s.sourceRole == PLAYER_INDEX)
+                         ?.ToArray())
             {
                 // 是否唯一事件已触发
                 if (data.isUnique && triggeredEventIDs.Contains(data.eventID))
@@ -230,7 +334,8 @@ public class EventManager
                 bool canTrigger = data.triggerConditions.EvaluateAll(data);
                 if (canTrigger)
                 {
-                    EventInstance instance = GameObject.Instantiate(actionSlot, eventHolders[PLAYER_INDEX]).GetComponent<EventInstance>();
+                    EventInstance instance = GameObject.Instantiate(eventSlot, eventHolders[PLAYER_INDEX])
+                        .GetComponent<EventInstance>();
                     await instance.Initialize(data);
                     activeEvents.Add(instance);
                     Debug.Log($"[事件生成] 满足条件 -> 创建事件：{data.eventName}");
@@ -239,12 +344,58 @@ public class EventManager
                 {
                     Debug.Log($"[事件保留] 条件不满足 -> 保留事件：{data.eventName}");
                 }
-                if(GameManager.Instance.eventHolders[PLAYER_INDEX].childCount>=MAX_PLAYER_ACTION_COUNT) 
-                {
-                    break;
-                }
-            } 
+            }
         }
+        else
+        {
+            if (GameManager.Instance.eventHolders[PLAYER_INDEX].childCount <= MAX_PLAYER_ACTION_COUNT)
+            {
+                foreach (var data in defaultEvents.FindAll((EventNodeData s) => (int)s.sourceRole == PLAYER_INDEX)
+                             ?.ToArray())
+                {
+                    // 是否唯一事件已触发
+                    if (data.isUnique && triggeredEventIDs.Contains(data.eventID))
+                    {
+                        Debug.Log($"[事件跳过] 唯一事件已触发过：{data.eventName}");
+                        continue;
+                    }
+
+                    // 是否在冷却中
+                    if (cooldownTimers.TryGetValue(data.eventID, out int cooldown) && cooldown > 0)
+                    {
+                        Debug.Log($"[事件跳过] {data.eventName} 冷却中，剩余 {cooldown} 回合");
+                        continue;
+                    }
+
+                    // 如果事件有冷却时间且没有加入到 cooldownTimers 中，就加入
+                    if (data.cooldownTurns > 0 && !cooldownTimers.ContainsKey(data.eventID))
+                    {
+                        cooldownTimers[data.eventID] = data.cooldownTurns; // 初始化冷却时间
+                        Debug.Log($"[冷却设置] {data.eventName} 设置初始冷却 {data.cooldownTurns} 回合");
+                    }
+
+                    bool canTrigger = data.triggerConditions.EvaluateAll(data);
+                    if (canTrigger)
+                    {
+                        EventInstance instance = GameObject.Instantiate(actionSlot, eventHolders[PLAYER_INDEX])
+                            .GetComponent<EventInstance>();
+                        await instance.Initialize(data);
+                        activeEvents.Add(instance);
+                        Debug.Log($"[事件生成] 满足条件 -> 创建事件：{data.eventName}");
+                    }
+                    else
+                    {
+                        Debug.Log($"[事件保留] 条件不满足 -> 保留事件：{data.eventName}");
+                    }
+
+                    if (GameManager.Instance.eventHolders[PLAYER_INDEX].childCount >= MAX_PLAYER_ACTION_COUNT)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
         await GameManager.Instance.TransitionToStateAsync(TurnPhase.DrawCard);
     }
 
@@ -270,8 +421,9 @@ public class EventManager
     }
 
     #endregion
-    
+
     #region 处理事件效果
+
     public async UniTask ResolveEventsEffectAsync()
     {
         foreach (var evt in activeEvents.ToArray())
@@ -303,7 +455,7 @@ public class EventManager
                 await TransferCardsOutOfEvent(evt);
 
                 await ExecuteEffectsAsync(evt, evt.data.expiredEffects);
-            
+
                 await CleanupEventAsync(evt);
             }
             else if (!matched)
@@ -338,7 +490,7 @@ public class EventManager
         }
     }
 
-    public async UniTask ExecuteEffectsAsync(EventInstance evt, List<EventEffectSO>effects)
+    public async UniTask ExecuteEffectsAsync(EventInstance evt, List<EventEffectSO> effects)
     {
         foreach (var effect in effects)
         {
@@ -346,7 +498,6 @@ public class EventManager
         }
     }
 
-    
     #endregion
 
 
@@ -373,6 +524,4 @@ public class EventManager
     }
 
     #endregion
-
 }
-

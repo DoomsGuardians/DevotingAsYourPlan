@@ -15,7 +15,7 @@ MonoBehaviour:
   ReferenceResolution: {x: 1920, y: 1080}
   ReferencePPU: 100
   MatchScreenWidth: 0
-  InitialPosition: {x: 0, y: 0, z: -10}
+  InitialPosition: {x: 0, y: 0, z: -200}
   CustomCameraPrefab: {fileID: 7603906372768356006, guid: d32b0c0c5be259843a8318ad930cbade, type: 3}
   UseUICamera: 0
   CustomUICameraPrefab: {fileID: 7603906372768356006, guid: d32b0c0c5be259843a8318ad930cbade, type: 3}

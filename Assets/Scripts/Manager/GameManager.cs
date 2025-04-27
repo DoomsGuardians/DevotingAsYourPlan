@@ -8,8 +8,7 @@ using System.Linq;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    [Header("配置资源")]
-    [SerializeField] private CardPool defaultCardPool; //默认牌库
+    [Header("配置资源")] [SerializeField] private CardPool defaultCardPool; //默认牌库
     [SerializeField] public HorizontalCardHolder playerCardHolder;
     [SerializeField] private GameObject eventSlotPrefab;
     [SerializeField] private GameObject actionSlotPrefab;
@@ -26,11 +25,18 @@ public class GameManager : MonoSingleton<GameManager>
 
     public async Cysharp.Threading.Tasks.UniTask PlayScenarioAsync(string scriptName)
     {
+        foreach (var holder in eventHolders)
+        {
+            holder.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        }
+
+        playerCardHolder.GetComponent<CanvasGroup>().blocksRaycasts = false;
+
         if (!Engine.Initialized) await RuntimeInitializer.Initialize();
         // 1.Enable Naninovel input.
         var inputManager = Engine.GetService<IInputManager>();
         inputManager.ProcessInput = true;
-        
+
         if (string.IsNullOrEmpty(scriptName))
         {
             Debug.LogWarning("[NaninovelEffect] 未设置剧本名");
@@ -53,15 +59,37 @@ public class GameManager : MonoSingleton<GameManager>
 
             // Wait for the script to finish using the event system
             await WaitForScriptToFinish(player);
-            
         }
         catch (System.Exception ex)
         {
             Debug.LogError($"[NaninovelEffect] 播放剧本时出错：{ex.Message}");
         }
-
-        return;
     }
+
+    public async Cysharp.Threading.Tasks.UniTask ExitScenarioAsync()
+    {
+        foreach (var holder in eventHolders)
+        {
+            holder.GetComponent<CanvasGroup>().interactable = true;
+            holder.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        }
+
+        playerCardHolder.GetComponent<CanvasGroup>().interactable = true;
+        playerCardHolder.GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+        // 1. Disable Naninovel input.
+        var inputManager = Engine.GetService<IInputManager>();
+        inputManager.ProcessInput = false;
+
+        // 2. Stop script player.
+        var scriptPlayer = Engine.GetService<IScriptPlayer>();
+        scriptPlayer.Stop();
+
+        var stateManager = Engine.GetService<IStateManager>();
+        // 播放完后，你可以在这里恢复游戏逻辑
+        await stateManager.ResetState();
+    }
+
 
     // Helper method to wait for script to finish
     private async Cysharp.Threading.Tasks.UniTask WaitForScriptToFinish(IScriptPlayer player)
@@ -78,16 +106,20 @@ public class GameManager : MonoSingleton<GameManager>
     }
 
     #endregion
-    
-    
+
+
     #region 回合制状态机
-        public TurnStateManager turnStateMachine;
+
+    public TurnStateManager turnStateMachine;
+
     #endregion
 
     #region 管理器
+
     public CardManager CardManager { get; private set; }
     public RoleManager RoleManager { get; private set; }
     public EventManager EventManager { get; private set; }
+
     #endregion
 
 
@@ -98,10 +130,11 @@ public class GameManager : MonoSingleton<GameManager>
         CardManager = new CardManager();
         RoleManager = new RoleManager();
         EventManager = new EventManager();
-        
+
         CardManager.Initialize(defaultCardPool, playerCardHolder);
         RoleManager.Initialize(roleDataConfigs, statDefinitionTable);
-        EventManager.Initialize(defaultEventNodeDatas.eventNodeDataList, eventSlotPrefab, actionSlotPrefab, eventHolders);
+        EventManager.Initialize(defaultEventNodeDatas.eventNodeDataList, eventSlotPrefab, actionSlotPrefab,
+            eventHolders);
         Debug.Log("GameManager初始化完成");
         turnStateMachine = new TurnStateManager(this);
     }
@@ -109,9 +142,9 @@ public class GameManager : MonoSingleton<GameManager>
     private async void Start()
     {
         Debug.Log("开始游戏启动流程");
-        
-        if(IntroScenario!=null)
-        await PlayScenarioAsync(IntroScenario);
+
+        if (IntroScenario != "")
+            await PlayScenarioAsync(IntroScenario);
         // 随机播放背景音乐
         AudioManager.Instance.PlayRandomBGM(AudioManager.Instance.audioConfig.GetKeysByPrefix("bgm_").ToArray());
         CardManager.LoadInitialCards(playerCardHolder, initialCardPool);
@@ -134,12 +167,13 @@ public class GameManager : MonoSingleton<GameManager>
         if (entry == null)
         {
             Debug.LogWarning($"未能找到名为 {specificName} 的条目！");
-            return null;  // 返回 null 或者其他错误处理
+            return null; // 返回 null 或者其他错误处理
         }
+
         return entry;
     }
 
-    public async Cysharp.Threading.Tasks.UniTask DrawCardsAsync()//此后将用于处理每回合开始人民奉献给玩家的卡牌
+    public async Cysharp.Threading.Tasks.UniTask DrawCardsAsync() //此后将用于处理每回合开始人民奉献给玩家的卡牌
     {
         CardManager.GiveConformityOrthodoxyEntries(playerCardHolder.cards);
         await CardManager.DrawCardsAsync();
@@ -149,7 +183,8 @@ public class GameManager : MonoSingleton<GameManager>
 
     public async Cysharp.Threading.Tasks.UniTask ProcessEventTrigger() => await EventManager.ProcessEventTrigger();
 
-    public async Cysharp.Threading.Tasks.UniTask ProcessPlayerDefaultTrigger() => await EventManager.ProcessPlayerDefault();
+    public async Cysharp.Threading.Tasks.UniTask ProcessPlayerDefaultTrigger() =>
+        await EventManager.ProcessPlayerDefault();
 
     public async Cysharp.Threading.Tasks.UniTask ResolveEventEffect() => await EventManager.ResolveEventsEffectAsync();
 
@@ -162,6 +197,6 @@ public class GameManager : MonoSingleton<GameManager>
     public void RefreshCards() => CardManager.RefreshCards();
 
     public void SettleAllRoles() => RoleManager.SettleAllRoles();
-    
+
     public override bool IsNotDestroyOnLoad() => false;
 }

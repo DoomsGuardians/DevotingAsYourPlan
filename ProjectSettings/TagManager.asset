@@ -42,6 +42,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: NaniNovel
+    uniqueID: 630449183
+    locked: 0
   - name: EffectLayer
     uniqueID: 3943087487
     locked: 0
