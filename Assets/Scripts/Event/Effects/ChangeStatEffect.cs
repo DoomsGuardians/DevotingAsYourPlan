@@ -63,6 +63,7 @@ public class ChangeStatEffect : EventEffectSO
     }
 
     public override string Description =>
-        $"{targetRole} 的 {statKey} {(mode == ChangeMode.Add ? "+=" : (mode == ChangeMode.Set ? "设为" : "乘以"))} {entryactor} * 目標詞條在玩家手牌中的占比 * {value}" +
+        $"{targetRole} 的 {statKey} {(mode == ChangeMode.Add ? "+=" : (mode == ChangeMode.Set ? "设为" : "乘以"))} {entryactor} * " +
+        (specificEntry ? $"{specificEntry.entryName}在玩家手牌中的占比 * " : "") + $"{value}" +
         (variance > 0 ? $" ±{variance}" : "");
 }

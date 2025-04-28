@@ -81,6 +81,7 @@ public class EventNodeEditorWindow : EditorWindow
             cooldownTurns = EditorGUILayout.IntSlider("冷却回合数", cooldownTurns, 0, 10);
             decreaseFactor = EditorGUILayout.FloatField("损耗系数", decreaseFactor);
         }
+
         GUILayout.EndVertical();
         GUILayout.Space(5);
         GUILayout.BeginVertical("box");
@@ -91,6 +92,7 @@ public class EventNodeEditorWindow : EditorWindow
         {
             DrawTriggerConditionGroup();
         }
+
         GUILayout.EndHorizontal();
         GUILayout.Space(5);
         GUILayout.BeginVertical("box");
@@ -101,6 +103,7 @@ public class EventNodeEditorWindow : EditorWindow
         {
             DrawEffectList(expiredEffects, "ExpiredEffect", 1);
         }
+
         GUILayout.EndVertical();
         GUILayout.Space(5);
         GUILayout.BeginVertical("box");
@@ -109,7 +112,6 @@ public class EventNodeEditorWindow : EditorWindow
         SetFoldout("分支设置", branchExpanded);
         if (branchExpanded)
         {
-
             int branchToRemove = -1;
 
             for (int i = 0; i < branches.Count; i++)
@@ -137,6 +139,7 @@ public class EventNodeEditorWindow : EditorWindow
                         branchToRemove = i;
                     }
                 }
+
                 GUILayout.EndHorizontal();
                 SetFoldout(key, expanded);
 
@@ -163,8 +166,10 @@ public class EventNodeEditorWindow : EditorWindow
 
                     EditorGUI.indentLevel--;
                 }
+
                 GUILayout.EndVertical();
             }
+
             if (GUILayout.Button("添加分支", GUILayout.Height(28))) branches.Add(new EventOutcomeBranch());
             if (branchToRemove >= 0)
             {
@@ -176,6 +181,7 @@ public class EventNodeEditorWindow : EditorWindow
                 branches.RemoveAt(branchToRemove);
             }
         }
+
         GUILayout.EndHorizontal();
         GUILayout.Space(20);
         if (loadedEventNode != null && GUILayout.Button("基于当前事件克隆为新事件", GUILayout.Height(28)))
@@ -195,7 +201,6 @@ public class EventNodeEditorWindow : EditorWindow
         SetFoldout("總覽", summaryExpanded);
         if (summaryExpanded)
         {
-
             GUILayout.Label("事件信息", EditorStyles.boldLabel);
             GUILayout.Label($"事件名称: {eventName}");
             GUILayout.Label($"事件ID: {eventID}");
@@ -238,6 +243,7 @@ public class EventNodeEditorWindow : EditorWindow
                             GUILayout.Label($"    条件描述: {cond.Description}");
                         }
                     }
+
                     GUILayout.Space(5);
                     if (branch.effects != null && branch.effects.Count > 0)
                     {
@@ -272,6 +278,7 @@ public class EventNodeEditorWindow : EditorWindow
         {
             triggerGroup = CreateAndSaveSO<TriggerConditionGroup>($"{eventID}_TriggerGroup");
         }
+
         GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
         triggerGroup =
@@ -283,7 +290,8 @@ public class EventNodeEditorWindow : EditorWindow
             {
                 TriggerConditionSelectorWindow.Show(type =>
                 {
-                    var cond = (EventTriggerConditionSO)CreateAndSaveSO(type, $"TriggerCond_{eventID}_{triggerGroup.name}_{triggerGroup.conditions.Count}");
+                    var cond = (EventTriggerConditionSO)CreateAndSaveSO(type,
+                        $"TriggerCond_{eventID}_{triggerGroup.name}_{triggerGroup.conditions.Count}");
                     triggerGroup.conditions.Add(cond);
                     EditorUtility.SetDirty(triggerGroup);
                     AssetDatabase.SaveAssets();
@@ -344,12 +352,14 @@ public class EventNodeEditorWindow : EditorWindow
                             removeIndex = i;
                         }
                     }
+
                     GUILayout.EndHorizontal();
                     if (triggerGroup.conditions[i] != null)
                     {
                         var editor = Editor.CreateEditor(triggerGroup.conditions[i]);
                         editor?.OnInspectorGUI();
                     }
+
                     EditorGUI.indentLevel--;
                 }
             }
@@ -361,14 +371,11 @@ public class EventNodeEditorWindow : EditorWindow
                 EditorUtility.SetDirty(triggerGroup);
                 AssetDatabase.SaveAssets();
             }
-
-
         }
-
     }
 
 
-private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int indent)
+    private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int indent)
     {
         GUILayout.BeginHorizontal();
         GUILayout.Label("结算条件组", EditorStyles.boldLabel);
@@ -376,32 +383,36 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
         bigButtonStyle.fontSize = 20; // 字号大一点
         bigButtonStyle.fontStyle = FontStyle.Bold;
         bigButtonStyle.normal.textColor = Color.white;
-        if (branch.matchConditions == null && GUILayout.Button("+",bigButtonStyle, GUILayout.Width(30), GUILayout.Height(28)))
+        if (branch.matchConditions == null &&
+            GUILayout.Button("+", bigButtonStyle, GUILayout.Width(30), GUILayout.Height(28)))
         {
             branch.matchConditions = CreateAndSaveSO<ResolveConditionGroup>($"{eventID}_ResolveGroup_{index}");
         }
+
         GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
         branch.matchConditions = (ResolveConditionGroup)EditorGUILayout.ObjectField("条件组资源", branch.matchConditions,
             typeof(ResolveConditionGroup), false);
         if (branch.matchConditions != null)
         {
-
             if (GUILayout.Button("+", bigButtonStyle, GUILayout.Width(30), GUILayout.Height(28)))
             {
                 ResolveConditionSelectorWindow.Show(type =>
                 {
-                    var cond = CreateAndSaveSO(type, $"ResolveCond_{eventID}_{branch.label}_{branch.matchConditions.conditions.Count}");
+                    var cond = CreateAndSaveSO(type,
+                        $"ResolveCond_{eventID}_{branch.label}_{branch.matchConditions.conditions.Count}");
                     branch.matchConditions.conditions.Add((EventResolveConditionSO)cond);
                     EditorUtility.SetDirty(branch.matchConditions);
                     AssetDatabase.SaveAssets();
                 });
             }
         }
+
         GUILayout.EndHorizontal();
 
         if (branch.matchConditions != null)
         {
+            branch.matchConditions.label = EditorGUILayout.TextField("结算条件组名称", branch.matchConditions.label);
             int removeIndex = -1;
             for (int i = 0; i < branch.matchConditions.conditions.Count; i++)
             {
@@ -409,7 +420,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
                 bool expanded = GetFoldout(key, false);
                 GUILayout.BeginVertical("box");
                 GUILayout.BeginHorizontal();
-                expanded = EditorGUILayout.Foldout(expanded, $"結算条件{i + 1} {branch.matchConditions.label}", true);
+                expanded = EditorGUILayout.Foldout(expanded, $"{branch.matchConditions.label} 条件{i + 1}", true);
                 if (GUILayout.Button("↑", GUILayout.Width(30), GUILayout.Height(28)) && i > 0)
                 {
                     (branch.matchConditions.conditions[i], branch.matchConditions.conditions[i - 1]) =
@@ -432,12 +443,12 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
                         removeIndex = i;
                     }
                 }
+
                 GUILayout.EndHorizontal();
                 SetFoldout(key, expanded);
 
                 if (expanded)
                 {
-                    branch.matchConditions.label = EditorGUILayout.TextField("結算條件組名称", branch.matchConditions.label);
                     EditorGUI.indentLevel++;
                     branch.matchConditions.conditions[i] =
                         (EventResolveConditionSO)EditorGUILayout.ObjectField(branch.matchConditions.conditions[i],
@@ -447,8 +458,10 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
                         var editor = Editor.CreateEditor(branch.matchConditions.conditions[i]);
                         editor?.OnInspectorGUI();
                     }
+
                     EditorGUI.indentLevel--;
                 }
+
                 GUILayout.EndVertical();
             }
 
@@ -460,8 +473,8 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
                 AssetDatabase.SaveAssets();
             }
         }
-
     }
+
     private void DrawEffectList(List<EventEffectSO> list, string prefix, int indent)
     {
         int removeIndex = -1;
@@ -470,7 +483,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
 
         GUILayout.BeginVertical();
         GUILayout.BeginHorizontal();
-        GUILayout.Label("效果组", EditorStyles.boldLabel);
+        GUILayout.Label($"效果组", EditorStyles.boldLabel);
         GUILayout.FlexibleSpace();
         GUIStyle bigButtonStyle = new GUIStyle(GUI.skin.button);
         bigButtonStyle.fontSize = 20;
@@ -487,6 +500,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
                 AssetDatabase.SaveAssets();
             });
         }
+
         GUILayout.EndHorizontal();
         // 循环遍历效果
         for (int i = 0; i < list.Count; i++)
@@ -516,6 +530,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
                     removeIndex = i;
                 }
             }
+
             GUILayout.EndHorizontal();
             SetFoldout(key, expanded);
 
@@ -531,6 +546,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
 
                 EditorGUI.indentLevel--;
             }
+
             GUILayout.EndVertical();
         }
 
@@ -557,8 +573,6 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
             TryDeleteAsset(list[removeIndex]);
             list.RemoveAt(removeIndex);
         }
-
-
     }
 
 
@@ -906,7 +920,7 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
     private void PasteBranchDeep(int branchIndex)
     {
         string newFolderForConditionEffects =
-        $"Assets/SO/EventData/EventContainer/EventConditions&Effects/{eventName}";
+            $"Assets/SO/EventData/EventContainer/EventConditions&Effects/{eventName}";
         if (copiedBranch != null)
         {
             string uniqueID = Guid.NewGuid().ToString("N");
@@ -927,7 +941,8 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
                 foreach (var condition in copiedBranch.matchConditions.conditions)
                 {
                     // 克隆每个条件
-                    var newCondition = CloneSOAsset(condition, $"{newFolderForConditionEffects}/{condition.name}_Copied_{uniqueID}.asset");
+                    var newCondition = CloneSOAsset(condition,
+                        $"{newFolderForConditionEffects}/{condition.name}_Copied_{uniqueID}.asset");
                     newBranch.matchConditions.conditions.Add(newCondition);
                 }
             }
@@ -939,7 +954,8 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
                 foreach (var effect in copiedBranch.effects)
                 {
                     // 克隆每个效果
-                    var newEffect = CloneSOAsset(effect, $"{newFolderForConditionEffects}/{effect.name}_Copied_{uniqueID}.asset");
+                    var newEffect = CloneSOAsset(effect,
+                        $"{newFolderForConditionEffects}/{effect.name}_Copied_{uniqueID}.asset");
                     newBranch.effects.Add(newEffect);
                 }
             }
@@ -952,7 +968,4 @@ private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int
             Debug.Log("分支已粘贴");
         }
     }
-
-
-
 }
