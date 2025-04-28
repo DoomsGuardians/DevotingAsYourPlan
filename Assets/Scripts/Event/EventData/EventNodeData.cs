@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "Events/事件节点")]
 public class EventNodeData : ScriptableObject
@@ -19,7 +20,9 @@ public class EventNodeData : ScriptableObject
     [Header("条件与效果")] [Tooltip("设置触发事件的条件组")]
     public TriggerConditionGroup triggerConditions; // 条件组
 
-    [Tooltip("设置事件根据不同输入卡牌的分支条件和分支效果组")] public List<EventOutcomeBranch> outcomeBranches;
+    [FormerlySerializedAs("branchesGroups")] [Tooltip("设置事件根据不同输入卡牌的分支条件和分支效果组")]
+    public List<BranchGroup> branchGroups;
+
     [Tooltip("设置事件过期未处理的效果组")] public List<EventEffectSO> expiredEffects; // 过期事件
 
     [TextArea(25, 10)] public string description;

@@ -5,6 +5,7 @@ using System.Linq;
 using System;
 using System.IO;
 using Naninovel.UI;
+using Unity.VisualScripting;
 
 public class EventNodeEditorWindow : EditorWindow
 {
@@ -19,8 +20,10 @@ public class EventNodeEditorWindow : EditorWindow
     private float decreaseFactor = 1f;
 
     private TriggerConditionGroup triggerGroup;
-    private List<EventOutcomeBranch> branches = new();
+    private List<BranchGroup> branchGroups = new List<BranchGroup>(); // Now using List<BranchGroup>
     private List<EventEffectSO> expiredEffects = new();
+    private BranchGroup group;
+    //private EventOutcomeBranch branch;
 
     private Vector2 scroll;
     private Dictionary<string, bool> foldoutStates = new();
@@ -29,7 +32,6 @@ public class EventNodeEditorWindow : EditorWindow
 
     private int highlightEffectIndex = -1;
     private double highlightStartTime = 0;
-    private const double highlightDuration = 1.0; // 秒数
 
     [MenuItem("LevityTools/Event Node Editor 2.0")]
     public static void ShowWindow()
@@ -52,15 +54,46 @@ public class EventNodeEditorWindow : EditorWindow
     {
         scroll = EditorGUILayout.BeginScrollView(scroll);
 
+        // Event Node Data Section
         GUILayout.Label("加载已有事件数据", EditorStyles.boldLabel);
         loadedEventNode =
             (EventNodeData)EditorGUILayout.ObjectField("事件数据", loadedEventNode, typeof(EventNodeData), false);
+
         if (loadedEventNode != null && GUILayout.Button("加载该事件数据", GUILayout.Height(28)))
         {
             LoadEventNodeData(loadedEventNode);
         }
 
         GUILayout.Space(20);
+        DrawBasicInfoSection();
+
+        GUILayout.Space(5);
+        DrawTriggerSection();
+
+        GUILayout.Space(5);
+        DrawExpiredEffectSection();
+
+        GUILayout.Space(5);
+        DrawBranchGroupSection();
+
+        GUILayout.Space(20);
+        if (loadedEventNode != null && GUILayout.Button("基于当前事件克隆为新事件", GUILayout.Height(28)))
+        {
+            CloneEventNodeAsNew();
+        }
+
+        GUILayout.Space(20);
+        if (GUILayout.Button("保存事件数据", GUILayout.Height(28))) SaveEventNodeData();
+
+        GUILayout.Space(20);
+        DrawSummarySection();
+
+        EditorGUILayout.EndScrollView();
+    }
+
+// Draws the basic information section
+    private void DrawBasicInfoSection()
+    {
         GUILayout.BeginVertical("box");
         bool eventExpanded = GetFoldout("事件基本信息", false);
         eventExpanded = EditorGUILayout.Foldout(eventExpanded, $"事件基本信息", true);
@@ -83,7 +116,11 @@ public class EventNodeEditorWindow : EditorWindow
         }
 
         GUILayout.EndVertical();
-        GUILayout.Space(5);
+    }
+
+// Draws the trigger conditions section
+    private void DrawTriggerSection()
+    {
         GUILayout.BeginVertical("box");
         bool triggerExpanded = GetFoldout("触发条件", false);
         triggerExpanded = EditorGUILayout.Foldout(triggerExpanded, $"触发条件", true);
@@ -93,8 +130,12 @@ public class EventNodeEditorWindow : EditorWindow
             DrawTriggerConditionGroup();
         }
 
-        GUILayout.EndHorizontal();
-        GUILayout.Space(5);
+        GUILayout.EndVertical();
+    }
+
+// Draws the expired effects section
+    private void DrawExpiredEffectSection()
+    {
         GUILayout.BeginVertical("box");
         bool expiredEExpanded = GetFoldout("过期效果", false);
         expiredEExpanded = EditorGUILayout.Foldout(expiredEExpanded, $"过期效果", true);
@@ -105,100 +146,140 @@ public class EventNodeEditorWindow : EditorWindow
         }
 
         GUILayout.EndVertical();
-        GUILayout.Space(5);
-        GUILayout.BeginVertical("box");
-        bool branchExpanded = GetFoldout("分支设置", false);
-        branchExpanded = EditorGUILayout.Foldout(branchExpanded, $"分支设置", true);
-        SetFoldout("分支设置", branchExpanded);
-        if (branchExpanded)
-        {
-            int branchToRemove = -1;
+    }
 
-            for (int i = 0; i < branches.Count; i++)
+// Draws the branch group section
+    private int toRemoveGroup = -1;
+    private (BranchGroup, int) toRemoveBranch = (null, -1);
+
+    private void DrawBranchGroupSection()
+    {
+        if (branchGroups == null)
+            return;
+        GUILayout.BeginVertical("box");
+
+        // 顶部标题栏
+        bool branchGroupExpanded = GetFoldout("分支组设置", false);
+        GUILayout.BeginHorizontal();
+        branchGroupExpanded = EditorGUILayout.Foldout(branchGroupExpanded, "分支组设置", true);
+
+        GUIStyle bigButtonStyle = new GUIStyle(GUI.skin.button)
+        {
+            fontSize = 20,
+            fontStyle = FontStyle.Bold,
+            normal = { textColor = Color.white }
+        };
+
+        if (GUILayout.Button("+", bigButtonStyle, GUILayout.Width(30), GUILayout.Height(28)))
+        {
+            var newGroup = CreateAndSaveSO<BranchGroup>($"{eventID}_分支组_{branchGroups.Count + 1}");
+            newGroup.label = $"分支组_{branchGroups.Count + 1}";
+            newGroup.branches = new List<EventOutcomeBranch>();
+            branchGroups.Add(newGroup);
+        }
+
+        GUILayout.EndHorizontal();
+        SetFoldout("分支组设置", branchGroupExpanded);
+
+        if (branchGroupExpanded)
+        {
+            for (int i = 0; i < branchGroups.Count; i++)
             {
-                var branch = branches[i];
-                string key = $"EventEditor_Foldout_Branch_{i}";
+                string key = $"BranchGroup_{i}";
                 bool expanded = GetFoldout(key, false);
                 GUILayout.BeginVertical("box");
+
+                // 分支组标题 + 操作按钮
                 GUILayout.BeginHorizontal();
-                expanded = EditorGUILayout.Foldout(expanded, $"分支 {i + 1}：{branch.label}", true);
-                if (GUILayout.Button("↑", GUILayout.Width(30), GUILayout.Height(28)) && i > 0)
-                {
-                    (branches[i], branches[i - 1]) = (branches[i - 1], branches[i]);
-                }
+                expanded = EditorGUILayout.Foldout(expanded, $"分支组 {i + 1}", true);
 
-                if (GUILayout.Button("↓", GUILayout.Width(30), GUILayout.Height(28)) && i < branches.Count - 1)
-                {
-                    (branches[i], branches[i + 1]) = (branches[i + 1], branches[i]);
-                }
+                if (GUILayout.Button("↑", GUILayout.Width(30)) && i > 0)
+                    (branchGroups[i], branchGroups[i - 1]) = (branchGroups[i - 1], branchGroups[i]);
 
-                if (GUILayout.Button("X", GUILayout.Width(30), GUILayout.Height(28)))
-                {
-                    if (EditorUtility.DisplayDialog("确认删除", "您确定要删除这个分支吗?", "删除", "取消"))
-                    {
-                        branchToRemove = i;
-                    }
-                }
+                if (GUILayout.Button("↓", GUILayout.Width(30)) && i < branchGroups.Count - 1)
+                    (branchGroups[i], branchGroups[i + 1]) = (branchGroups[i + 1], branchGroups[i]);
+
+                if (GUILayout.Button("X", GUILayout.Width(30)))
+                    toRemoveGroup = i;
 
                 GUILayout.EndHorizontal();
                 SetFoldout(key, expanded);
 
-                // 捕获右键点击事件
-                Rect lastRect = GUILayoutUtility.GetLastRect(); // 获取该分支最后渲染的位置
-                if (Event.current.type == EventType.ContextClick && lastRect.Contains(Event.current.mousePosition))
-                {
-                    // 当右键点击时，显示右键菜单
-                    OnBranchRightClick(i); // 右键点击时显示菜单
-                    Event.current.Use(); // 防止事件被传递到其他地方
-                }
-
                 if (expanded)
                 {
-                    EditorGUI.indentLevel++;
-                    branch.label = EditorGUILayout.TextField("分支名称", branch.label);
+                    branchGroups[i] =
+                        (BranchGroup)EditorGUILayout.ObjectField("分支组资源", branchGroups[i], typeof(BranchGroup), false);
 
-                    EditorGUI.indentLevel++;
-                    DrawResolveConditionGroup(branch, i, 2);
+                    if (branchGroups[i] == null)
+                    {
+                        EditorGUILayout.HelpBox("分支组资源不能为空！请重新指定或删除。", MessageType.Error);
 
-                    DrawEffectList(branch.effects ??= new List<EventEffectSO>(), $"Branch{i}_Effect", 2);
+                        GUILayout.BeginHorizontal();
+                        GUILayout.FlexibleSpace();
+                        if (GUILayout.Button("删除这个空的分支组", GUILayout.Width(150)))
+                        {
+                            branchGroups.RemoveAt(i);
+                            return;
+                        }
 
-                    EditorGUI.indentLevel--;
+                        GUILayout.FlexibleSpace();
+                        GUILayout.EndHorizontal();
 
-                    EditorGUI.indentLevel--;
+                        GUILayout.Space(10); // 加点空隙，界面美观
+                    }
+                    else
+                    {
+                        for (int j = 0; j < branchGroups[i].branches.Count; j++)
+                        {
+                            DrawBranch(branchGroups[i], j);
+                        }
+
+                        if (GUILayout.Button("添加分支", GUILayout.Height(24)))
+                        {
+                            var newBranch = CreateAndSaveSO<EventOutcomeBranch>(
+                                $"{eventID}_{branchGroups[i].name}_分支_{branchGroups[i].branches.Count}");
+                            newBranch.label = $"新分支_{branchGroups[i].branches.Count + 1}";
+                            newBranch.effects = new List<EventEffectSO>();
+                            branchGroups[i].branches.Add(newBranch);
+                        }
+                    }
                 }
 
                 GUILayout.EndVertical();
             }
-
-            if (GUILayout.Button("添加分支", GUILayout.Height(28))) branches.Add(new EventOutcomeBranch());
-            if (branchToRemove >= 0)
-            {
-                var branch = branches[branchToRemove];
-                TryDeleteAsset(branch.matchConditions);
-                if (branch.effects != null)
-                    foreach (var e in branch.effects)
-                        TryDeleteAsset(e);
-                branches.RemoveAt(branchToRemove);
-            }
         }
 
-        GUILayout.EndHorizontal();
-        GUILayout.Space(20);
-        if (loadedEventNode != null && GUILayout.Button("基于当前事件克隆为新事件", GUILayout.Height(28)))
+        GUILayout.EndVertical();
+
+        // 删除缓存处理
+        if (toRemoveGroup >= 0)
         {
-            CloneEventNodeAsNew();
+            TryDeleteAsset(branchGroups[toRemoveGroup]);
+            branchGroups.RemoveAt(toRemoveGroup);
+            toRemoveGroup = -1;
+            return;
         }
 
-        GUILayout.Space(20);
-        if (GUILayout.Button("保存事件数据", GUILayout.Height(28))) SaveEventNodeData();
+        if (toRemoveBranch.Item1 != null)
+        {
+            var group = toRemoveBranch.Item1;
+            int idx = toRemoveBranch.Item2;
+            TryDeleteAsset(group.branches[idx]);
+            group.branches.RemoveAt(idx);
+            toRemoveBranch = (null, -1);
+            return;
+        }
+    }
 
-        // 在窗口最下方添加整体描述区域
-        GUILayout.Space(20);
+
+// Draws the summary section at the bottom of the window
+    private void DrawSummarySection()
+    {
         GUILayout.BeginVertical("box");
 
-        bool summaryExpanded = GetFoldout("總覽", false);
-        summaryExpanded = EditorGUILayout.Foldout(summaryExpanded, $"總覽", true);
-        SetFoldout("總覽", summaryExpanded);
+        bool summaryExpanded = GetFoldout("总览", false);
+        summaryExpanded = EditorGUILayout.Foldout(summaryExpanded, $"总览", true);
+        SetFoldout("总览", summaryExpanded);
         if (summaryExpanded)
         {
             GUILayout.Label("事件信息", EditorStyles.boldLabel);
@@ -229,42 +310,60 @@ public class EventNodeEditorWindow : EditorWindow
             GUILayout.Space(10);
             GUILayout.Label("分支设置描述", EditorStyles.boldLabel);
 
-            if (branches != null && branches.Count > 0)
+            if (branchGroups != null && branchGroups.Count > 0)
             {
-                foreach (var branch in branches)
+                foreach (var branchGroup in branchGroups)
                 {
-                    GUILayout.Label($"分支名称: {branch.label}");
-
-                    if (branch.matchConditions != null && branch.matchConditions.conditions.Count > 0)
+                    if (branchGroup == null)
                     {
-                        GUILayout.Label($"结算条件:{branch.matchConditions.label}");
-                        foreach (var cond in branch.matchConditions.conditions)
-                        {
-                            GUILayout.Label($"    条件描述: {cond.Description}");
-                        }
+                        GUILayout.Label("（空的分支组）", EditorStyles.helpBox);
+                        continue; // 遇到空分支组就跳过
                     }
 
-                    GUILayout.Space(5);
-                    if (branch.effects != null && branch.effects.Count > 0)
+                    GUILayout.Label($"分支组名称: {branchGroup.label}");
+
+                    if (branchGroup.branches != null)
                     {
-                        GUILayout.Label("结算效果:");
-                        foreach (var effect in branch.effects)
+                        foreach (var branch in branchGroup.branches)
                         {
-                            GUILayout.Label($"    效果描述: {effect.Description}");
+                            GUILayout.BeginVertical("box");
+
+                            GUILayout.Label($"分支名称: {branch.label}");
+
+                            if (branch.matchConditions != null)
+                            {
+                                GUILayout.Label("结算条件", EditorStyles.boldLabel);
+                                foreach (var condition in branch.matchConditions.conditions)
+                                {
+                                    GUILayout.Label($"需满足: {condition.Description}");
+                                }
+                            }
+
+                            if (branch.effects != null)
+                            {
+                                GUILayout.Label("效果", EditorStyles.boldLabel);
+                                foreach (var effect in branch.effects)
+                                {
+                                    GUILayout.Label($"将导致：{effect.Description}");
+                                }
+                            }
+
+                            GUILayout.EndVertical();
                         }
                     }
                 }
             }
+
             else
             {
                 GUILayout.Label("没有分支设置");
             }
         }
 
-        GUILayout.EndVertical();
 
-        EditorGUILayout.EndScrollView();
+        GUILayout.EndVertical();
     }
+
 
     private void DrawTriggerConditionGroup()
     {
@@ -274,9 +373,10 @@ public class EventNodeEditorWindow : EditorWindow
         bigButtonStyle.fontSize = 20; // 字号大一点
         bigButtonStyle.fontStyle = FontStyle.Bold;
         bigButtonStyle.normal.textColor = Color.white;
-        if (triggerGroup == null && GUILayout.Button("+", bigButtonStyle, GUILayout.Width(30), GUILayout.Height(28)))
+        if (triggerGroup == null &&
+            GUILayout.Button("+", bigButtonStyle, GUILayout.Width(30), GUILayout.Height(28)))
         {
-            triggerGroup = CreateAndSaveSO<TriggerConditionGroup>($"{eventID}_TriggerGroup");
+            triggerGroup = CreateAndSaveSO<TriggerConditionGroup>($"{eventID}_触发条件组");
         }
 
         GUILayout.EndHorizontal();
@@ -291,7 +391,7 @@ public class EventNodeEditorWindow : EditorWindow
                 TriggerConditionSelectorWindow.Show(type =>
                 {
                     var cond = (EventTriggerConditionSO)CreateAndSaveSO(type,
-                        $"TriggerCond_{eventID}_{triggerGroup.name}_{triggerGroup.conditions.Count}");
+                        $"{eventID}_触发条件_{triggerGroup.name}_{triggerGroup.conditions.Count}");
                     triggerGroup.conditions.Add(cond);
                     EditorUtility.SetDirty(triggerGroup);
                     AssetDatabase.SaveAssets();
@@ -334,14 +434,16 @@ public class EventNodeEditorWindow : EditorWindow
                             typeof(EventTriggerConditionSO), false);
                     if (GUILayout.Button("↑", GUILayout.Width(30), GUILayout.Height(28)) && i > 0)
                     {
-                        (triggerGroup.conditions[i], triggerGroup.conditions[i - 1]) = (triggerGroup.conditions[i - 1],
+                        (triggerGroup.conditions[i], triggerGroup.conditions[i - 1]) = (
+                            triggerGroup.conditions[i - 1],
                             triggerGroup.conditions[i]);
                     }
 
                     if (GUILayout.Button("↓", GUILayout.Width(30), GUILayout.Height(28)) &&
                         i < triggerGroup.conditions.Count - 1)
                     {
-                        (triggerGroup.conditions[i], triggerGroup.conditions[i + 1]) = (triggerGroup.conditions[i + 1],
+                        (triggerGroup.conditions[i], triggerGroup.conditions[i + 1]) = (
+                            triggerGroup.conditions[i + 1],
                             triggerGroup.conditions[i]);
                     }
 
@@ -377,6 +479,7 @@ public class EventNodeEditorWindow : EditorWindow
 
     private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int indent)
     {
+        if (branch == null) return;
         GUILayout.BeginHorizontal();
         GUILayout.Label("结算条件组", EditorStyles.boldLabel);
         GUIStyle bigButtonStyle = new GUIStyle(GUI.skin.button);
@@ -386,7 +489,7 @@ public class EventNodeEditorWindow : EditorWindow
         if (branch.matchConditions == null &&
             GUILayout.Button("+", bigButtonStyle, GUILayout.Width(30), GUILayout.Height(28)))
         {
-            branch.matchConditions = CreateAndSaveSO<ResolveConditionGroup>($"{eventID}_ResolveGroup_{index}");
+            branch.matchConditions = CreateAndSaveSO<ResolveConditionGroup>($"{eventID}_结算条件组_{index}");
         }
 
         GUILayout.EndHorizontal();
@@ -400,7 +503,7 @@ public class EventNodeEditorWindow : EditorWindow
                 ResolveConditionSelectorWindow.Show(type =>
                 {
                     var cond = CreateAndSaveSO(type,
-                        $"ResolveCond_{eventID}_{branch.label}_{branch.matchConditions.conditions.Count}");
+                        $"{eventID}_结算条件_{branch.label}_{branch.matchConditions.conditions.Count}");
                     branch.matchConditions.conditions.Add((EventResolveConditionSO)cond);
                     EditorUtility.SetDirty(branch.matchConditions);
                     AssetDatabase.SaveAssets();
@@ -477,6 +580,7 @@ public class EventNodeEditorWindow : EditorWindow
 
     private void DrawEffectList(List<EventEffectSO> list, string prefix, int indent)
     {
+        if (list == null) return;
         int removeIndex = -1;
         int swapFrom = -1;
         int swapTo = -1;
@@ -494,7 +598,7 @@ public class EventNodeEditorWindow : EditorWindow
         {
             EffectsSelectorWindow.Show(type =>
             {
-                var effect = (EventEffectSO)CreateAndSaveSO(type, $"{eventName}_{prefix}_Effect_{list.Count}");
+                var effect = (EventEffectSO)CreateAndSaveSO(type, $"{eventID}_{prefix}_Effect_{list.Count}");
                 list.Add(effect);
                 EditorUtility.SetDirty(effect);
                 AssetDatabase.SaveAssets();
@@ -575,6 +679,42 @@ public class EventNodeEditorWindow : EditorWindow
         }
     }
 
+    private void DrawBranch(BranchGroup group, int j)
+    {
+        string key = $"Branch_{group.name}_{j}";
+        bool expanded = GetFoldout(key, false);
+        GUILayout.BeginVertical("box");
+
+        GUILayout.BeginHorizontal();
+        expanded = EditorGUILayout.Foldout(expanded, $"分支: {group.branches[j].label}", true);
+
+        if (GUILayout.Button("↑", GUILayout.Width(30)) && j > 0)
+            (group.branches[j], group.branches[j - 1]) = (group.branches[j - 1], group.branches[j]);
+
+        if (GUILayout.Button("↓", GUILayout.Width(30)) && j < group.branches.Count - 1)
+            (group.branches[j], group.branches[j + 1]) = (group.branches[j + 1], group.branches[j]);
+
+        if (GUILayout.Button("X", GUILayout.Width(30)))
+            toRemoveBranch = (group, j);
+
+        GUILayout.EndHorizontal();
+        SetFoldout(key, expanded);
+
+        if (expanded)
+        {
+            group.branches[j] =
+                (EventOutcomeBranch)EditorGUILayout.ObjectField("分支资源", group.branches[j],
+                    typeof(EventOutcomeBranch),
+                    false);
+            group.branches[j].label = EditorGUILayout.TextField("分支名称", group.branches[j].label);
+            GUILayout.Space(5);
+            DrawResolveConditionGroup(group.branches[j], j, 2);
+            GUILayout.Space(5);
+            DrawEffectList(group.branches[j].effects ??= new List<EventEffectSO>(), $"{group.name}_Effect_{j}", 2);
+        }
+
+        GUILayout.EndVertical();
+    }
 
     private void SaveEventNodeData()
     {
@@ -584,6 +724,7 @@ public class EventNodeEditorWindow : EditorWindow
         EventNodeData node = loadedEventNode != null
             ? loadedEventNode
             : ScriptableObject.CreateInstance<EventNodeData>();
+
         node.eventName = eventName;
         node.eventID = eventID;
         node.sourceRole = roleType;
@@ -595,8 +736,27 @@ public class EventNodeEditorWindow : EditorWindow
         node.decreaseFactor = decreaseFactor;
         node.triggerConditions = triggerGroup;
         node.expiredEffects = expiredEffects;
-        node.outcomeBranches = branches;
 
+        // 保存每个分支组（BranchGroup）为独立的资产
+        List<BranchGroup> validBranchGroups = new List<BranchGroup>();
+
+        foreach (var branchGroup in branchGroups)
+        {
+            if (branchGroup == null) continue;
+            string branchGroupPath = $"{path}/{branchGroup.name}_BranchGroup.asset";
+
+            // 如果这个 branchGroup 本身没有保存过资产，需要保存
+            if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(branchGroup)))
+            {
+                AssetDatabase.CreateAsset(branchGroup, branchGroupPath);
+            }
+
+            validBranchGroups.Add(branchGroup);
+        }
+
+        node.branchGroups = validBranchGroups;
+
+        // 如果是新创建的 EventNodeData，则保存它
         if (loadedEventNode == null)
         {
             AssetDatabase.CreateAsset(node, $"{path}/{eventID}_EventNode.asset");
@@ -607,6 +767,7 @@ public class EventNodeEditorWindow : EditorWindow
         AssetDatabase.Refresh();
         EditorUtility.DisplayDialog("保存成功", $"事件数据已保存到：{path}", "OK");
     }
+
 
     private T CreateAndSaveSO<T>(string baseFileName) where T : ScriptableObject
     {
@@ -623,11 +784,15 @@ public class EventNodeEditorWindow : EditorWindow
             trigger.conditions = new List<EventTriggerConditionSO>();
         else if (so is ResolveConditionGroup resolve)
             resolve.conditions = new List<EventResolveConditionSO>();
+        else if (so is BranchGroup branchGroup)
+        {
+            branchGroup.branches = new List<EventOutcomeBranch>();
+        }
 
         AssetDatabase.CreateAsset(so, path);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-        return so;
+        return AssetDatabase.LoadAssetAtPath<T>(path);
     }
 
     private ScriptableObject CreateAndSaveSO(Type type, string baseFileName)
@@ -690,6 +855,7 @@ public class EventNodeEditorWindow : EditorWindow
         eventName = node.eventName;
         eventID = node.eventID;
         roleType = node.sourceRole;
+        roleType = node.sourceRole;
         description = node.description;
         icon = node.icon;
         duration = node.duration;
@@ -700,9 +866,9 @@ public class EventNodeEditorWindow : EditorWindow
         expiredEffects = node.expiredEffects != null
             ? new List<EventEffectSO>(node.expiredEffects)
             : new List<EventEffectSO>();
-        branches = node.outcomeBranches != null
-            ? new List<EventOutcomeBranch>(node.outcomeBranches)
-            : new List<EventOutcomeBranch>();
+        branchGroups = node.branchGroups != null
+            ? new List<BranchGroup>(node.branchGroups)
+            : new List<BranchGroup>();
     }
 
     private void CloneEventNodeAsNew()
@@ -713,7 +879,7 @@ public class EventNodeEditorWindow : EditorWindow
             return;
         }
 
-        // ✅ 使用当前窗口中填写的 eventName 和 eventID（而不是 loadedEventNode 的值）
+        // 使用当前窗口中填写的 eventName 和 eventID（而不是 loadedEventNode 的值）
         string newEventName = eventName;
         string newEventID = eventID;
         string newFolder = $"Assets/SO/EventData/EventContainer/{newEventName}";
@@ -721,11 +887,11 @@ public class EventNodeEditorWindow : EditorWindow
             $"Assets/SO/EventData/EventContainer/EventConditions&Effects/{newEventName}";
         Directory.CreateDirectory(newFolder);
         Directory.CreateDirectory(newFolderForConditionEffects);
+
         EventNodeData newNode = Instantiate(loadedEventNode);
         newNode.name = $"{newEventID}_EventNode";
         newNode.eventName = newEventName;
         newNode.eventID = newEventID;
-
 
         // 克隆 Trigger 条件组及内部 Trigger 条件
         if (loadedEventNode.triggerConditions != null)
@@ -752,7 +918,7 @@ public class EventNodeEditorWindow : EditorWindow
             newNode.triggerConditions = newGroup;
         }
 
-
+        // 克隆过期效果
         newNode.expiredEffects = new List<EventEffectSO>();
         for (int i = 0; i < loadedEventNode.expiredEffects.Count; i++)
         {
@@ -767,59 +933,45 @@ public class EventNodeEditorWindow : EditorWindow
             }
         }
 
-
-        newNode.outcomeBranches = new List<EventOutcomeBranch>();
-        for (int i = 0; i < loadedEventNode.outcomeBranches.Count; i++)
+        // 克隆分支组及内部分支
+        newNode.branchGroups = new List<BranchGroup>();
+        for (int i = 0; i < loadedEventNode.branchGroups.Count; i++)
         {
-            var branch = loadedEventNode.outcomeBranches[i];
-            var newBranch = new EventOutcomeBranch
-            {
-                label = branch.label,
-                effects = new List<EventEffectSO>(),
-            };
+            var branchGroup = loadedEventNode.branchGroups[i];
+            var newBranchGroup = ScriptableObject.CreateInstance<BranchGroup>();
+            newBranchGroup.name = $"{eventID}_BranchGroup_{i}";
 
-            // 克隆 Resolve 条件组
-            if (branch.matchConditions != null)
+            // 克隆每个 EventOutcomeBranch 并添加到新分支组中
+            newBranchGroup.branches = new List<EventOutcomeBranch>();
+            foreach (var branch in branchGroup.branches)
             {
-                string groupName = $"{eventID}_ResolveGroup_{i}";
-                var newResolveGroup = CloneSOAsset(branch.matchConditions,
-                    $"{newFolderForConditionEffects}/{groupName}.asset");
-                newResolveGroup.name = groupName;
-                newResolveGroup.conditions = new List<EventResolveConditionSO>();
+                var newBranch = CreateAndSaveSO<EventOutcomeBranch>($"{eventID}_Branch_{Guid.NewGuid().ToString("N")}");
 
-                for (int j = 0; j < branch.matchConditions.conditions.Count; j++)
+                newBranch.label = branch.label;
+                newBranch.effects = new List<EventEffectSO>();
+
+                if (branch.matchConditions != null)
                 {
-                    var cond = branch.matchConditions.conditions[j];
-                    if (cond != null)
-                    {
-                        string typeName = cond.GetType().Name;
-                        string condName = $"ResolveCond_{eventID}_{branch.label}_{typeName}_{j}";
-                        var clonedCond = CloneSOAsset(cond, $"{newFolderForConditionEffects}/{condName}.asset");
-                        clonedCond.name = condName;
-                        newResolveGroup.conditions.Add(clonedCond);
-                    }
+                    var newResolveGroup = CloneSOAsset(branch.matchConditions,
+                        $"{newFolderForConditionEffects}/{branch.matchConditions.name}_Copy.asset");
+                    newBranch.matchConditions = newResolveGroup;
                 }
 
-                newBranch.matchConditions = newResolveGroup;
-            }
-
-            // 克隆 Effect
-            for (int j = 0; j < branch.effects.Count; j++)
-            {
-                var effect = branch.effects[j];
-                if (effect != null)
+                foreach (var effect in branch.effects)
                 {
-                    string typeName = effect.GetType().Name;
-                    string effectName = $"{eventName}_Branch{i}_Effect_{typeName}_{j}";
-                    var clonedEffect = CloneSOAsset(effect, $"{newFolderForConditionEffects}/{effectName}.asset");
-                    clonedEffect.name = effectName;
-                    newBranch.effects.Add(clonedEffect);
+                    var newEffect = CloneSOAsset(effect,
+                        $"{newFolderForConditionEffects}/{effect.name}_Copy.asset");
+                    newBranch.effects.Add(newEffect);
                 }
+
+                newBranchGroup.branches.Add(newBranch);
             }
 
-            newNode.outcomeBranches.Add(newBranch);
+            // 保存新的 BranchGroup 资产
+            string branchGroupPath = $"{newFolderForConditionEffects}/{newBranchGroup.name}.asset";
+            AssetDatabase.CreateAsset(newBranchGroup, branchGroupPath);
+            newNode.branchGroups.Add(newBranchGroup);
         }
-
 
         // 保存主 EventNodeData
         string newNodePath = $"{newFolder}/{eventID}_EventNode.asset";
@@ -833,10 +985,10 @@ public class EventNodeEditorWindow : EditorWindow
         loadedEventNode = newNode;
         LoadEventNodeData(newNode);
 
-        // 关键：同步引用到 UI 当前状态
+        // 同步引用到 UI 当前状态
         triggerGroup = newNode.triggerConditions;
         expiredEffects = newNode.expiredEffects;
-        branches = newNode.outcomeBranches;
+        branchGroups = newNode.branchGroups;
     }
 
 
@@ -879,43 +1031,42 @@ public class EventNodeEditorWindow : EditorWindow
 
     private void CopyBranch(int branchIndex)
     {
-        // 复制指定的分支数据
-        copiedBranch = branches[branchIndex]; // 这里复制整个分支对象
-        canPaste = true; // 设置粘贴状态为可用
-        Debug.Log("分支已复制");
+        // 获取分支组中的特定分支（EventOutcomeBranch）
+        if (branchIndex >= 0 && branchIndex < branchGroups.Count)
+        {
+            var branchGroup = branchGroups[branchIndex];
+            if (branchGroup.branches.Count > 0)
+            {
+                copiedBranch = branchGroup.branches[0]; // 假设复制的是第一个分支
+                canPaste = true; // 设置粘贴状态为可用
+                Debug.Log("分支已复制");
+            }
+        }
     }
 
     private void PasteBranch(int branchIndex)
     {
-        if (copiedBranch != null)
+        if (copiedBranch != null && branchIndex >= 0 && branchIndex < branchGroups.Count)
         {
-            // 创建一个新的分支并复制数据
-            var newBranch = new EventOutcomeBranch();
+            var branchGroup = branchGroups[branchIndex];
 
-            // 手动复制分支的属性
-            newBranch.label = copiedBranch.label;
-
-            // 复制 ResolveConditionGroup（条件组）,不拷貝
-            if (copiedBranch.matchConditions != null)
+            // 创建一个新的 EventOutcomeBranch
+            var newBranch = new EventOutcomeBranch
             {
-                // 创建新的 ResolveConditionGroup
-                newBranch.matchConditions = copiedBranch.matchConditions;
-            }
+                label = copiedBranch.label,
+                matchConditions = copiedBranch.matchConditions,
+                effects = copiedBranch.effects
+            };
 
-            // 复制 Effects（效果），不拷貝
-            if (copiedBranch.effects != null)
-            {
-                newBranch.effects = copiedBranch.effects;
-            }
-
-            // 将复制的分支数据赋值给目标分支
-            branches[branchIndex] = newBranch;
+            // 将复制的分支添加到目标分支组中
+            branchGroup.branches.Add(newBranch);
 
             EditorUtility.SetDirty(this); // 标记为脏，保存修改
             AssetDatabase.SaveAssets(); // 保存更改
             Debug.Log("分支已粘贴");
         }
     }
+
 
     private void PasteBranchDeep(int branchIndex)
     {
@@ -924,48 +1075,54 @@ public class EventNodeEditorWindow : EditorWindow
         if (copiedBranch != null)
         {
             string uniqueID = Guid.NewGuid().ToString("N");
-            // 创建一个新的分支并复制数据
-            var newBranch = new EventOutcomeBranch();
 
-            // 手动复制分支的属性
-            newBranch.label = $"{copiedBranch.label}_Copied";
-
-            // 复制 ResolveConditionGroup（条件组）, 深拷贝
-            if (copiedBranch.matchConditions != null)
+            // 获取分支组
+            if (branchIndex >= 0 && branchIndex < branchGroups.Count)
             {
-                // 创建新的 ResolveConditionGroup
-                newBranch.matchConditions = CloneSOAsset(copiedBranch.matchConditions,
-                    $"{newFolderForConditionEffects}/{copiedBranch.matchConditions.name}_Copied_{uniqueID}.asset");
-                newBranch.matchConditions.name = $"{copiedBranch.matchConditions.name}_Copied";
-                newBranch.matchConditions.conditions = new List<EventResolveConditionSO>();
-                foreach (var condition in copiedBranch.matchConditions.conditions)
+                var branchGroup = branchGroups[branchIndex];
+
+                // 创建一个新的 EventOutcomeBranch
+                var newBranch = new EventOutcomeBranch
                 {
-                    // 克隆每个条件
-                    var newCondition = CloneSOAsset(condition,
-                        $"{newFolderForConditionEffects}/{condition.name}_Copied_{uniqueID}.asset");
-                    newBranch.matchConditions.conditions.Add(newCondition);
-                }
-            }
+                    label = $"{copiedBranch.label}_Copied"
+                };
 
-            // 复制 Effects（效果）, 深拷贝
-            if (copiedBranch.effects != null)
-            {
-                newBranch.effects = new List<EventEffectSO>();
-                foreach (var effect in copiedBranch.effects)
+                // 深拷贝 ResolveConditionGroup（条件组）
+                if (copiedBranch.matchConditions != null)
                 {
-                    // 克隆每个效果
-                    var newEffect = CloneSOAsset(effect,
-                        $"{newFolderForConditionEffects}/{effect.name}_Copied_{uniqueID}.asset");
-                    newBranch.effects.Add(newEffect);
+                    newBranch.matchConditions = CloneSOAsset(copiedBranch.matchConditions,
+                        $"{newFolderForConditionEffects}/{copiedBranch.matchConditions.name}_Copied_{uniqueID}.asset");
+                    newBranch.matchConditions.name = $"{copiedBranch.matchConditions.name}_Copied";
+                    newBranch.matchConditions.conditions = new List<EventResolveConditionSO>();
+
+                    // 深拷贝每个条件
+                    foreach (var condition in copiedBranch.matchConditions.conditions)
+                    {
+                        var newCondition = CloneSOAsset(condition,
+                            $"{newFolderForConditionEffects}/{condition.name}_Copied_{uniqueID}.asset");
+                        newBranch.matchConditions.conditions.Add(newCondition);
+                    }
                 }
+
+                // 深拷贝 Effects（效果）
+                if (copiedBranch.effects != null)
+                {
+                    newBranch.effects = new List<EventEffectSO>();
+                    foreach (var effect in copiedBranch.effects)
+                    {
+                        var newEffect = CloneSOAsset(effect,
+                            $"{newFolderForConditionEffects}/{effect.name}_Copied_{uniqueID}.asset");
+                        newBranch.effects.Add(newEffect);
+                    }
+                }
+
+                // 将深拷贝后的分支添加到目标分支组中
+                branchGroup.branches.Add(newBranch);
+
+                EditorUtility.SetDirty(this); // 标记为脏，保存修改
+                AssetDatabase.SaveAssets(); // 保存更改
+                Debug.Log("分支已深拷贝并粘贴");
             }
-
-            // 将复制的分支数据赋值给目标分支
-            branches[branchIndex] = newBranch;
-
-            EditorUtility.SetDirty(this); // 标记为脏，保存修改
-            AssetDatabase.SaveAssets(); // 保存更改
-            Debug.Log("分支已粘贴");
         }
     }
 }

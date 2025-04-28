@@ -432,18 +432,28 @@ public class EventManager
 
             bool matched = false;
 
-            // 遍历所有结果分支
-            foreach (var branch in evt.data.outcomeBranches)
+            if (evt.data.branchGroups.Count == 0)
             {
-                if (branch.matchConditions.EvaluateAll(evt))
+                await CleanupEventAsync(evt);
+                Debug.LogWarning($"{evt.name}没有配置分支组");
+                return;
+            }
+
+            // 遍历所有结果分支
+            foreach (var branchGroup in evt.data.branchGroups)
+            {
+                foreach (var branch in branchGroup.branches) // Iterate through branches in the group
                 {
-                    Debug.Log($"[事件处理] 【{evt.data.eventName}】匹配分支【{branch.label}】");
-                    GameManager.Instance.CardManager.ResolveCardsDecrease(evt);
-                    await TransferCardsOutOfEvent(evt);
-                    await ExecuteEffectsAsync(evt, branch.effects);
-                    matched = true;
-                    await CleanupEventAsync(evt);
-                    break;
+                    if (branch.matchConditions.EvaluateAll(evt)) // Check conditions for each branch
+                    {
+                        Debug.Log($"[事件处理] 【{evt.data.eventName}】匹配分支【{branch.label}】");
+                        GameManager.Instance.CardManager.ResolveCardsDecrease(evt);
+                        await TransferCardsOutOfEvent(evt);
+                        await ExecuteEffectsAsync(evt, branch.effects);
+                        matched = true;
+                        await CleanupEventAsync(evt);
+                        break;
+                    }
                 }
             }
 

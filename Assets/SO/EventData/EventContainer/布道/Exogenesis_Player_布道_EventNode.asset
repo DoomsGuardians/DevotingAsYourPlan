@@ -19,69 +19,8 @@ MonoBehaviour:
   cooldownTurns: 1
   decreaseFactor: 1
   triggerConditions: {fileID: 11400000, guid: 632f150269ed6e54ca4f82cee0dc5098, type: 2}
-  outcomeBranches:
-  - label: "\u6211+\u4FE1\u5F92+\u8D21\u54C1+\u52B3\u5DE5"
-    matchConditions: {fileID: 11400000, guid: f1d6adb3b7d464d44a9f09f6d67e4395, type: 2}
-    effects:
-    - {fileID: 11400000, guid: a07253067226abc439b8a5c9cec8c995, type: 2}
-    - {fileID: 11400000, guid: 9eaad321aafdfef4d8c64034a0e70acf, type: 2}
-    - {fileID: 11400000, guid: 7842fd5c09de81b428b2b722cff34382, type: 2}
-    - {fileID: 11400000, guid: 2e7b7560c2bd7e44ab5f2bfc82a219eb, type: 2}
-    - {fileID: 11400000, guid: 74486de1996612448955b9c1c5ca8e25, type: 2}
-    - {fileID: 11400000, guid: 360024c1e1f984047958515ff81d742b, type: 2}
-    - {fileID: 11400000, guid: 3c9d516f31fe01249acae5adb88aa4ce, type: 2}
-    - {fileID: 11400000, guid: b83b38010fbd83a459abf619d17724c6, type: 2}
-    - {fileID: 11400000, guid: 7a8061d6f1b5c914981847268dfee70a, type: 2}
-  - label: "\u6211+\u4FE1\u5F92"
-    matchConditions: {fileID: 11400000, guid: 4236e8b76fb2eee4e9c602bff71c0ef0, type: 2}
-    effects:
-    - {fileID: 11400000, guid: 1638e460ea29d5549aac54b783a1dfbb, type: 2}
-    - {fileID: 11400000, guid: b8203e4dc7502c844a51c41fc72daec1, type: 2}
-    - {fileID: 11400000, guid: 04545839ac10fc6458d74cf0d5f32d4a, type: 2}
-  - label: "\u6211+\u52B3\u5DE5"
-    matchConditions: {fileID: 11400000, guid: 634cd564f80c2d44380391043b23ac77, type: 2}
-    effects:
-    - {fileID: 11400000, guid: 09413f29ed70eb740bf954cd1fd445df, type: 2}
-    - {fileID: 11400000, guid: 40d83622810b70849a586fbd96d43f09, type: 2}
-    - {fileID: 11400000, guid: da47847c7ca13414297a38dd0e8db0e5, type: 2}
-    - {fileID: 11400000, guid: 2a3e7537a7ccd974a94f2c318cfc9798, type: 2}
-  - label: "\u4FE1\u5F92+\u52B3\u5DE5"
-    matchConditions: {fileID: 11400000, guid: 91d6b46b016a17a4b8477cb217862bef, type: 2}
-    effects:
-    - {fileID: 11400000, guid: 0126e7cf6264c0e4a8cefb94ef5c4155, type: 2}
-    - {fileID: 11400000, guid: b890c00a63f032f42a092a0df4d57958, type: 2}
-    - {fileID: 11400000, guid: 5b29c5cce933b6344bd6957657d76845, type: 2}
-  - label: "\u8D21\u54C1+\u52B3\u5DE5"
-    matchConditions: {fileID: 11400000, guid: 31397c88ae0b7af4d9e9cb386a9b76c4, type: 2}
-    effects:
-    - {fileID: 11400000, guid: 16192983b89b8864e8df75eb0c919d8b, type: 2}
-    - {fileID: 11400000, guid: 2694615dea363e2419866c41ad0840c6, type: 2}
-    - {fileID: 11400000, guid: 13908ede5a11c3d40a1d81eaee015d6a, type: 2}
-    - {fileID: 11400000, guid: 9d4918891c1804545a91c220d18f6064, type: 2}
-    - {fileID: 11400000, guid: dab431657791f0b41adb747ac4d5aadf, type: 2}
-  - label: "\u6211"
-    matchConditions: {fileID: 11400000, guid: b39e0b85200519a45b6be22772af51bb, type: 2}
-    effects:
-    - {fileID: 11400000, guid: 2053697f010de59458b2c9ab0781537c, type: 2}
-    - {fileID: 11400000, guid: 72199f0168e17d7418fb243ae4856b83, type: 2}
-    - {fileID: 11400000, guid: c959de6013fd9ac47b1d4be351959f29, type: 2}
-  - label: "\u4FE1\u5F92"
-    matchConditions: {fileID: 11400000, guid: 9de467cf5e346064fb3e7263d78b42d1, type: 2}
-    effects:
-    - {fileID: 11400000, guid: a09f1aa17a7e8ee40ab99e5cdd013487, type: 2}
-    - {fileID: 11400000, guid: b693ce47b7f2b1a4498bcff02b377b28, type: 2}
-    - {fileID: 11400000, guid: 5691632e4c567104db1940efcf2ca818, type: 2}
-    - {fileID: 11400000, guid: 0fa953463169fb946856f662eb1a33bf, type: 2}
-  - label: "\u8D21\u54C1"
-    matchConditions: {fileID: 11400000, guid: 557e0a15e41c23b4bac6096f8865dcd7, type: 2}
-    effects:
-    - {fileID: 11400000, guid: 8dc32b53fe397564f96f95ce3ac05f77, type: 2}
-  - label: "\u52B3\u5DE5"
-    matchConditions: {fileID: 11400000, guid: e7025ab080050994594d15a6cbb517bc, type: 2}
-    effects:
-    - {fileID: 11400000, guid: 8209aa4f769e0d744bb17bdbdbc570ff, type: 2}
-    - {fileID: 11400000, guid: d5fe53ddb189636439aa0d1b47d2af6b, type: 2}
-    - {fileID: 11400000, guid: 05b392f4db8f57241a22d2263c60a5fe, type: 2}
+  branchGroups:
+  - {fileID: 11400000, guid: add2cbaa40bfa344a9e732ec448a564b, type: 2}
   expiredEffects: []
   description: "\u4E8B\u4EF6\u63CF\u8FF0..."
   icon: {fileID: 0}
