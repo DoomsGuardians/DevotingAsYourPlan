@@ -26,8 +26,3 @@ public class EventNodeData : ScriptableObject
     public Sprite icon;
     public int duration = 2;
 }
-
-// public class BranchGroup()
-// {
-//     public List<EventOutcomeBranch> outcomeBranches;
-// }
