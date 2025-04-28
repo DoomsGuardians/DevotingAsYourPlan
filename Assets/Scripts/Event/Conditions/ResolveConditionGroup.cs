@@ -6,7 +6,7 @@ using System.Linq;
 [CreateAssetMenu(menuName = "Events/Condition Groups/Resolve Condition Group")]
 public class ResolveConditionGroup : ScriptableObject
 {
-    public string label;
+    public string label = "";
     [Tooltip("结算事件条件组判断模式")]
     public ConditionMode mode;
     [Tooltip("结算事件条件组")]

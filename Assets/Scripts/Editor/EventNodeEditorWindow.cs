@@ -31,11 +31,11 @@ public class EventNodeEditorWindow : EditorWindow
     private double highlightStartTime = 0;
     private const double highlightDuration = 1.0; // 秒数
 
-    [MenuItem("LevityTools/Event Node Editor")]
+    [MenuItem("LevityTools/Event Node Editor 2.0")]
     public static void ShowWindow()
     {
-        var window = GetWindow<EventNodeEditorWindow>("Levity事件编辑器");
-        window.minSize = new Vector2(700, 800); // 设置最小窗口尺寸
+        var window = GetWindow<EventNodeEditorWindow>("Levity事件编辑器2.0");
+        window.minSize = new Vector2(800, 800); // 设置最小窗口尺寸
     }
 
     private void OnEnable()
@@ -159,12 +159,6 @@ public class EventNodeEditorWindow : EditorWindow
 
                     DrawEffectList(branch.effects ??= new List<EventEffectSO>(), $"Branch{i}_Effect", 2);
 
-                    GUILayout.BeginHorizontal();
-
-                    GUILayout.Space(5);
-
-                    GUILayout.EndHorizontal();
-
                     EditorGUI.indentLevel--;
 
                     EditorGUI.indentLevel--;
@@ -192,27 +186,100 @@ public class EventNodeEditorWindow : EditorWindow
         GUILayout.Space(20);
         if (GUILayout.Button("保存事件数据", GUILayout.Height(28))) SaveEventNodeData();
 
+        // 在窗口最下方添加整体描述区域
+        GUILayout.Space(20);
+        GUILayout.BeginVertical("box");
+
+        bool summaryExpanded = GetFoldout("總覽", false);
+        summaryExpanded = EditorGUILayout.Foldout(summaryExpanded, $"總覽", true);
+        SetFoldout("總覽", summaryExpanded);
+        if (summaryExpanded)
+        {
+
+            GUILayout.Label("事件信息", EditorStyles.boldLabel);
+            GUILayout.Label($"事件名称: {eventName}");
+            GUILayout.Label($"事件ID: {eventID}");
+            GUILayout.Label($"事件描述: {description}");
+            GUILayout.Label($"来源角色: {roleType}");
+            GUILayout.Label($"持续时间: {duration} 回合");
+            GUILayout.Label($"是否为唯一事件: {(isUnique ? "是" : "否")}");
+            GUILayout.Label($"冷却回合数: {cooldownTurns}");
+            GUILayout.Label($"损耗系数: {decreaseFactor}");
+
+            GUILayout.Space(10);
+            GUILayout.Label("触发条件描述", EditorStyles.boldLabel);
+
+            if (triggerGroup != null)
+            {
+                foreach (var condition in triggerGroup.conditions)
+                {
+                    GUILayout.Label($"条件描述: {condition.Description}");
+                }
+            }
+            else
+            {
+                GUILayout.Label("没有触发条件");
+            }
+
+            GUILayout.Space(10);
+            GUILayout.Label("分支设置描述", EditorStyles.boldLabel);
+
+            if (branches != null && branches.Count > 0)
+            {
+                foreach (var branch in branches)
+                {
+                    GUILayout.Label($"分支名称: {branch.label}");
+
+                    if (branch.matchConditions != null && branch.matchConditions.conditions.Count > 0)
+                    {
+                        GUILayout.Label($"结算条件:{branch.matchConditions.label}");
+                        foreach (var cond in branch.matchConditions.conditions)
+                        {
+                            GUILayout.Label($"    条件描述: {cond.Description}");
+                        }
+                    }
+                    GUILayout.Space(5);
+                    if (branch.effects != null && branch.effects.Count > 0)
+                    {
+                        GUILayout.Label("结算效果:");
+                        foreach (var effect in branch.effects)
+                        {
+                            GUILayout.Label($"    效果描述: {effect.Description}");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                GUILayout.Label("没有分支设置");
+            }
+        }
+
+        GUILayout.EndVertical();
+
         EditorGUILayout.EndScrollView();
     }
 
     private void DrawTriggerConditionGroup()
     {
+        GUILayout.BeginHorizontal();
         GUILayout.Label("触发条件组", EditorStyles.boldLabel);
-        if (triggerGroup == null && GUILayout.Button("新建 Trigger 条件组", GUILayout.Height(28)))
+        GUIStyle bigButtonStyle = new GUIStyle(GUI.skin.button);
+        bigButtonStyle.fontSize = 20; // 字号大一点
+        bigButtonStyle.fontStyle = FontStyle.Bold;
+        bigButtonStyle.normal.textColor = Color.white;
+        if (triggerGroup == null && GUILayout.Button("+", bigButtonStyle, GUILayout.Width(30), GUILayout.Height(28)))
         {
             triggerGroup = CreateAndSaveSO<TriggerConditionGroup>($"{eventID}_TriggerGroup");
         }
+        GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
         triggerGroup =
             (TriggerConditionGroup)EditorGUILayout.ObjectField("条件组资源", triggerGroup, typeof(TriggerConditionGroup),
                 false);
         if (triggerGroup != null)
         {
-            GUIStyle bigButtonStyle = new GUIStyle(GUI.skin.button);
-            bigButtonStyle.fontSize = 20;
-            bigButtonStyle.fontStyle = FontStyle.Bold;
-            bigButtonStyle.normal.textColor = Color.white;
-            if (GUILayout.Button("+", bigButtonStyle, GUILayout.Width(40), GUILayout.Height(30)))
+            if (GUILayout.Button("+", bigButtonStyle, GUILayout.Width(30), GUILayout.Height(30)))
             {
                 TriggerConditionSelectorWindow.Show(type =>
                 {
@@ -222,7 +289,22 @@ public class EventNodeEditorWindow : EditorWindow
                     AssetDatabase.SaveAssets();
                 });
             }
+
+            // 删除按钮（删除整个 triggerGroup）
+            if (GUILayout.Button("X", GUILayout.Width(30), GUILayout.Height(30)))
+            {
+                if (EditorUtility.DisplayDialog("确认删除", "您确定要删除这个条件组吗?", "删除", "取消"))
+                {
+                    // 删除 triggerGroup
+                    TryDeleteAsset(triggerGroup);
+                    triggerGroup = null; // 清空 triggerGroup
+                    EditorUtility.SetDirty(this);
+                    AssetDatabase.SaveAssets();
+                    Debug.Log("触发条件组已删除");
+                }
+            }
         }
+
         GUILayout.EndHorizontal();
 
         if (triggerGroup != null)
@@ -286,32 +368,35 @@ public class EventNodeEditorWindow : EditorWindow
     }
 
 
-    private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int indent)
+private void DrawResolveConditionGroup(EventOutcomeBranch branch, int index, int indent)
     {
-        GUILayout.Label("结算条件组", EditorStyles.boldLabel);
-        GUILayout.Space(5);
-        if (branch.matchConditions == null && GUILayout.Button("新建 Resolve 条件组", GUILayout.Height(28)))
-        {
-            branch.matchConditions = CreateAndSaveSO<ResolveConditionGroup>($"{eventID}_ResolveGroup_{index}");
-        }
-
         GUILayout.BeginHorizontal();
-        branch.matchConditions = (ResolveConditionGroup)EditorGUILayout.ObjectField("条件组资源", branch.matchConditions,
-            typeof(ResolveConditionGroup), false);
+        GUILayout.Label("结算条件组", EditorStyles.boldLabel);
         GUIStyle bigButtonStyle = new GUIStyle(GUI.skin.button);
         bigButtonStyle.fontSize = 20; // 字号大一点
         bigButtonStyle.fontStyle = FontStyle.Bold;
         bigButtonStyle.normal.textColor = Color.white;
-
-        if (GUILayout.Button("+", bigButtonStyle, GUILayout.Width(30), GUILayout.Height(28)))
+        if (branch.matchConditions == null && GUILayout.Button("+",bigButtonStyle, GUILayout.Width(30), GUILayout.Height(28)))
         {
-            ResolveConditionSelectorWindow.Show(type =>
+            branch.matchConditions = CreateAndSaveSO<ResolveConditionGroup>($"{eventID}_ResolveGroup_{index}");
+        }
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+        branch.matchConditions = (ResolveConditionGroup)EditorGUILayout.ObjectField("条件组资源", branch.matchConditions,
+            typeof(ResolveConditionGroup), false);
+        if (branch.matchConditions != null)
+        {
+
+            if (GUILayout.Button("+", bigButtonStyle, GUILayout.Width(30), GUILayout.Height(28)))
             {
-                var cond = CreateAndSaveSO(type, $"ResolveCond_{eventID}_{branch.label}_{branch.matchConditions.conditions.Count}");
-                branch.matchConditions.conditions.Add((EventResolveConditionSO)cond);
-                EditorUtility.SetDirty(branch.matchConditions);
-                AssetDatabase.SaveAssets();
-            });
+                ResolveConditionSelectorWindow.Show(type =>
+                {
+                    var cond = CreateAndSaveSO(type, $"ResolveCond_{eventID}_{branch.label}_{branch.matchConditions.conditions.Count}");
+                    branch.matchConditions.conditions.Add((EventResolveConditionSO)cond);
+                    EditorUtility.SetDirty(branch.matchConditions);
+                    AssetDatabase.SaveAssets();
+                });
+            }
         }
         GUILayout.EndHorizontal();
 
@@ -392,7 +477,7 @@ public class EventNodeEditorWindow : EditorWindow
         bigButtonStyle.fontStyle = FontStyle.Bold;
         bigButtonStyle.normal.textColor = Color.white;
 
-        if (GUILayout.Button("+", bigButtonStyle, GUILayout.Width(40), GUILayout.Height(30)))
+        if (GUILayout.Button("+", bigButtonStyle, GUILayout.Width(30), GUILayout.Height(30)))
         {
             EffectsSelectorWindow.Show(type =>
             {
