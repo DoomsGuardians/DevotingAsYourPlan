@@ -3,6 +3,8 @@ using Cysharp.Threading.Tasks;
 
 public abstract class EventEffectSO : ScriptableObject, IEventEffect
 {
+    public string label;
+
     [Tooltip("以多大倍率使用稀有度系数，默认为0即不用,使用方式是(1 + rarityFactor * RaritySum)")]
     public float rarityFactor = 0f;
 

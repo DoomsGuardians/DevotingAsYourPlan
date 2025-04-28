@@ -6,6 +6,7 @@ using System.Linq;
 [CreateAssetMenu(menuName = "Events/Condition Groups/Trigger Condition Group")]
 public class TriggerConditionGroup : ScriptableObject
 {
+    public string label;
     [Tooltip("触发事件条件组判断模式")]
     public ConditionMode mode;
     [Tooltip("触发事件条件组")]
