@@ -16,5 +16,5 @@ public class TurnCountTriggerCondition : EventTriggerConditionSO
         return result;
     }
 
-    public override string Description => $"回合数 ∈ [{minTurn}, {maxTurn}]";
+    public override string Description => $"回合数 屬於 [{minTurn}, {maxTurn}]";
 }

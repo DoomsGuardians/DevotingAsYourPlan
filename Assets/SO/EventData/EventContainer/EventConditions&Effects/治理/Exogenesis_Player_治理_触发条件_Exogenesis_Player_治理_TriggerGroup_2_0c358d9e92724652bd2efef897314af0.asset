@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4b792e417aa3a4ba3b70890b79d019, type: 3}
+  m_Name: "Exogenesis_Player_\u6CBB\u7406_\u89E6\u53D1\u6761\u4EF6_Exogenesis_Player_\u6CBB\u7406_TriggerGroup_2_0c358d9e92724652bd2efef897314af0"
+  m_EditorClassIdentifier: 
+  role: 1
+  statKey: "\u987A\u4ECE\u6B63\u7EDF\u5EA6"
+  minValue: -50
+  maxValue: 100
+  invert: 0

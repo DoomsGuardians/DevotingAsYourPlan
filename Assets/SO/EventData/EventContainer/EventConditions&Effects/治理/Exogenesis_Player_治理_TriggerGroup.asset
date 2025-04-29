@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 723709bd3bcb74c438f475819fdb4f52, type: 3}
   m_Name: "Exogenesis_Player_\u6CBB\u7406_TriggerGroup"
   m_EditorClassIdentifier: 
+  label: 
   mode: 0
   conditions:
-  - {fileID: 11400000, guid: 16866960837f9874f8c09243063e0784, type: 2}
-  - {fileID: 11400000, guid: bb4f9058d17647747a486c3cb7e90be9, type: 2}
-  - {fileID: 11400000, guid: 0f1a584575fcdb24d814ebc62c8a6667, type: 2}
+  - {fileID: 11400000, guid: d85b4ef99ee03e2448056d4283abbdf3, type: 2}
+  - {fileID: 11400000, guid: 2f9a58155d8b9aa418579a57013d03b3, type: 2}
+  - {fileID: 11400000, guid: fc85693fcefd22d4a896c731e3322181, type: 2}

@@ -91,7 +91,7 @@ public class EventNodeEditorWindow : EditorWindow
         EditorGUILayout.EndScrollView();
     }
 
-// Draws the basic information section
+    // Draws the basic information section
     private void DrawBasicInfoSection()
     {
         GUILayout.BeginVertical("box");
@@ -106,8 +106,13 @@ public class EventNodeEditorWindow : EditorWindow
             roleType = (RoleType)EditorGUILayout.EnumPopup("来源角色", roleType);
             icon = (Sprite)EditorGUILayout.ObjectField("图标", icon, typeof(Sprite), false);
             duration = EditorGUILayout.IntField("持续时间", duration);
-            description = EditorGUILayout.TextArea(description, GUILayout.Height(60));
-
+            // 创建一个新的GUIStyle以确保启用自动换行
+            GUIStyle wordWrapStyle = new GUIStyle(GUI.skin.textArea)
+            {
+                wordWrap = true  // 启用自动换行
+            };
+            // 设置文本框的高度，并将自定义的样式应用于文本区域
+            description = EditorGUILayout.TextArea(description, wordWrapStyle, GUILayout.Height(60));
             GUILayout.Space(5);
             GUILayout.Label("高级选项", EditorStyles.boldLabel);
             isUnique = EditorGUILayout.Toggle("是否为唯一事件", isUnique);
@@ -118,7 +123,7 @@ public class EventNodeEditorWindow : EditorWindow
         GUILayout.EndVertical();
     }
 
-// Draws the trigger conditions section
+    // Draws the trigger conditions section
     private void DrawTriggerSection()
     {
         GUILayout.BeginVertical("box");
@@ -133,7 +138,7 @@ public class EventNodeEditorWindow : EditorWindow
         GUILayout.EndVertical();
     }
 
-// Draws the expired effects section
+    // Draws the expired effects section
     private void DrawExpiredEffectSection()
     {
         GUILayout.BeginVertical("box");
@@ -148,7 +153,7 @@ public class EventNodeEditorWindow : EditorWindow
         GUILayout.EndVertical();
     }
 
-// Draws the branch group section
+    // Draws the branch group section
     private int toRemoveGroup = -1;
     private (BranchGroup, int) toRemoveBranch = (null, -1);
 
@@ -272,7 +277,7 @@ public class EventNodeEditorWindow : EditorWindow
     }
 
 
-// Draws the summary section at the bottom of the window
+    // Draws the summary section at the bottom of the window
     private void DrawSummarySection()
     {
         GUILayout.BeginVertical("box");

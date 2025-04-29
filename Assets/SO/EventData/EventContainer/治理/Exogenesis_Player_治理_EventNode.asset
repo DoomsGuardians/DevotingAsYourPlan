@@ -12,69 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e59bba2fe274b45a23dfb1ac0ad63f, type: 3}
   m_Name: "Exogenesis_Player_\u6CBB\u7406_EventNode"
   m_EditorClassIdentifier: 
-  eventID: "Exogenesis_Player_\u6CBB\u7406"
-  eventName: "\u6CBB\u7406"
+  eventID: "\u4E8B\u4EF6ID"
+  eventName: "\u4E8B\u4EF6\u540D\u79F0"
   sourceRole: 0
   isUnique: 0
-  cooldownTurns: 2
+  cooldownTurns: 1
   decreaseFactor: 1
-  triggerConditions: {fileID: 11400000, guid: 95d3345038f328149bbc5e2f73f692dc, type: 2}
-  outcomeBranches:
-  - label: "\u6211+\u4FE1\u5F92+\u8D21\u54C1+\u52B3\u5DE5"
-    matchConditions: {fileID: 11400000, guid: ca91b165fecd9c443a1b1763838123b8, type: 2}
-    effects:
-    - {fileID: 11400000, guid: bd6ab67e31def4946b7f41065ce76a7d, type: 2}
-    - {fileID: 11400000, guid: 29ee240993f7c744db757e1923d300c2, type: 2}
-    - {fileID: 11400000, guid: 590e8d08ff113b64aa5b84d5580b367d, type: 2}
-    - {fileID: 11400000, guid: e346bd15e0d805a4faed675cc59f8734, type: 2}
-    - {fileID: 11400000, guid: 8260156692bd1a9449577944d179b4b5, type: 2}
-    - {fileID: 11400000, guid: dc720fff8817c154ca3fe3046f041bda, type: 2}
-  - label: "\u6211+\u4FE1\u5F92"
-    matchConditions: {fileID: 11400000, guid: e682fcb82520a494aa9d0f9c315168b6, type: 2}
-    effects:
-    - {fileID: 11400000, guid: 9e7487ea1fe36f8459f37ba5e8315211, type: 2}
-  - label: "\u6211+\u52B3\u5DE5"
-    matchConditions: {fileID: 11400000, guid: 28696d954b3acef4db0c85a03f260b57, type: 2}
-    effects:
-    - {fileID: 11400000, guid: 030051068fb453047afa4af4810f792d, type: 2}
-    - {fileID: 11400000, guid: a6942476d74141e4ba7c067887b34a01, type: 2}
-  - label: "\u4FE1\u5F92+\u52B3\u5DE5"
-    matchConditions: {fileID: 11400000, guid: 24fc122361a23674ca07206019c87752, type: 2}
-    effects:
-    - {fileID: 11400000, guid: e0f6e7597ff9a0c4f8a13ac3a1e2349b, type: 2}
-    - {fileID: 11400000, guid: 2ca6c6c433c6e9340bd7a84875e070b6, type: 2}
-    - {fileID: 11400000, guid: 5dc4a681461747c45918b7ee744bf10f, type: 2}
-  - label: "\u8D21\u54C1+\u52B3\u5DE5"
-    matchConditions: {fileID: 11400000, guid: d9436115fc3c2854ab185a49f24ed36d, type: 2}
-    effects:
-    - {fileID: 11400000, guid: c70f1ee1f899320499d31f265d7966d0, type: 2}
-    - {fileID: 11400000, guid: 0c4b7951559eb8941ad25fdbd452b134, type: 2}
-    - {fileID: 11400000, guid: 713ecd7d2c1fe7e47b6a20af86772de5, type: 2}
-    - {fileID: 11400000, guid: ae1e33ee69769e14c8b2467459081500, type: 2}
-  - label: "\u6211"
-    matchConditions: {fileID: 11400000, guid: 0f31d652c42c9704c9220b1135b0a0ac, type: 2}
-    effects:
-    - {fileID: 11400000, guid: 98399b96e5d064e4496239b3709915e2, type: 2}
-    - {fileID: 11400000, guid: 9d0f7aaee6701244fb1d538c062148f0, type: 2}
-    - {fileID: 11400000, guid: 904f640868670c8429ac4867843ba188, type: 2}
-  - label: "\u4FE1\u5F92"
-    matchConditions: {fileID: 11400000, guid: bda9fa32b0729e547a41516f2ad4bb5e, type: 2}
-    effects:
-    - {fileID: 11400000, guid: c702681b2f3e6834798c7c101394cc35, type: 2}
-    - {fileID: 11400000, guid: 496094b733e7a6847a36826118f843a3, type: 2}
-    - {fileID: 11400000, guid: 644f329a73cebf040a11f63e898ac571, type: 2}
-  - label: "\u8D21\u54C1"
-    matchConditions: {fileID: 11400000, guid: 20476eee771b91a438a54b99e1a611c0, type: 2}
-    effects:
-    - {fileID: 11400000, guid: d5e592b92c21dd9439d4797f4f8c39c3, type: 2}
-    - {fileID: 11400000, guid: ef07ad62ec61a3844bf3b38e5068836a, type: 2}
-  - label: "\u52B3\u5DE5"
-    matchConditions: {fileID: 11400000, guid: 99655b269c9a34b4da5112270ac43527, type: 2}
-    effects:
-    - {fileID: 11400000, guid: ffea28fc8e5260b4eb9225b7f85b5c6d, type: 2}
-    - {fileID: 11400000, guid: 2d1323d46e016dd43bb0bbe36659dec5, type: 2}
-    - {fileID: 11400000, guid: 9a6513437a3c72c4f9ca3d081ec3924b, type: 2}
-    - {fileID: 11400000, guid: 52b98846d1f10b04f81a6424bd8aa625, type: 2}
+  triggerConditions: {fileID: 0}
+  branchGroups: []
   expiredEffects: []
   description: "\u4E8B\u4EF6\u63CF\u8FF0..."
   icon: {fileID: 0}
