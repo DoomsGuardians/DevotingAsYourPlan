@@ -15,5 +15,3 @@ MonoBehaviour:
   eventPoolName: "Exogenisis\u6807\u51C6\u4E8B\u4EF6\u7EC4"
   eventNodeDataList:
   - {fileID: 11400000, guid: 8d959d90c4510644db7f2cc95f336457, type: 2}
-  - {fileID: 11400000, guid: 57f0940168f737946b12191003d65a35, type: 2}
-  - {fileID: 11400000, guid: 9607b153e0964124f9db6dc8521adf41, type: 2}

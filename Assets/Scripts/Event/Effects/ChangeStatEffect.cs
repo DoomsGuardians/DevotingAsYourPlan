@@ -23,16 +23,16 @@ public class ChangeStatEffect : EventEffectSO
     [Tooltip("波动范围（±X）")] public float variance = 0f;
 
     [FormerlySerializedAs("entryName")] [Tooltip("特定词条数量影响因子（1+词条数/卡牌总数）乘数")]
-    public CardEntry specificEntry;
+    public CardEntry specificEntry = null;
 
-    [Tooltip("特定词条数量影响因子乘数 为0就没有效果哦")] public int entryactor = 1;
+    [Tooltip("特定词条数量影响因子乘数 为0就没有效果哦")] public float entryactor = 1f;
 
     public override void Apply(EventInstance instance)
     {
         var role = GameManager.Instance.GetRole(targetRole);
         float appliedValue = (1 + rarityFactor * instance.RaritySum) * (value + Random.Range(-variance, variance));
 
-        int finalFactor = 1;
+        float finalFactor = 1;
 
         if (specificEntry != null && statKey == specificEntry.entryName)
         {
