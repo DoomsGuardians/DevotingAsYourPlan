@@ -436,7 +436,7 @@ public class EventManager
             {
                 await CleanupEventAsync(evt);
                 Debug.LogWarning($"{evt.name}没有配置分支组");
-                return;
+                continue;
             }
 
             // 遍历所有结果分支
