@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01fe49c37202ad040baf0848c45b71ed, type: 3}
-  m_Name: "Exogenesis_Player_\u6CBB\u7406_Exogenesis_Player_\u6CBB\u7406_BranchGroup_0_Effect_6_Effect_5_2a50afdd07624d6b8989e8b9109ecd8e"
+  m_Name: "Exogenesis_Player_\u6CBB\u7406_Exogenesis_Player_\u6CBB\u7406_BranchGroup_0_Effect_3_Effect_4_db9d41246b86420e9baf873908339c5d_Copy"
   m_EditorClassIdentifier: 
-  label: "\u52A8\u8569\u5EA6"
+  label: "\u795E\u683C\u6027"
   rarityFactor: 0.1
-  targetRole: 2
-  statKey: "\u52A8\u8361\u5EA6"
+  targetRole: 0
+  statKey: "\u795E\u683C\u6027"
   mode: 0
-  value: 4
+  value: -4
   variance: 2
-  specificEntry: {fileID: 11400000, guid: ed6d6b0cc3e48d543849a4df234d685f, type: 2}
+  specificEntry: {fileID: 0}
   entryactor: 1

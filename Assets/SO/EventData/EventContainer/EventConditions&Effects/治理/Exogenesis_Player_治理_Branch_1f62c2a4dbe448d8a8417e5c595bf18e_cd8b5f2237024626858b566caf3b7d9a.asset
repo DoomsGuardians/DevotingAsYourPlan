@@ -14,4 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: "\u6211+\u4FE1\u5F92+\u8D21\u54C1+\u52B3\u529B"
   matchConditions: {fileID: 11400000, guid: 596c4f29f7b7e3c439485c16099bb547, type: 2}
-  effects: []
+  effects:
+  - {fileID: 11400000, guid: 68b03078a1e9539469ada1d00edf66ee, type: 2}
+  - {fileID: 11400000, guid: cf251ff73a758734e80ec9570bb27380, type: 2}
+  - {fileID: 11400000, guid: 592ec58075cfbe142b333a51ff0adc1c, type: 2}
+  - {fileID: 11400000, guid: 5555d859260d29d4ea32c9e1b9f1fab8, type: 2}
+  - {fileID: 11400000, guid: 0517c4aec4cb4af479aaa6cd6ffb5011, type: 2}
+  - {fileID: 11400000, guid: 1ceb557318b4d8e42b0b6dbf9c8e1045, type: 2}
+  - {fileID: 11400000, guid: 64edce48cb7d44940b08b3a00f03dc89, type: 2}
+  - {fileID: 11400000, guid: 5b886ac0bf004be47b790ca7949dc058, type: 2}
+  - {fileID: 11400000, guid: cfc8a3b7271e00e409f789d1bc67146b, type: 2}
