@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d891110ba7efaa4eb0c65aadedb4957, type: 3}
+  m_Name: "Exogenesis_Player_\u6CBB\u7406_Exogenesis_Player_\u6CBB\u7406_BranchGroup_0_Effect_12_Effect_4_b5a2ee52b4be471e9b7505186ae59077_Copy_Copy"
+  m_EditorClassIdentifier: 
+  label: "\u4FE1\u4F17\u5386\u53F2"
+  rarityFactor: 0
+  targetRole: 1
+  statKey: "\u4FE1\u4F17\u6570"
+  multiplier: 0.5
+  invertDelta: 0
+  skipIfNoHistory: 1

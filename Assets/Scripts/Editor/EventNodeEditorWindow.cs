@@ -711,7 +711,13 @@ public class EventNodeEditorWindow : EditorWindow
                 (EventOutcomeBranch)EditorGUILayout.ObjectField("分支资源", group.branches[j],
                     typeof(EventOutcomeBranch),
                     false);
-            group.branches[j].label = EditorGUILayout.TextField("分支名称", group.branches[j].label);
+            string oldLabel = group.branches[j].label;
+            group.branches[j].label = EditorGUILayout.TextField("分支名称", oldLabel);
+            if (group.branches[j].label != oldLabel)
+            {
+                EditorUtility.SetDirty(group.branches[j]);
+            }
+
             GUILayout.Space(5);
             DrawResolveConditionGroup(group.branches[j], j, 2);
             GUILayout.Space(5);
@@ -721,57 +727,110 @@ public class EventNodeEditorWindow : EditorWindow
         GUILayout.EndVertical();
     }
 
-    private void SaveEventNodeData()
+private void SaveEventNodeData()
+{
+    string path = $"Assets/SO/EventData/EventContainer/{eventName}";
+    Directory.CreateDirectory(path);
+
+    EventNodeData node = loadedEventNode != null
+        ? loadedEventNode
+        : ScriptableObject.CreateInstance<EventNodeData>();
+
+    node.eventName = eventName;
+    node.eventID = eventID;
+    node.sourceRole = roleType;
+    node.description = description;
+    node.icon = icon;
+    node.duration = duration;
+    node.isUnique = isUnique;
+    node.cooldownTurns = cooldownTurns;
+    node.decreaseFactor = decreaseFactor;
+    node.triggerConditions = triggerGroup;
+    node.expiredEffects = expiredEffects;
+
+    if (triggerGroup != null)
     {
-        string path = $"Assets/SO/EventData/EventContainer/{eventName}";
-        Directory.CreateDirectory(path);
-
-        EventNodeData node = loadedEventNode != null
-            ? loadedEventNode
-            : ScriptableObject.CreateInstance<EventNodeData>();
-
-        node.eventName = eventName;
-        node.eventID = eventID;
-        node.sourceRole = roleType;
-        node.description = description;
-        node.icon = icon;
-        node.duration = duration;
-        node.isUnique = isUnique;
-        node.cooldownTurns = cooldownTurns;
-        node.decreaseFactor = decreaseFactor;
-        node.triggerConditions = triggerGroup;
-        node.expiredEffects = expiredEffects;
-
-        // 保存每个分支组（BranchGroup）为独立的资产
-        List<BranchGroup> validBranchGroups = new List<BranchGroup>();
-
-        foreach (var branchGroup in branchGroups)
+        EditorUtility.SetDirty(triggerGroup);
+        foreach (var cond in triggerGroup.conditions)
         {
-            if (branchGroup == null) continue;
-            string branchGroupPath = $"{path}/{branchGroup.name}_BranchGroup.asset";
-
-            // 如果这个 branchGroup 本身没有保存过资产，需要保存
-            if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(branchGroup)))
-            {
-                AssetDatabase.CreateAsset(branchGroup, branchGroupPath);
-            }
-
-            validBranchGroups.Add(branchGroup);
+            if (cond != null)
+                EditorUtility.SetDirty(cond);
         }
-
-        node.branchGroups = validBranchGroups;
-
-        // 如果是新创建的 EventNodeData，则保存它
-        if (loadedEventNode == null)
-        {
-            AssetDatabase.CreateAsset(node, $"{path}/{eventID}_EventNode.asset");
-        }
-
-        EditorUtility.SetDirty(node);
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-        EditorUtility.DisplayDialog("保存成功", $"事件数据已保存到：{path}", "OK");
     }
+
+    if (expiredEffects != null)
+    {
+        foreach (var eff in expiredEffects)
+        {
+            if (eff != null)
+                EditorUtility.SetDirty(eff);
+        }
+    }
+
+    // 保存每个分支组
+    List<BranchGroup> validBranchGroups = new List<BranchGroup>();
+    foreach (var branchGroup in branchGroups)
+    {
+        if (branchGroup == null) continue;
+
+        string branchGroupPath = $"{path}/{branchGroup.name}_BranchGroup.asset";
+
+        if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(branchGroup)))
+        {
+            AssetDatabase.CreateAsset(branchGroup, branchGroupPath);
+        }
+
+        EditorUtility.SetDirty(branchGroup);
+
+        if (branchGroup.branches != null)
+        {
+            foreach (var branch in branchGroup.branches)
+            {
+                if (branch == null) continue;
+
+                EditorUtility.SetDirty(branch);
+
+                // 保存 matchConditions
+                if (branch.matchConditions != null)
+                {
+                    EditorUtility.SetDirty(branch.matchConditions);
+                    foreach (var cond in branch.matchConditions.conditions)
+                    {
+                        if (cond != null)
+                            EditorUtility.SetDirty(cond);
+                    }
+                }
+
+                // 保存 effects
+                if (branch.effects != null)
+                {
+                    foreach (var eff in branch.effects)
+                    {
+                        if (eff != null)
+                            EditorUtility.SetDirty(eff);
+                    }
+                }
+            }
+        }
+
+        validBranchGroups.Add(branchGroup);
+    }
+
+    node.branchGroups = validBranchGroups;
+
+    if (loadedEventNode == null)
+    {
+        AssetDatabase.CreateAsset(node, $"{path}/{eventID}_EventNode.asset");
+    }
+
+    EditorUtility.SetDirty(node);
+
+    // ⛳️ 最后统一保存所有资源
+    AssetDatabase.SaveAssets();
+    AssetDatabase.Refresh();
+
+    EditorUtility.DisplayDialog("保存成功", $"事件数据已保存到：{path}", "OK");
+}
 
 
     private T CreateAndSaveSO<T>(string baseFileName) where T : ScriptableObject
@@ -967,6 +1026,9 @@ public class EventNodeEditorWindow : EditorWindow
                     var newEffect = CloneSOAsset(effect,
                         $"{newFolderForConditionEffects}/{effect.name}_Copy.asset");
                     newBranch.effects.Add(newEffect);
+                    EditorUtility.SetDirty(branch);
+                    EditorUtility.SetDirty(newEffect);
+                    AssetDatabase.SaveAssets();
                 }
 
                 newBranchGroup.branches.Add(newBranch);
@@ -1056,13 +1118,15 @@ public class EventNodeEditorWindow : EditorWindow
             var branchGroup = branchGroups[branchIndex];
 
             // 创建一个新的 EventOutcomeBranch
-            var newBranch = new EventOutcomeBranch
-            {
-                label = copiedBranch.label,
-                matchConditions = copiedBranch.matchConditions,
-                effects = copiedBranch.effects
-            };
+            var newBranch = CreateAndSaveSO<EventOutcomeBranch>($"{eventID}_Branch_Pasted_{Guid.NewGuid().ToString("N")}");
+            newBranch.label = copiedBranch.label;
+            newBranch.matchConditions = copiedBranch.matchConditions;
+            newBranch.effects = new List<EventEffectSO>(copiedBranch.effects); // 深拷贝引用
 
+            EditorUtility.SetDirty(newBranch);         // 标记为已修改
+            AssetDatabase.SaveAssets();                // 保存到磁盘
+            AssetDatabase.Refresh();
+            
             // 将复制的分支添加到目标分支组中
             branchGroup.branches.Add(newBranch);
 
@@ -1087,10 +1151,8 @@ public class EventNodeEditorWindow : EditorWindow
                 var branchGroup = branchGroups[branchIndex];
 
                 // 创建一个新的 EventOutcomeBranch
-                var newBranch = new EventOutcomeBranch
-                {
-                    label = $"{copiedBranch.label}_Copied"
-                };
+                var newBranch = CreateAndSaveSO<EventOutcomeBranch>($"{eventID}_PastedBranch_{Guid.NewGuid().ToString("N")}");
+                newBranch.label = $"{copiedBranch.label}_Copied";
 
                 // 深拷贝 ResolveConditionGroup（条件组）
                 if (copiedBranch.matchConditions != null)
