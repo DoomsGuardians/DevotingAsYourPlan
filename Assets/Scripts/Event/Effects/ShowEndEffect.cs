@@ -5,7 +5,7 @@ public class ShowEndEffect : EventEffectSO
 {
     [Tooltip("事件结束的新名字")]
     public string endName = "事件结束";
-    [TextArea(10,60)]
+    [TextArea(3,10)]
     [Tooltip("事件结束的新描述")]
     public string desc = "事件结束描述";
     public Sprite img;
