@@ -16,7 +16,7 @@ MonoBehaviour:
   eventName: "\u5BA3\u6559"
   sourceRole: 0
   isUnique: 0
-  cooldownTurns: 0
+  cooldownTurns: 3
   decreaseFactor: 1
   triggerConditions: {fileID: 11400000, guid: c82a5311dc8621f4b837faaff1f5c78f, type: 2}
   branchGroups:

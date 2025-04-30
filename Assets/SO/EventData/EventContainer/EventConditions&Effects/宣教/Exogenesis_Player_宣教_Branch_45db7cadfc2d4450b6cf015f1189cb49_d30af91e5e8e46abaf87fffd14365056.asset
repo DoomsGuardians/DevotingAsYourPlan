@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c69a093dd1e11e54c89047ba9f14da62, type: 3}
   m_Name: "Exogenesis_Player_\u5BA3\u6559_Branch_45db7cadfc2d4450b6cf015f1189cb49_d30af91e5e8e46abaf87fffd14365056"
   m_EditorClassIdentifier: 
-  label: 
-  matchConditions: {fileID: 0}
-  effects: []
+  label: "\u4FE1\u5F92"
+  matchConditions: {fileID: 11400000, guid: 74d49d667008e2241976477af246a8db, type: 2}
+  effects:
+  - {fileID: 11400000, guid: c4bc8321c5afe7547a168f83389aef03, type: 2}
+  - {fileID: 11400000, guid: 94534e3c26cb6f04cb1f8374d8dba1ad, type: 2}
+  - {fileID: 11400000, guid: 2841bef9f85f6d048ae43694442a11f9, type: 2}
+  - {fileID: 11400000, guid: 5d172f4b65e42c74eb0c929a71edd327, type: 2}
