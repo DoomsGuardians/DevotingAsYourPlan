@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c69a093dd1e11e54c89047ba9f14da62, type: 3}
+  m_Name: "Exogenesis_Player_\u8C0B\u7565_Branch_d3694eb4e320468b8d3b1652f5c839fb_34946d21bf2541be895295e0c41e7b8d"
+  m_EditorClassIdentifier: 
+  label: "\u52B3\u529B"
+  matchConditions: {fileID: 11400000, guid: aee4f8e1ad147594d8caa26bf24eb809, type: 2}
+  effects:
+  - {fileID: 11400000, guid: 4f96a1837fecf4b4e958766772599e35, type: 2}
+  - {fileID: 11400000, guid: 5d292a0586123e743ac8cab876f24ca3, type: 2}
+  - {fileID: 11400000, guid: fb15946695a242f419705474d70a6974, type: 2}
+  - {fileID: 11400000, guid: 3e1a1adcf0847b348ab877611a0d4c5f, type: 2}

@@ -1016,10 +1016,27 @@ private void SaveEventNodeData()
 
                 if (branch.matchConditions != null)
                 {
+                    string resolveGroupName = $"{branch.matchConditions.name}_Copy_{Guid.NewGuid().ToString("N")}";
                     var newResolveGroup = CloneSOAsset(branch.matchConditions,
-                        $"{newFolderForConditionEffects}/{branch.matchConditions.name}_Copy.asset");
+                        $"{newFolderForConditionEffects}/{resolveGroupName}.asset");
+                    newResolveGroup.name = resolveGroupName;
+
+                    newResolveGroup.conditions = new List<EventResolveConditionSO>();
+
+                    foreach (var cond in branch.matchConditions.conditions)
+                    {
+                        if (cond != null)
+                        {
+                            string condName = $"{cond.name}_Copy_{Guid.NewGuid().ToString("N")}";
+                            var clonedCond = CloneSOAsset(cond, $"{newFolderForConditionEffects}/{condName}.asset");
+                            clonedCond.name = condName;
+                            newResolveGroup.conditions.Add(clonedCond);
+                        }
+                    }
+
                     newBranch.matchConditions = newResolveGroup;
                 }
+
 
                 foreach (var effect in branch.effects)
                 {
