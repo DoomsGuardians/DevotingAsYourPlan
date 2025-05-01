@@ -6,7 +6,7 @@ public class StartTurnState : TurnState
     public StartTurnState(GameManager manager) : base(manager) { }
     public override async UniTask EnterAsync()
     {
-        gameManager.CheckForEnding();
+        await gameManager.CheckForEnding();
         Debug.Log("进入开始阶段");
         gameManager.turnStateMachine.TurnNum++;
         Debug.Log($"这是第{gameManager.turnStateMachine.TurnNum}回合");
