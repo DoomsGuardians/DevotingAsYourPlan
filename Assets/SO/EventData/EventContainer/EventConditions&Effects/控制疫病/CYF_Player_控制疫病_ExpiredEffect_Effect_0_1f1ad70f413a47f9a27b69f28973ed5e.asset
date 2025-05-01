@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4d26a7942e8422e828e7b2c1678f832, type: 3}
+  m_Name: "CYF_Player_\u63A7\u5236\u75AB\u75C5_ExpiredEffect_Effect_0_1f1ad70f413a47f9a27b69f28973ed5e"
+  m_EditorClassIdentifier: 
+  label: "\u663E\u793A\u7ED3\u679C"
+  rarityFactor: 0
+  endName: "\u4E8B\u4EF6\u7ED3\u675F"
+  desc: "\u2014\u2014<\u51B3\u8BAE\u5B8C\u6210>\u2014\u2014\r\n<size=80%>\u968F\u7740\u65F6\u95F4\u7684\u6D41\u901D\uFF0C\u75AB\u75C5\u5728\u6559\u533A\u8303\u56F4\u9010\u6E10\u892A\u53BB\u4E86\u3002\n\u5728\u4E00\u5F00\u59CB\u4FE1\u4F17\u4EEC\u671F\u5F85\u7740\u4F60\u4E0E\u6559\u4F1A\u80FD\u505A\u4E9B\u4EC0\u4E48\uFF0C\u65E0\u8BBA\u5E2E\u52A9\u591A\u5C11\uFF0C\u53EA\u8981\u80FD\u6709\u6240\u884C\u52A8\uFF0C\u5FC3\u7075\u4FBF\u4F1A\u5F97\u5230\u6170\u85C9\u3002\n\u4F46\u6559\u4F1A\u9009\u62E9\u4E86\u4EC0\u4E48\u4E5F\u4E0D\u505A\uFF0C\u4EFF\u4F5B\u4F2B\u7ACB\u4E8E\u5929\u4E0A\u7684\u795E\u7075\uFF0C\u5BF9\u4E00\u5207\u51E1\u95F4\u7684\u4E8B\u90FD\u4E0D\u653E\u5728\u5FC3\u4E0A\u3002</size>"
+  img: {fileID: 0}

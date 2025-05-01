@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e59bba2fe274b45a23dfb1ac0ad63f, type: 3}
+  m_Name: "CYF_Player_\u63A7\u5236\u75AB\u75C5_EventNode"
+  m_EditorClassIdentifier: 
+  eventID: "CYF_Player_\u63A7\u5236\u75AB\u75C5"
+  eventName: "\u63A7\u5236\u75AB\u75C5"
+  sourceRole: 0
+  isUnique: 1
+  cooldownTurns: 3
+  decreaseFactor: 1
+  triggerConditions: {fileID: 11400000, guid: 6290e6bc6f4c02c4fabce71a1e703b86, type: 2}
+  branchGroups:
+  - {fileID: 11400000, guid: e7eb6223af2144047b25dc24f4aee24e, type: 2}
+  expiredEffects:
+  - {fileID: 11400000, guid: ead72685a1e2b744db85fc3869d07d44, type: 2}
+  - {fileID: 11400000, guid: 204c1bc71dc1800498bd8c5e75abefd0, type: 2}
+  - {fileID: 11400000, guid: d8230028972483f46b207a99ae874b81, type: 2}
+  description: "\u2014\u2014<\u4F60\u7684\u51B3\u8BAE>\u2014\u2014\n<size=80%>\u6709\u6D88\u606F\u4ECE\u8FDC\u65B9\u4F20\u6765\uFF0C\u8BF4\u662F\u738B\u56FD\u7684\u4E1C\u9762\u4E0D\u5C11\u5730\u533A\u90FD\u6709\u60A3\u75C5\u7684\u4EBA\uFF0C\u5C0F\u9547\u4E0A\u4E5F\u6709\u51E0\u4E2A\u9547\u6C11\u751F\u4E86\u75C5\u3002\n\u201C\u8FDE\u597D\u5FC3\u4F0A\u83B2\u5A1C\u4E5F\u5F97\u4E86\u75C5\u201D\uFF0C\u9547\u6C11\u4EEC\u8BAE\u8BBA\u7EB7\u7EB7\uFF0C\u6709\u4E9B\u60F4\u60F4\u4E0D\u5B89\u3002\n\u6700\u8FD1\u6765\u6559\u5802\u91CC\u7948\u7977\u7684\u4EBA\u4E5F\u591A\u4E86\u4E0D\u5C11\uFF0C\u6216\u8BB8\u4F60\u4E0E\u6559\u4F1A\u53EF\u4EE5\u505A\u4E9B\u4EC0\u4E48\u6765\u5E2E\u52A9\u4ED6\u4EEC\u3002</size>"
+  icon: {fileID: 0}
+  duration: 2
