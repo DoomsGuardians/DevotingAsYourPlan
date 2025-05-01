@@ -16,3 +16,4 @@ MonoBehaviour:
   eventNodeDataList:
   - {fileID: 11400000, guid: 8d959d90c4510644db7f2cc95f336457, type: 2}
   - {fileID: 11400000, guid: 6eb354b84a7dea84382854d155bd97d1, type: 2}
+  - {fileID: 11400000, guid: 2b050efa0d100a848a411c60be342fb2, type: 2}
