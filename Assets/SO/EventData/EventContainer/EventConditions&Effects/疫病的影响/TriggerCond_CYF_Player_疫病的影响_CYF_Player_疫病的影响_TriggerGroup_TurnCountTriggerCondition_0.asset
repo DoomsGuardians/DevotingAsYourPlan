@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a44b4b9fe15b054988b0c4f3024459a, type: 3}
   m_Name: "TriggerCond_CYF_Player_\u75AB\u75C5\u7684\u5F71\u54CD_CYF_Player_\u75AB\u75C5\u7684\u5F71\u54CD_TriggerGroup_TurnCountTriggerCondition_0"
   m_EditorClassIdentifier: 
-  minTurn: 5
-  maxTurn: 999
+  minTurn: 6
+  maxTurn: 8
