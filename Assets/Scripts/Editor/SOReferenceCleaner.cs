@@ -6,7 +6,7 @@ using System.Linq;
 
 public class SOReferenceCleaner
 {
-    [MenuItem("Tools/Clean Unused Event ScriptableObjects")]
+    [MenuItem("LevityTools/Clean Unused Event ScriptableObjects")]
     public static void CleanUnusedSO()
     {
         string basePath = "Assets/SO/EventData/EventContainer";
