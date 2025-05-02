@@ -3,6 +3,7 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(AudioKeyAttribute))]
 public class AudioKeyDrawer : PropertyDrawer
 {
@@ -49,3 +50,5 @@ public class AudioKeyDrawer : PropertyDrawer
         }
     }
 }
+
+#endif 

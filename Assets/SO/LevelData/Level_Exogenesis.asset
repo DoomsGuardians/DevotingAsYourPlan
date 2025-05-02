@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e00e0762ea042689b342f010d1d316d, type: 3}
-  m_Name: ProjectStats
+  m_Script: {fileID: 11500000, guid: 84bb682338cb52a4aa725089d6980471, type: 3}
+  m_Name: Level_Exogenesis
   m_EditorClassIdentifier: 
-  TotalScriptsCount: 2
-  TotalCommandCount: 47
-  TotalWordsCount: 22
+  levelName: "\u5916\u751F"
+  sceneName: Exogenesis
+  description: "\u67B6\u7A7A\u4E16\u754C\u89C2\u521B\u6559\u5F55"
+  previewImage: {fileID: 0}

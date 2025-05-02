@@ -90,6 +90,7 @@ MonoBehaviour:
     - default
     - Naninovel
     - Scripts/TestEvent
+    - Scripts/Exogenisis_Intro
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 93427deb7253b3646889fe4a227db405, type: 2}

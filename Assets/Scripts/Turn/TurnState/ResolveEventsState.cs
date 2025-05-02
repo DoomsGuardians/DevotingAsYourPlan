@@ -15,9 +15,9 @@ public class ResolveEventsState : TurnState
             
         }
         Debug.LogWarning($"执行了");
-        await gameManager.ResolveEventEffect(); // ✅ 先处理事件
+        await gameManager.ResolveEventEffect(); // 先处理事件
         Debug.LogWarning($"执行了");
-        await UniTask.Yield(); // ✅ 然后给 UI 留出一帧渲染空间
+        await UniTask.Yield(); // 然后给 UI 留出一帧渲染空间
         await gameManager.TransitionToStateAsync(TurnPhase.NPCAction); // ✅ 再切换到下个状态（如果你有）
     }
 

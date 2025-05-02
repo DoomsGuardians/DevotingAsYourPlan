@@ -35,7 +35,7 @@ public class EventManager
         List<RectTransform> holder)
     {
         activeEvents = new();
-        defaultEvents = defaultList;
+        defaultEvents = new List<EventNodeData>(defaultList) ;
         eventSlot = eventPrefab;
         actionSlot = actionPrefab;
         eventHolders = holder;
