@@ -217,11 +217,54 @@ public class GameManager : MonoSingleton<GameManager>
             AudioManager.Instance.PlaySFX("turn_transition");
             await InputUtility.WaitForClickAsync();
             await EndingPanel.Instance.Hide();
-            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
-            // await GameManager.Instance.PlayScenarioAsync("FinalEnding");
+            await RestartGameSession();
         }
         
     }
+    
+    private void ClearSceneObjects()
+    {
+        // 清空所有事件 GameObject（建议用 Tag 或统一挂载节点管理）
+        foreach (var holder in eventHolders)
+        {
+            foreach (Transform child in holder)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+        }
+
+        // 清空所有卡牌
+        foreach (var card in playerCardHolder.cards.ToList())
+        {
+            playerCardHolder.DestroyCard(card);
+        }
+    }
+    
+    public async UniTask RestartGameSession()
+    {
+        LoadingUI.Instance.ShowWithText("重新开始中...");
+
+        ClearSceneObjects(); // 主动清除所有事件与卡牌对象
+
+        // 重新初始化逻辑组件
+        CardManager = new CardManager();
+        RoleManager = new RoleManager();
+        EventManager = new EventManager();
+
+        CardManager.Initialize(defaultCardPool, playerCardHolder);
+        RoleManager.Initialize(roleDataConfigs, statDefinitionTable);
+        EventManager.Initialize(defaultEventNodeDatas.eventNodeDataList, eventSlotPrefab, actionSlotPrefab, eventHolders);
+
+        turnStateMachine = new TurnStateManager(this);
+        
+        await LoadingUI.Instance.FadeOutAndHide();
+        
+        CardManager.LoadInitialCards(playerCardHolder, initialCardPool);
+        await TransitionToStateAsync(TurnPhase.StartTurn);
+
+        
+    }
+
     
     public override bool IsNotDestroyOnLoad() => false;
 }

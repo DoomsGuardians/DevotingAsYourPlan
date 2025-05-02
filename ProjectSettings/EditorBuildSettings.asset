@@ -5,8 +5,14 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CardTest.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: c0ce88ca1c91fe743b5cca17ab7c1b80
+  - enabled: 1
+    path: Assets/Scenes/Exogenesis.unity
+    guid: 38e38ba8ec9ff9749852d8121dfcb9b6
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 94336059aac30be4f908d3e0903d8db4, type: 2}

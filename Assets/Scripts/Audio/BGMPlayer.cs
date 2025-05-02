@@ -39,6 +39,7 @@ public class BGMPlayer
     {
         currentPlaylist = keys;
         currentTrackIndex = UnityEngine.Random.Range(0, keys.Length);
+        Debug.Log(keys.Length);
         PlayCurrentTrack();
     }
 

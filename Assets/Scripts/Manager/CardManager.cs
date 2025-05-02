@@ -447,13 +447,17 @@ public class CardManager
     
     public void LoadInitialCards(HorizontalCardHolder playerCardHolder, CardPool pool)
     {
+        var cards = playerCardHolder.cards;
+        for (int i = cards.Count - 1; i >= 0; i--) // 包含 i == 0！
+        {
+            playerCardHolder.DestroyCard(cards[i]);
+        }
+
         foreach (var cardData in pool.cards)
         {
-            CardRuntime cardRuntime = CreateCard(cardData);
-            if (cardRuntime != null)
-            {
-                playerCardHolder.AddCard(cardRuntime);
-            }
+            var runtime = CreateCard(cardData);
+            if (runtime != null)
+                playerCardHolder.AddCard(runtime);
         }
     }
 }

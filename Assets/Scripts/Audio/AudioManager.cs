@@ -58,4 +58,14 @@ public class AudioManager : MonoSingleton<AudioManager>
     {
         bgmPlayer.PlaySequence(bgmKey);
     }
+    
+    public void SetBGMVolume(float volume)
+    {
+        bgmSource.volume = volume;
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        sfxSource.volume = volume;
+    }
 }
