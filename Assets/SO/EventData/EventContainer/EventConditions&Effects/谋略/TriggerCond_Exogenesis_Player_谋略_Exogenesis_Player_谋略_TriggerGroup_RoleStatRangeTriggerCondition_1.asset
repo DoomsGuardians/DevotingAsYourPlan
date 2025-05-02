@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "TriggerCond_Exogenesis_Player_\u8C0B\u7565_Exogenesis_Player_\u8C0B\u7565_TriggerGroup_RoleStatRangeTriggerCondition_1"
   m_EditorClassIdentifier: 
   role: 0
-  statKey: "\u4FE1\u5949\u5EA6"
-  minValue: -50
-  maxValue: 50
+  statKey: "\u795E\u79D8\u6027"
+  minValue: 0
+  maxValue: 100
   invert: 0

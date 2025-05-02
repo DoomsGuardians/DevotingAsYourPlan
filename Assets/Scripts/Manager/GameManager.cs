@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
 using Naninovel;
 using System.Linq;
+using UniTask = Naninovel.UniTask;
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -198,5 +199,29 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void SettleAllRoles() => RoleManager.SettleAllRoles();
 
+    public async Cysharp.Threading.Tasks.UniTask CheckForEnding()
+    {
+        var player = RoleManager.GetRole(RoleType.Player);
+        if (player.GetStat("健康度") <= 0)
+        {
+            var endingText = new EndingManager().GenerateEndingSummary();
+            Debug.Log("结局生成：\n" + endingText);
+            foreach (var holder in eventHolders)
+            {
+                holder.GetComponent<CanvasGroup>().blocksRaycasts = false;
+            }
+
+            playerCardHolder.GetComponent<CanvasGroup>().blocksRaycasts = false;
+            // 可在此调用 UI 展示 或 播放 Naninovel 剧本
+            await EndingPanel.Instance.Show(endingText);
+            AudioManager.Instance.PlaySFX("turn_transition");
+            await InputUtility.WaitForClickAsync();
+            await EndingPanel.Instance.Hide();
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+            // await GameManager.Instance.PlayScenarioAsync("FinalEnding");
+        }
+        
+    }
+    
     public override bool IsNotDestroyOnLoad() => false;
 }

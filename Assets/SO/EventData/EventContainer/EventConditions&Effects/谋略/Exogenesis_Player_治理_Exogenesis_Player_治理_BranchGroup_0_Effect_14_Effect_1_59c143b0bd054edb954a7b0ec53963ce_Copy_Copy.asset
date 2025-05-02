@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "Exogenesis_Player_\u6CBB\u7406_Exogenesis_Player_\u6CBB\u7406_BranchGroup_0_Effect_14_Effect_1_59c143b0bd054edb954a7b0ec53963ce_Copy_Copy"
   m_EditorClassIdentifier: 
   label: "\u53D1\u5C55\u5EA6"
-  rarityFactor: 0.2
+  rarityFactor: 0.1
   targetRole: 1
   statKey: "\u53D1\u5C55\u5EA6"
   mode: 0

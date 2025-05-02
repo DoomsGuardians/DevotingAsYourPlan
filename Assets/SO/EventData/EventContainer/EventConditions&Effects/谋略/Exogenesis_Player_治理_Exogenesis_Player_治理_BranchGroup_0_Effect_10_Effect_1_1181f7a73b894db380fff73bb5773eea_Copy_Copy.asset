@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01fe49c37202ad040baf0848c45b71ed, type: 3}
   m_Name: "Exogenesis_Player_\u6CBB\u7406_Exogenesis_Player_\u6CBB\u7406_BranchGroup_0_Effect_10_Effect_1_1181f7a73b894db380fff73bb5773eea_Copy_Copy"
   m_EditorClassIdentifier: 
-  label: "\u53D1\u5C55\u5EA6"
+  label: "\u4FE1\u5949\u5EA6"
   rarityFactor: 0.2
   targetRole: 1
-  statKey: "\u53D1\u5C55\u5EA6"
+  statKey: "\u4FE1\u5949\u5EA6"
   mode: 0
   value: 1
   variance: 1

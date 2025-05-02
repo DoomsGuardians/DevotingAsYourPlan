@@ -18,6 +18,6 @@ MonoBehaviour:
   statKey: "\u53D1\u5C55\u5EA6"
   mode: 0
   value: 1
-  variance: 1
+  variance: 0
   specificEntry: {fileID: 0}
   entryactor: 1

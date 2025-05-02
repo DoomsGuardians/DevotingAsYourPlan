@@ -10,7 +10,9 @@ public class EventShowContainer : MonoBehaviour
 
     [SerializeField] private CanvasGroup canvasGroup;
 
-    [SerializeField] private RectTransform rectTransform;
+    [SerializeField] private RectTransform continueRectTransform;
+
+    [SerializeField] private RectTransform returnRectTransform;
 
     [SerializeField] private Vector2 inPos;
 
@@ -23,13 +25,13 @@ public class EventShowContainer : MonoBehaviour
     public void PlayEventShowAnimation()
     {
         canvasGroup.DOFade(1, 1f);
-        rectTransform.DOAnchorPos(inPos, .5f).SetEase(Ease.InQuad);
+        continueRectTransform.DOAnchorPos(inPos, .5f).SetEase(Ease.InQuad);
     }
 
     public void PlayEventHideAnimation()
     {
         canvasGroup.DOFade(0, 1f);
-        rectTransform.DOAnchorPos(outPos, .5f).SetEase(Ease.OutQuad);
+        continueRectTransform.DOAnchorPos(outPos, .5f).SetEase(Ease.OutQuad);
     }
     
     public void PlayCardShowAnimation()
@@ -40,5 +42,17 @@ public class EventShowContainer : MonoBehaviour
     public void PlayCardHideAnimation()
     {
         canvasGroup.DOFade(0, .5f);
+    }
+    
+    public void PlayEndingShowAnimation()
+    {
+        canvasGroup.DOFade(1, .5f);
+        returnRectTransform.DOAnchorPos(inPos, .5f).SetEase(Ease.InQuad);
+    }
+    
+    public void PlayEndingHideAnimation()
+    {
+        canvasGroup.DOFade(0, .5f);
+        returnRectTransform.DOAnchorPos(outPos, .5f).SetEase(Ease.OutQuad);
     }
 }
