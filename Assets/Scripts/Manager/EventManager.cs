@@ -430,7 +430,7 @@ public class EventManager
         {
             if (evt.resolved) continue;
 
-            bool anyMatched = false;
+            bool matched = false;
 
             if (evt.data.branchGroups.Count == 0)
             {
@@ -439,41 +439,44 @@ public class EventManager
                 continue;
             }
 
-            evt.originalCards = evt.cardHolder.cards.Select(card => card.runtimeData).ToList();
-            GameManager.Instance.CardManager.ResolveCardsDecrease(evt);
-            await TransferCardsOutOfEvent(evt);
-            
-            // 遍历所有分支组
+            // 遍历所有结果分支
             foreach (var branchGroup in evt.data.branchGroups)
             {
-                if (branchGroup == null || branchGroup.branches == null) continue;
-
-                foreach (var branch in branchGroup.branches)
+                foreach (var branch in branchGroup.branches) // Iterate through branches in the group
                 {
-                    if (branch.matchConditions != null && branch.matchConditions.EvaluateAll(evt))
+                    if (branch.matchConditions.EvaluateAll(evt)) // Check conditions for each branch
                     {
                         Debug.Log($"[事件处理] 【{evt.data.eventName}】匹配分支【{branch.label}】");
+                        GameManager.Instance.CardManager.ResolveCardsDecrease(evt);
+                        evt.originalCards = evt.cardHolder.cards.Select(card => card.runtimeData)
+                            .ToList();
+                        await TransferCardsOutOfEvent(evt);
                         await ExecuteEffectsAsync(evt, branch.effects);
-                        anyMatched = true;
-                        break; // 同组内只匹配一个分支
+                        // 清理引用，避免事件被卡牌引用锁住
+                        evt.originalCards.Clear();
+                        matched = true;
+                        break;
                     }
                 }
             }
 
-            // 没有任何分支匹配，但事件已过期
-            if (!anyMatched && evt.IsExpired())
+            // 没有匹配分支，但事件已过期
+            if (!matched && evt.IsExpired())
             {
                 Debug.Log($"[事件处理] 【{evt.data.eventName}】过期未匹配任何分支");
+
+                await TransferCardsOutOfEvent(evt);
+
                 await ExecuteEffectsAsync(evt, evt.data.expiredEffects);
+
+
             }
-            else if (!anyMatched)
+            else if (!matched)
             {
                 Debug.LogWarning($"[事件处理] 【{evt.data.eventName}】没有匹配任何分支！");
             }
-
-            evt.originalCards.Clear();
             await CleanupEventAsync(evt);
-            HistoryLog.Log(evt, anyMatched);
+            HistoryLog.Log(evt, matched);
         }
     }
 
