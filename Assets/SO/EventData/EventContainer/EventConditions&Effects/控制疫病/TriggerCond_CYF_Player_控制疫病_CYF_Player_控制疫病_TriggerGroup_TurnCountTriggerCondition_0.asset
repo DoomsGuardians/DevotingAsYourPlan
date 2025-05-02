@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: "TriggerCond_CYF_Player_\u63A7\u5236\u75AB\u75C5_CYF_Player_\u63A7\u5236\u75AB\u75C5_TriggerGroup_TurnCountTriggerCondition_0"
   m_EditorClassIdentifier: 
   minTurn: 3
-  maxTurn: 999
+  maxTurn: 5

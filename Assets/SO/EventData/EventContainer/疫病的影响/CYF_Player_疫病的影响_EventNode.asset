@@ -21,6 +21,7 @@ MonoBehaviour:
   triggerConditions: {fileID: 11400000, guid: a59398134b88cd144ad7334fc9e61a01, type: 2}
   branchGroups:
   - {fileID: 11400000, guid: 296ca6c568eb1484691f622612978da3, type: 2}
+  - {fileID: 11400000, guid: e30b4d970d1d9804c9dd88ff79f5d89d, type: 2}
   expiredEffects:
   - {fileID: 11400000, guid: 492220d4007599f4d85a76e3e7c1c873, type: 2}
   - {fileID: 11400000, guid: 07a6787593343d64e948ef239160bdef, type: 2}

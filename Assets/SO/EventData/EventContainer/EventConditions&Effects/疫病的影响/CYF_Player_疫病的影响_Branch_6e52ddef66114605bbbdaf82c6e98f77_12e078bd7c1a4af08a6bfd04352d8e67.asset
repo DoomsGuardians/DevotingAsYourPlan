@@ -16,9 +16,10 @@ MonoBehaviour:
   matchConditions: {fileID: 11400000, guid: c01818c75aaafd54eb613d470bf87609, type: 2}
   effects:
   - {fileID: 11400000, guid: aae949085ed959543949786ad245dcbb, type: 2}
-  - {fileID: 11400000, guid: c69ff5e75162b724c9e1e665655b9fa4, type: 2}
-  - {fileID: 11400000, guid: be81b11b27c990f4ead14d06bde162bf, type: 2}
   - {fileID: 11400000, guid: 10f3d5a5fffb4ba41b8aadc8814892e4, type: 2}
-  - {fileID: 11400000, guid: b38e1a1d8082e9b4da4d6ef70953fc81, type: 2}
+  - {fileID: 11400000, guid: be81b11b27c990f4ead14d06bde162bf, type: 2}
   - {fileID: 11400000, guid: 7ab4c4bb09337b64d89332045199dda9, type: 2}
-  - {fileID: 11400000, guid: 85c89aa7cbd6a424ea43c74f665277ed, type: 2}
+  - {fileID: 11400000, guid: 54738d3bf0f799f42bfaebd6abbe0452, type: 2}
+  - {fileID: 11400000, guid: c69ff5e75162b724c9e1e665655b9fa4, type: 2}
+  - {fileID: 11400000, guid: ebfbc12d3c5f9744f84b549e6949c355, type: 2}
+  - {fileID: 11400000, guid: b38e1a1d8082e9b4da4d6ef70953fc81, type: 2}

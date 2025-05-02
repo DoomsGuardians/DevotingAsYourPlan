@@ -20,4 +20,4 @@ MonoBehaviour:
   value: 3
   variance: 0
   specificEntry: {fileID: 0}
-  entryactor: 0
+  entryactor: 1
