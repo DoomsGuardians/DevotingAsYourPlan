@@ -448,8 +448,12 @@ public class EventManager
                     {
                         Debug.Log($"[事件处理] 【{evt.data.eventName}】匹配分支【{branch.label}】");
                         GameManager.Instance.CardManager.ResolveCardsDecrease(evt);
+                        evt.originalCards = evt.cardHolder.cards.Select(card => card.runtimeData)
+                            .ToList();
                         await TransferCardsOutOfEvent(evt);
                         await ExecuteEffectsAsync(evt, branch.effects);
+                        // 清理引用，避免事件被卡牌引用锁住
+                        evt.originalCards.Clear();
                         matched = true;
                         await CleanupEventAsync(evt);
                         break;

@@ -35,6 +35,7 @@ public class EventInstance : MonoBehaviour
     [SerializeField] public AnimancerComponent animancer;
 
     [SerializeField] public List<ClipTransition> clips;
+    [HideInInspector] public List<CardRuntime> originalCards = new();
     
     [HideInInspector] public int RaritySum
     {
