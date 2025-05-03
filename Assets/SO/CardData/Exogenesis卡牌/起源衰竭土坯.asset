@@ -22,3 +22,4 @@ MonoBehaviour:
   decrease: 2
   entries:
   - {fileID: 11400000, guid: 99a1d0f33743f6f46848b8e0d5ee91e1, type: 2}
+  - {fileID: 11400000, guid: c3e2f93222b6fc0479501f0e843289ad, type: 2}

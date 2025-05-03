@@ -15,7 +15,7 @@ public class SettleCardsInEventEffect : EventEffectSO
         {
             foreach (var card in evt.originalCards)
             {
-                if (card.data.cardName != "破旧的还原机")
+                if (!card.entries.Select(e => e.entryName).Contains("治疗"))
                 {
                     if (card.data.cardType == CardType.Believer)
                     {
@@ -32,6 +32,11 @@ public class SettleCardsInEventEffect : EventEffectSO
                         card.remainingLife += extraLifeForLabor;
                         Debug.Log($"[延寿效果] 卡【{card.data.cardName}】 +{extraLifeForLabor} 寿命");
                     }
+                }
+                else
+                {
+                    card.remainingLife -= card.data.decrease;
+                    Debug.Log($"[消耗治疗] 卡【{card.data.cardName}】 消耗{card.data.decrease} 寿命");
                 }
             }
         }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4d26a7942e8422e828e7b2c1678f832, type: 3}
+  m_Name: "\u91CD\u751F\u8005\u963F\u4E3D\u5A05_ExpiredEffect_ShowEndEffect_1"
+  m_EditorClassIdentifier: 
+  label: "\u663E\u793A\u7ED3\u679C"
+  rarityFactor: 0
+  endName: "\u4E8B\u4EF6\u7ED3\u675F"
+  desc: "\u2014\u2014<\u5723\u5973\xB7\u4E8B\u4EF6\u7ED3\u675F>\u2014\u2014\n<size=80%>\u4F60\u53EA\u662F\u8D70\u5F00\u4E86\uFF0C\u6CA1\u6709\u56DE\u5E94\u5979\u7684\u95EE\u9898\u3002\n\u5979\u4F4E\u5934\u8BF4\u4E86\u53E5\u201C\u4E5F\u597D\u201D\uFF0C\u7136\u540E\u56DE\u53BB\u7EE7\u7EED\u64E6\u62ED\u5723\u5668\u3002\n\u4E09\u5929\u540E\uFF0C\u5979\u6CA1\u6709\u51FA\u73B0\u5728\u4EEA\u5F0F\u4E0A\u3002\u518D\u89C1\u5979\u65F6\uFF0C\u5979\u6B63\u5E2E\u4EBA\u4FEE\u8865\u4E00\u95F4\u7834\u5C4B\uFF0C\u7B11\u5F97\u5F88\u6E29\u548C\uFF0C\u4F46\u4E0D\u518D\u56DE\u671B\u795E\u575B\u3002</size>"
+  img: {fileID: 0}

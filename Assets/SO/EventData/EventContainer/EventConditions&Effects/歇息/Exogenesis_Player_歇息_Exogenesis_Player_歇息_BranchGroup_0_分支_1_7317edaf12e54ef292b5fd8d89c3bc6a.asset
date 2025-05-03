@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c69a093dd1e11e54c89047ba9f14da62, type: 3}
   m_Name: "Exogenesis_Player_\u6B47\u606F_Exogenesis_Player_\u6B47\u606F_BranchGroup_0_\u5206\u652F_1_7317edaf12e54ef292b5fd8d89c3bc6a"
   m_EditorClassIdentifier: 
-  label: "\u6709\u8FD8\u539F\u673A"
+  label: "\u6709\u6CBB\u7597"
   matchConditions: {fileID: 11400000, guid: b34245097b72028468ea18ffb969128c, type: 2}
   effects:
   - {fileID: 11400000, guid: 573593b7a40c4a146a9a802b26c6ea61, type: 2}

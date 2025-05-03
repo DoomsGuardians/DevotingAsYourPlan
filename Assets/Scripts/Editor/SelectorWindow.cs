@@ -24,6 +24,7 @@ public class ResolveConditionSelectorWindow : EditorWindow
 
         DrawTypeButton<CardMatchRangeResolveCondition>("卡牌匹配范围");
         DrawTypeButton<RoleStatRangeResolveCondition>("角色属性范围");
+        DrawTypeButton<RandomNumResolveCondition>("随机数条件");
 
         GUILayout.EndHorizontal();
     }

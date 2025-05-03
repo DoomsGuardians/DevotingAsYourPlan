@@ -19,7 +19,8 @@ MonoBehaviour:
   rarity: 3
   maxLife: 90
   isUnique: 1
-  decrease: 33
+  decrease: 50
   entries:
   - {fileID: 11400000, guid: 81eb45ddddc903e42a507e14274d1799, type: 2}
   - {fileID: 11400000, guid: f3df76186ef9b884986372a3dadf5626, type: 2}
+  - {fileID: 11400000, guid: c3e2f93222b6fc0479501f0e843289ad, type: 2}
