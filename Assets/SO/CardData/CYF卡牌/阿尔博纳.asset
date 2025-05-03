@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 455a0d4c6b3aec142aec345debda4ab4, type: 3}
-  m_Name: "\u4F0A\u83B2\u5A1C"
+  m_Name: "\u963F\u5C14\u535A\u7EB3"
   m_EditorClassIdentifier: 
-  cardName: "\u4F0A\u83B2\u5A1C"
-  description: "\u4EBA\u79F0\u201C\u597D\u5FC3\u7684\u4F0A\u83B2\u5A1C\u201D\uFF0C\u5728\u75AB\u75C5\u65F6\u671F\u56E0\u4E0D\u65AD\u7948\u7977\u800C\u81EA\u6108\uFF0C\u7531\u6B64\u6210\u4E3A\u8654\u8BDA\u7684\u4FE1\u5F92\u3002"
+  cardName: "\u963F\u5C14\u535A\u7EB3"
+  description: "\u552E\u5356\u5723\u804C\u8005\u6D3E\u6765\u9001\u4FE1\u7684\u4EBA\uFF0C\u901A\u8FC7\u4ED6\u53EF\u4EE5\u8054\u7CFB\u5230\u90A3\u4F4D\u4E3B\u6559\u3002"
   illustration: {fileID: 0}
   cardType: 2
-  rarity: 3
-  maxLife: 55
+  rarity: 1
+  maxLife: 21
   isUnique: 1
-  decrease: 1
+  decrease: 2
   entries:
-  - {fileID: 11400000, guid: 588b1dcd29ce12a40b9db988aa41af9a, type: 2}
+  - {fileID: 11400000, guid: ed6d6b0cc3e48d543849a4df234d685f, type: 2}
