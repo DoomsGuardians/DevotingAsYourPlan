@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdea92bdc1c3566468bc40172c2f7fce, type: 3}
+  m_Name: "CYF_People_\u6267\u4E8B\u7684\u4E0D\u5B89_CYF_People_\u6267\u4E8B\u7684\u4E0D\u5B89_BranchGroup_0_Effect_3_Effect_6_a32d0e1a3f854b9895c3d23b14bffef0"
+  m_EditorClassIdentifier: 
+  label: "\u6D1B\u4F26\u4F50"
+  rarityFactor: 0
+  cardName: "\u6D1B\u4F26\u4F50"

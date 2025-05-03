@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688ae953c0e6c334e92611bb6e7008f9, type: 3}
+  m_Name: "CYF_People_\u6267\u4E8B\u7684\u4E0D\u5B89_\u7ED3\u7B97\u6761\u4EF6_\u6211_0_810457e9ce4047609e3701d7ddc50daf"
+  m_EditorClassIdentifier: 
+  minCount: 1
+  maxCount: 999
+  filterByName: 1
+  nameFilter: "\u6211"
+  filterByType: 0
+  typeFilter: 0
+  filterByEntry: 0
+  entryFilter: {fileID: 0}

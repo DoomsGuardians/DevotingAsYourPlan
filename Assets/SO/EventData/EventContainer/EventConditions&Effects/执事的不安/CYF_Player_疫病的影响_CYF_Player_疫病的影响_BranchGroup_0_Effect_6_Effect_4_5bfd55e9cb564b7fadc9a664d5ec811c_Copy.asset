@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f3b45df8c84743a5670dec05df4250, type: 3}
+  m_Name: "CYF_Player_\u75AB\u75C5\u7684\u5F71\u54CD_CYF_Player_\u75AB\u75C5\u7684\u5F71\u54CD_BranchGroup_0_Effect_6_Effect_4_5bfd55e9cb564b7fadc9a664d5ec811c_Copy"
+  m_EditorClassIdentifier: 
+  label: "\u4F0A\u83B2\u5A1C\u5065\u5EB7\u5EA6\u51CF\u5C11"
+  rarityFactor: 0
+  filterByType: 0
+  cardType: 2
+  filterByEntry: 0
+  requiredEntries: []
+  filterByName: 1
+  cardName: "\u4F0A\u83B2\u5A1C"
+  isFirstFound: 0
+  isAddEntry: 0
+  addEntry: {fileID: 0}
+  isSubEntry: 0
+  subEntry: {fileID: 0}
+  isChangeLife: 1
+  lifeDelta: -10

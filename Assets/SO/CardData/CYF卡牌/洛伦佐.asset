@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 455a0d4c6b3aec142aec345debda4ab4, type: 3}
-  m_Name: "\u4F0A\u83B2\u5A1C"
+  m_Name: "\u6D1B\u4F26\u4F50"
   m_EditorClassIdentifier: 
-  cardName: "\u4F0A\u83B2\u5A1C"
+  cardName: "\u6D1B\u4F26\u4F50"
   description: 
   illustration: {fileID: 0}
   cardType: 2
   rarity: 3
-  maxLife: 55
+  maxLife: 80
   isUnique: 1
   decrease: 1
-  entries:
-  - {fileID: 11400000, guid: 588b1dcd29ce12a40b9db988aa41af9a, type: 2}
+  entries: []

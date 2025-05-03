@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01fe49c37202ad040baf0848c45b71ed, type: 3}
+  m_Name: "CYF_People_\u6267\u4E8B\u7684\u4E0D\u5B89_ExpiredEffect_Effect_4_7a1d75e73ba64e40ad18c411f7e4d443"
+  m_EditorClassIdentifier: 
+  label: "\u987A\u4ECE\u6B63\u7EDF\u5EA6"
+  rarityFactor: 0
+  targetRole: 1
+  statKey: "\u987A\u4ECE\u6B63\u7EDF\u5EA6"
+  mode: 0
+  value: -5
+  variance: 2
+  specificEntry: {fileID: 0}
+  entryactor: 1
