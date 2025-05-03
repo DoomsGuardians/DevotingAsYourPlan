@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688ae953c0e6c334e92611bb6e7008f9, type: 3}
   m_Name: "_\u4FE1\u5F92"
   m_EditorClassIdentifier: 
-  minCount: 2
+  minCount: 1
   maxCount: 999
   filterByName: 0
   nameFilter: 
