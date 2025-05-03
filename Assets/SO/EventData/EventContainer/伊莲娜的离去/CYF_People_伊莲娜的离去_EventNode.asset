@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e59bba2fe274b45a23dfb1ac0ad63f, type: 3}
+  m_Name: "CYF_People_\u4F0A\u83B2\u5A1C\u7684\u79BB\u53BB_EventNode"
+  m_EditorClassIdentifier: 
+  eventID: "CYF_People_\u4F0A\u83B2\u5A1C\u7684\u79BB\u53BB"
+  eventName: "\u4F0A\u83B2\u5A1C\u7684\u79BB\u53BB"
+  sourceRole: 1
+  isUnique: 1
+  cooldownTurns: 3
+  decreaseFactor: 1
+  triggerConditions: {fileID: 11400000, guid: 3bdeff7c17a030e4f86c46bd701ce2db, type: 2}
+  branchGroups:
+  - {fileID: 11400000, guid: 832750f7bf453a340bccb84d72a6d74e, type: 2}
+  - {fileID: 11400000, guid: 4fba4a09583b3f04b8ec0c426d6c9c7e, type: 2}
+  expiredEffects:
+  - {fileID: 11400000, guid: 44c591e59974cec47a2080ea02c23bc3, type: 2}
+  - {fileID: 11400000, guid: 2e179c09e49e827439d5081a5295aaa3, type: 2}
+  - {fileID: 11400000, guid: 5bdc92319b5908d49ab1c9346e1b4be2, type: 2}
+  - {fileID: 11400000, guid: d68f8726976c943449e494a3e9d01321, type: 2}
+  - {fileID: 11400000, guid: a0f1fb37964a6684ab946b9febde804a, type: 2}
+  description: "\u2014\u2014<\u4F60\u7684\u51B3\u8BAE>\u2014\u2014\n\r<size=80%>\u201C\u5728\u60A8\u7684\u5E26\u9886\u4E0B\uFF0C\u8FD9\u7247\u5730\u533A\u4E0A\u7684\u4EBA\u6C11\u62E5\u6709\u4E86\u7CBE\u795E\u4E0A\u7684\u5F52\u5BBF\uFF0C\u75AB\u75C5\u4E0E\u9965\u8352\u4E5F\u88AB\u9A71\u9010\u51FA\u8FD9\u7247\u571F\u5730\uFF0C\u4F46\u738B\u56FD\u7684\u5176\u5B83\u5730\u65B9\u3001\u738B\u56FD\u5916\u7684\u5730\u65B9\u8FD8\u4E0D\u662F\u5982\u6B64\u3002\n\u4F5C\u4E3A\u4FEE\u5973\uFF0C\u5728\u8FD9\u91CC\u6211\u80FD\u505A\u7684\u5DF2\u7ECF\u4E0D\u591A\u4E86\uFF0C\u6211\u60F3\u662F\u65F6\u5019\u5411\u60A8\u544A\u522B\u4E86\uFF0C\u613F\u4E3B\u7684\u5149\u8F89\u6C38\u5B58\u3002\u201D\n\u4F0A\u83B2\u5A1C\u6536\u62FE\u4E86\u8863\u7269\uFF0C\u6B63\u5F0F\u5411\u60A8\u63D0\u51FA\u544A\u522B\uFF0C\u5979\u51C6\u5907\u5E26\u51E0\u4E2A\u613F\u610F\u8DDF\u968F\u5979\u7684\u4EBA\u53BB\u62EF\u6551\u66F4\u591A\u7684\u4EBA\u3002\n\u4F46\u5979\u7684\u79BB\u5F00\uFF0C\u8FD8\u9700\u8981\u5F97\u5230\u4F60\u7684\u540C\u610F\uFF0C\u6216\u8BB8\u4F60\u7684\u610F\u89C1\u5C06\u4F1A\u6539\u53D8\u5979\u7684\u547D\u8FD0\u3002</size>"
+  icon: {fileID: 0}
+  duration: 3

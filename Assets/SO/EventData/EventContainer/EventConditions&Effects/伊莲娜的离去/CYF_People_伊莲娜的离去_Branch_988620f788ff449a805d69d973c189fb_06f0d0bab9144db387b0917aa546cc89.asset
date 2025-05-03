@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c69a093dd1e11e54c89047ba9f14da62, type: 3}
+  m_Name: "CYF_People_\u4F0A\u83B2\u5A1C\u7684\u79BB\u53BB_Branch_988620f788ff449a805d69d973c189fb_06f0d0bab9144db387b0917aa546cc89"
+  m_EditorClassIdentifier: 
+  label: "\u8D21\u54C1"
+  matchConditions: {fileID: 11400000, guid: b4791f105b045c54096fb33113531687, type: 2}
+  effects:
+  - {fileID: 11400000, guid: 0b3dd6b70f2c65441acb6feb90bc765f, type: 2}
+  - {fileID: 11400000, guid: f6abf64b2e6ea8144b0675f23ee29231, type: 2}
+  - {fileID: 11400000, guid: 19f3e00b4d701534ca0efa9e89e190b2, type: 2}
+  - {fileID: 11400000, guid: 4e5c68b7e5e96c846b675e5cc96c72d4, type: 2}
+  - {fileID: 11400000, guid: b9f838e060fe92b48b8c795e402c4404, type: 2}
