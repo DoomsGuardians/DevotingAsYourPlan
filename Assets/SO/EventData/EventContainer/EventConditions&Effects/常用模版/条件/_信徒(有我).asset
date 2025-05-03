@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 688ae953c0e6c334e92611bb6e7008f9, type: 3}
-  m_Name: "_\u4FE1\u5F92_Copy_e795bf8ee54c4b8a86a2d2cccb0cfda7"
+  m_Name: "_\u4FE1\u5F92(\u6709\u6211)"
   m_EditorClassIdentifier: 
   minCount: 2
   maxCount: 999
