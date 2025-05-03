@@ -101,6 +101,11 @@ public class EventManager
                     await instance.Initialize(data);
                     activeEvents.Add(instance);
 
+                    if (data.isUnique)
+                    {
+                        triggeredEventIDs.Add(data.eventID);
+                    }
+                    
                     Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
                     pendingEvents.Remove(data);
                 }
@@ -147,6 +152,11 @@ public class EventManager
                             .GetComponent<EventInstance>();
                         await instance.Initialize(data);
                         activeEvents.Add(instance);
+                        
+                        if (data.isUnique)
+                        {
+                            triggeredEventIDs.Add(data.eventID);
+                        }
 
                         Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
                         pendingEvents.Remove(data);
@@ -194,6 +204,11 @@ public class EventManager
                             .GetComponent<EventInstance>();
                         await instance.Initialize(data);
                         activeEvents.Add(instance);
+                        
+                        if (data.isUnique)
+                        {
+                            triggeredEventIDs.Add(data.eventID);
+                        }
 
                         Debug.Log($"[事件生成] 满足条件 → 创建事件：{data.eventName}");
                         pendingEvents.Remove(data);
@@ -245,6 +260,11 @@ public class EventManager
                     await instance.Initialize(data);
                     activeEvents.Add(instance);
 
+                    if (data.isUnique)
+                    {
+                        triggeredEventIDs.Add(data.eventID);
+                    }
+                    
                     Debug.Log($"[事件生成] 满足条件 -> 创建事件：{data.eventName}");
                 }
                 else
@@ -290,6 +310,11 @@ public class EventManager
                         await instance.Initialize(data);
                         activeEvents.Add(instance);
 
+                        if (data.isUnique)
+                        {
+                            triggeredEventIDs.Add(data.eventID);
+                        }
+                        
                         Debug.Log($"[事件生成] 满足条件 -> 创建事件：{data.eventName}");
                     }
                     else
@@ -338,6 +363,10 @@ public class EventManager
                         .GetComponent<EventInstance>();
                     await instance.Initialize(data);
                     activeEvents.Add(instance);
+                    if (data.isUnique)
+                    {
+                        triggeredEventIDs.Add(data.eventID);
+                    }
                     Debug.Log($"[事件生成] 满足条件 -> 创建事件：{data.eventName}");
                 }
                 else
@@ -381,6 +410,11 @@ public class EventManager
                             .GetComponent<EventInstance>();
                         await instance.Initialize(data);
                         activeEvents.Add(instance);
+                        
+                        if (data.isUnique)
+                        {
+                            triggeredEventIDs.Add(data.eventID);
+                        }
                         Debug.Log($"[事件生成] 满足条件 -> 创建事件：{data.eventName}");
                     }
                     else
