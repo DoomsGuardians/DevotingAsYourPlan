@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 455a0d4c6b3aec142aec345debda4ab4, type: 3}
+  m_Name: "\u8D77\u6E90\u8870\u7AED\u571F\u576F"
+  m_EditorClassIdentifier: 
+  cardName: "\u8D77\u6E90\u8870\u7AED\u571F\u576F"
+  description: "\u8D77\u6E90\u6027\u8870\u7AED\u75C5\u7206\u53D1\u8D77\u59CB\u7684\u571F\u5730"
+  illustration: {fileID: 0}
+  cardType: 1
+  rarity: 1
+  maxLife: 4
+  isUnique: 0
+  decrease: 2
+  entries:
+  - {fileID: 11400000, guid: 99a1d0f33743f6f46848b8e0d5ee91e1, type: 2}

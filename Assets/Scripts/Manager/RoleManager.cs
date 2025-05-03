@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class 
-    RoleManager
+public class RoleManager
 {
     private Dictionary<RoleType, Role> roles = new();
     private RoleStatDefinitionTable definitionTable;

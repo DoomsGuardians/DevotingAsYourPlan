@@ -14,7 +14,7 @@ public class CrowdSpeechSystem : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= Random.Range(4f, 18f))
+        if (timer >= Random.Range(4f, 12f))
         {
             timer = 0f;
             TrySpeak();
