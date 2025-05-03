@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c69a093dd1e11e54c89047ba9f14da62, type: 3}
+  m_Name: "CYF_Player_\u63A7\u5236\u75AB\u75C5_Branch_50ce0b27573748acaa467a49347d7ee1_f6dabdcbce5d4ea1b14953b797615d15"
+  m_EditorClassIdentifier: 
+  label: "\u6211+\u8D21\u54C1+\u52B3\u529B"
+  matchConditions: {fileID: 11400000, guid: 9f7f4c15cb90073469bbb4b44504b1ab, type: 2}
+  effects:
+  - {fileID: 11400000, guid: 230e95646e280454db0b211330a11b5d, type: 2}
+  - {fileID: 11400000, guid: 4eb5311e7b3bb644fa5701eb673f8c00, type: 2}
+  - {fileID: 11400000, guid: c744ae57f6739db4197c64565293668d, type: 2}
+  - {fileID: 11400000, guid: 88614d42283d6f445870e2db9331ff6a, type: 2}
+  - {fileID: 11400000, guid: d9a5bed4f1fd6b64d9e3407f01b0f4c7, type: 2}
+  - {fileID: 11400000, guid: 87e20601ca489934688ed4bc7f5c8ff6, type: 2}
+  - {fileID: 11400000, guid: d4062759a322d654a8902ae399afbcd5, type: 2}
+  - {fileID: 11400000, guid: bc70e9c83688ac94a91481d08bc91a93, type: 2}
+  - {fileID: 11400000, guid: 0ad40db148e3e0f408e236a828e33e94, type: 2}

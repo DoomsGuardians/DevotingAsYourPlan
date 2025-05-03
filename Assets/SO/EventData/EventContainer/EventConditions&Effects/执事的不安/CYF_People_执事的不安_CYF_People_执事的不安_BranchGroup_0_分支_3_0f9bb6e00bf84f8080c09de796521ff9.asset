@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c69a093dd1e11e54c89047ba9f14da62, type: 3}
+  m_Name: "CYF_People_\u6267\u4E8B\u7684\u4E0D\u5B89_CYF_People_\u6267\u4E8B\u7684\u4E0D\u5B89_BranchGroup_0_\u5206\u652F_3_0f9bb6e00bf84f8080c09de796521ff9"
+  m_EditorClassIdentifier: 
+  label: "\u6211"
+  matchConditions: {fileID: 11400000, guid: e597601b49dd6c545b3503717a711e03, type: 2}
+  effects:
+  - {fileID: 11400000, guid: 4269a6cc2c43acb4fab419a69474a5d0, type: 2}
+  - {fileID: 11400000, guid: af12db67b93dafe429ae158ca2b7c4bb, type: 2}
+  - {fileID: 11400000, guid: 167055a1a41b01648a88087e9e2b9d58, type: 2}
+  - {fileID: 11400000, guid: bfb41f5d353827149be027fcf411bbc8, type: 2}
+  - {fileID: 11400000, guid: fa34c3c58093ba54d845cef34e65c0d9, type: 2}
+  - {fileID: 11400000, guid: bfe9cc3a395a3634c9c8269c2baf67ca, type: 2}
+  - {fileID: 11400000, guid: fa0107f2cfe160e4a835706de6b6816d, type: 2}

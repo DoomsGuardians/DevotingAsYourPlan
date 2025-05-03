@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01fe49c37202ad040baf0848c45b71ed, type: 3}
+  m_Name: "CYF_Player_\u63A7\u5236\u75AB\u75C5_CYF_Player_\u63A7\u5236\u75AB\u75C5_BranchGroup_0_Effect_10_Effect_5_3111f4611fe04c88a771aebddbb66ad2"
+  m_EditorClassIdentifier: 
+  label: "\u4FE1\u4F17\u6570"
+  rarityFactor: 0.1
+  targetRole: 1
+  statKey: "\u4FE1\u4F17\u6570"
+  mode: 0
+  value: 25
+  variance: 10
+  specificEntry: {fileID: 11400000, guid: ed6d6b0cc3e48d543849a4df234d685f, type: 2}
+  entryactor: 0.5

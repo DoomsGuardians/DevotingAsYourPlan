@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 455a0d4c6b3aec142aec345debda4ab4, type: 3}
+  m_Name: "\u6D1B\u4F26\u4F50"
+  m_EditorClassIdentifier: 
+  cardName: "\u6D1B\u4F26\u4F50"
+  description: "\u65B0\u664B\u7684\u6267\u4E8B\uFF0C\u4E3A\u4EBA\u6B63\u6D3E\uFF0C\u6216\u8BB8\u662F\u5728\u4FEE\u9053\u9662\u957F\u5927\u7684\u539F\u56E0\uFF0C\u5BF9\u4E8B\u7269\u7684\u5224\u65AD\u57FA\u672C\u4E0A\u57FA\u4E8E\u6559\u4E49\u3002\n\u54E5\u54E5\u4F3C\u4E4E\u662F\u7FE0\u9E1F\u5546\u4F1A\u7684\u638C\u67DC\u3002"
+  illustration: {fileID: 0}
+  cardType: 2
+  rarity: 3
+  maxLife: 80
+  isUnique: 1
+  decrease: 1
+  entries:
+  - {fileID: 11400000, guid: f2d8eb70e94c8654e9c2897cadd50401, type: 2}

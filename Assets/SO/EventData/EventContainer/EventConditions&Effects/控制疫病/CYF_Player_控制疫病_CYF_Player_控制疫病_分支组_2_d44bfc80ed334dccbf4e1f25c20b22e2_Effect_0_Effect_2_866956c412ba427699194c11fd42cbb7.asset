@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34104afd93803744ebf6f054bc1b3c81, type: 3}
+  m_Name: "CYF_Player_\u63A7\u5236\u75AB\u75C5_CYF_Player_\u63A7\u5236\u75AB\u75C5_\u5206\u652F\u7EC4_2_d44bfc80ed334dccbf4e1f25c20b22e2_Effect_0_Effect_2_866956c412ba427699194c11fd42cbb7"
+  m_EditorClassIdentifier: 
+  label: "\u7ED9\u4E88\u52B3\u529B"
+  rarityFactor: 0.1
+  amount: 1
+  filterByType: 1
+  cardType: 0
+  filterByEntry: 0
+  requiredEntries: []
+  excludeUniqueCard: 1
+  cardPoolOverride: {fileID: 11400000, guid: c3d5c02dce9d3f04caa518b6690dc34c, type: 2}
+  filterByRarity: 1
+  rarityWeights: 3c0000001e0000000a00000001000000
