@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0004075e6edf174090cd7fbc69e2ab8, type: 3}
+  m_Name: "Exogenesis_World_\u5730\u4E0A\u5F00\u51FA\u77F3\u4E4B\u82B1_BranchGroup_0"
+  m_EditorClassIdentifier: 
+  label: 
+  branches:
+  - {fileID: 11400000, guid: e660b8e2c3895bd4b9c8baee9633996a, type: 2}
+  - {fileID: 11400000, guid: 777ecd563b1bf7c40acd7a4040c98751, type: 2}
+  - {fileID: 11400000, guid: 3057da5b01899b544a73c20cb5b53470, type: 2}

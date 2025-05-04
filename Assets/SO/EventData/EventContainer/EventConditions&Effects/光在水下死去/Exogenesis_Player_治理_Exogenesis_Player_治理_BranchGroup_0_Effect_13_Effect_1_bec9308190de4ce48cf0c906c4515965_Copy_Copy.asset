@@ -17,7 +17,7 @@ MonoBehaviour:
   targetRole: 1
   statKey: "\u4FE1\u4F17\u6570"
   mode: 0
-  value: 50
+  value: -50
   variance: 25
   specificEntry: {fileID: 0}
   entryactor: 1

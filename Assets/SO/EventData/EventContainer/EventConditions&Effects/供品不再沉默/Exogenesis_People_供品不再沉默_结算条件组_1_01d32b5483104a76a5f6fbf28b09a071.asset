@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1db51979910eac468574dc3ea47ce19, type: 3}
+  m_Name: "Exogenesis_People_\u4F9B\u54C1\u4E0D\u518D\u6C89\u9ED8_\u7ED3\u7B97\u6761\u4EF6\u7EC4_1_01d32b5483104a76a5f6fbf28b09a071"
+  m_EditorClassIdentifier: 
+  label: 
+  mode: 0
+  conditions:
+  - {fileID: 11400000, guid: 74a08228e4069684e8b8b4ba780888a0, type: 2}

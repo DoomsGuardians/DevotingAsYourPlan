@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e59bba2fe274b45a23dfb1ac0ad63f, type: 3}
+  m_Name: "Exogenesis_World_\u5730\u4E0A\u5F00\u51FA\u77F3\u4E4B\u82B1_EventNode"
+  m_EditorClassIdentifier: 
+  eventID: "Exogenesis_World_\u5730\u4E0A\u5F00\u51FA\u77F3\u4E4B\u82B1"
+  eventName: "\u5730\u4E0A\u5F00\u51FA\u77F3\u4E4B\u82B1"
+  sourceRole: 2
+  isUnique: 1
+  cooldownTurns: 0
+  decreaseFactor: 1
+  triggerConditions: {fileID: 11400000, guid: 56b46a62d8614c84486827fe39cf3001, type: 2}
+  branchGroups:
+  - {fileID: 11400000, guid: f1442229c2aa51241a5b8328d0f6cf77, type: 2}
+  expiredEffects:
+  - {fileID: 11400000, guid: ef60f6a04bd94714ea9f8e8a47303db4, type: 2}
+  - {fileID: 11400000, guid: 25c836a3a02eebc4e98f60df574b5d16, type: 2}
+  - {fileID: 11400000, guid: 9c28c517dce527647b6b22f98c9350c8, type: 2}
+  - {fileID: 11400000, guid: 7d29a42b6811e28479210639a71ddb90, type: 2}
+  - {fileID: 11400000, guid: 44d27131de8ffa948851def1ced5f9f9, type: 2}
+  - {fileID: 11400000, guid: d295555956a5060429f1f5705b0b8106, type: 2}
+  - {fileID: 11400000, guid: 07e1259ad5a036042b76e2d1b008f51a, type: 2}
+  - {fileID: 11400000, guid: 180e057aeb92c5042b32b2967c0e68d9, type: 2}
+  description: "\u2014\u2014<\u4E16\u754C\u4E8B\u4EF6>\u2014\u2014\n<size=80%>\u6709\u4EBA\u5728\u5E9F\u8F68\u9053\u4E0B\u53D1\u73B0\u4E00\u7C07\u201C\u571F\u201D\uFF0C\u5FAE\u6E7F\uFF0C\u672A\u89C1\u6742\u8D28\u3002\u4F60\u624B\u4E0B\u7684\u730E\u56E2\u5E26\u56DE\u6837\u672C\u3002\u6B64\u7269\u6B63\u4E2D\u88C2\u7EB9\u4E2D\uFF0C\u6709\u690D\u7269\u80DA\u82BD\u6A21\u6837\u3002\u6709\u4FE1\u5F92\u58F0\u79F0\u542C\u89C1\u5B83\u5728\u7977\u544A\u3002</size>"
+  icon: {fileID: 21300000, guid: 5c562ee320afd3e44bbbf95297aa593a, type: 3}
+  duration: 10

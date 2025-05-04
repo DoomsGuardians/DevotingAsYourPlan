@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e59bba2fe274b45a23dfb1ac0ad63f, type: 3}
+  m_Name: "Exogenesis_People_\u4F9B\u54C1\u4E0D\u518D\u6C89\u9ED8_EventNode"
+  m_EditorClassIdentifier: 
+  eventID: "Exogenesis_People_\u4F9B\u54C1\u4E0D\u518D\u6C89\u9ED8"
+  eventName: "\u4F9B\u54C1\u4E0D\u518D\u6C89\u9ED8"
+  sourceRole: 1
+  isUnique: 1
+  cooldownTurns: 0
+  decreaseFactor: 1
+  triggerConditions: {fileID: 11400000, guid: b8e0df391a935b84fabc71c5bfefa769, type: 2}
+  branchGroups:
+  - {fileID: 11400000, guid: 5d45d91f0ce94a0499a0ddd8652824d7, type: 2}
+  expiredEffects:
+  - {fileID: 11400000, guid: 9a7d30e0d5b460b4ab2d596ba209c3d7, type: 2}
+  - {fileID: 11400000, guid: 8667737222d246d49adc6dcd8cc44cd1, type: 2}
+  - {fileID: 11400000, guid: a3a498bf507070e438388099ea1ea077, type: 2}
+  - {fileID: 11400000, guid: 43c1c0e4884144346b9c27cce35f5421, type: 2}
+  - {fileID: 11400000, guid: ca2cfcd11e5bc9d4dbc50c42faf317e0, type: 2}
+  - {fileID: 11400000, guid: 581cea345172ae049ba02d292b5abb94, type: 2}
+  description: "\u2014\u2014<\u7FA4\u4F17\u4E8B\u4EF6>\u2014\u2014\n<size=80%>\u8D21\u54C1\u5806\u4E2D\u51FA\u73B0\u4E00\u4E2A\u9676\u7F50\uFF0C\u4E0A\u523B\u5BC6\u8BED\uFF0C\u5185\u65E0\u7269\uFF0C\u4F46\u6BCF\u65E5\u4F4D\u7F6E\u4E0D\u540C\u3002\u6CA1\u6709\u4EBA\u627F\u8BA4\u653E\u7F6E\u6B64\u7269\u3002\u4FE1\u4F17\u5F00\u59CB\u8BAE\u8BBA\u201C\u6709\u795E\u4EB2\u624B\u9001\u793C\u201D\u3002\u4E5F\u6709\u4EBA\u8BF4\uFF0C\u5B83\u6BCF\u6B21\u51FA\u73B0\u7684\u4F4D\u7F6E\u90FD\u9760\u8FD1\u75C5\u4EBA\u3002</size>"
+  icon: {fileID: 21300000, guid: a97dfe82ff08a3d47b0cf83aa2959353, type: 3}
+  duration: 10

@@ -16,6 +16,7 @@ MonoBehaviour:
   matchConditions: {fileID: 11400000, guid: 28303cfea7e3c41479f53744088437df, type: 2}
   effects:
   - {fileID: 11400000, guid: 33764c61bc825d84499eb268a992b2ef, type: 2}
+  - {fileID: 11400000, guid: d21d9bf0fbdd1c140b56c0c3889987ab, type: 2}
   - {fileID: 11400000, guid: 68833d0ad37a17748acfcc0f2622f67a, type: 2}
   - {fileID: 11400000, guid: 801128284b1b93042ad4f5e6e28fb390, type: 2}
   - {fileID: 11400000, guid: bd872febb9d9e0e4eb54e2ed10a488f1, type: 2}

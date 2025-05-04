@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4d26a7942e8422e828e7b2c1678f832, type: 3}
+  m_Name: "Exogenesis_Player_\u6CBB\u7406_Exogenesis_Player_\u6CBB\u7406_BranchGroup_0_Effect_12_Effect_0_1a48b2c344f64e8a90186618aa74d5ab_Copy_Copy_Copy_Copy_Copy"
+  m_EditorClassIdentifier: 
+  label: "\u663E\u793A\u7ED3\u679C"
+  rarityFactor: 0
+  endName: "\u4E8B\u4EF6\u7ED3\u675F"
+  desc: "\u2014\u2014<\u4E8B\u4EF6\u5B8C\u6210>\u2014\u2014\r\n<size=80%>\u5B88\u671B\u7684\u4FE1\u5F92\u6BCF\u65E5\u732E\u5531\uFF0C\u7B2C\u4E09\u5468\u540E\u77F3\u82B1\u5F00\u51FA\u4E00\u53EA\u201C\u773C\u201D\u3002\u5B83\u76EF\u7740\u8C01\uFF0C\u8C01\u5F53\u665A\u5C31\u68A6\u5230\u81EA\u5DF1\u7684\u6B7B\u6CD5\u3002\u4FE1\u4F17\u4EEC\u5F00\u59CB\u6392\u961F\u8BF7\u6C42\u51DD\u89C6\u3002\u4F60\u65E0\u987B\u89E3\u91CA\uFF0C\u56E0\u4E3A\u8FD9\u5C31\u662F\u4FE1\u4EF0\u3002</size>"
+  img: {fileID: 0}
