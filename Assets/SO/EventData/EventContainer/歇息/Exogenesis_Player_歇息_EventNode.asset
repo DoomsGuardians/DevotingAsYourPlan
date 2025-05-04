@@ -23,5 +23,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 63167574d0657e34a94b95f553355c01, type: 2}
   expiredEffects: []
   description: "\u2014\u2014<\u4F60\u7684\u51B3\u8BAE>\u2014\u2014\n<size=80%>\u5904\u7406\u4E8B\u7269\uFF0C\u6216\u8005\u76D8\u7B97\u9634\u8C0B\uFF1F\u4F60\u89C9\u5F97\u4ECA\u5E74\u4E0E\u5176\u6D6A\u8D39\u7CBE\u529B\u8D22\u529B\u5728\u8FD9\u4E9B\u4E1C\u897F\u4E0A\uFF0C\u4E0D\u5982\u597D\u597D\u4FEE\u517B\u4E00\u4E0B</size>"
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 252e21cf5914fd042b129fd161655136, type: 3}
   duration: 5

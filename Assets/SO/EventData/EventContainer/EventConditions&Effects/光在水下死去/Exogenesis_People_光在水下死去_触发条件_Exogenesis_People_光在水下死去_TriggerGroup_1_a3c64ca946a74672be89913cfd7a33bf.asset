@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4b792e417aa3a4ba3b70890b79d019, type: 3}
+  m_Name: "Exogenesis_People_\u5149\u5728\u6C34\u4E0B\u6B7B\u53BB_\u89E6\u53D1\u6761\u4EF6_Exogenesis_People_\u5149\u5728\u6C34\u4E0B\u6B7B\u53BB_TriggerGroup_1_a3c64ca946a74672be89913cfd7a33bf"
+  m_EditorClassIdentifier: 
+  role: 2
+  statKey: "\u707E\u4E30\u79EF\u7D2F\u5EA6"
+  minValue: 30
+  maxValue: 999
+  invert: 0

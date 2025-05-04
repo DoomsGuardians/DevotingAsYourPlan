@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: "\u963F\u4E3D\u5A05"
   description: "\u82CD\u767D\u7684\u5973\u5B69\uFF0C\u4F46\u662F\u5014\u5F3A\u53C8\u987D\u5F3A\u3002\u4F60\u660E\u767D\u5979\u8EAB\u4E0A\u6709\u7740\u4E0E\u4F17\u4E0D\u540C\u7684\u6C14\u8D28\uFF0C\u4F60\u76F8\u4FE1\u4ED6\u4F1A\u7ED9\u4F60\u7684\u751F\u547D\u5E26\u6765\u5267\u53D8\uFF0C\u4E0D\u8BBA\u597D\u574F"
-  illustration: {fileID: 0}
+  illustration: {fileID: 21300000, guid: 5b616151c11d489408f8ed52257c0807, type: 3}
   cardType: 2
   rarity: 3
   maxLife: 70
   isUnique: 1
-  decrease: 3
+  decrease: 5
   entries:
   - {fileID: 11400000, guid: 3a43543ebf4e9c14eabb611126d7f5b9, type: 2}
   - {fileID: 11400000, guid: 3f435edc726a8a14aa255faa890834e4, type: 2}

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e59bba2fe274b45a23dfb1ac0ad63f, type: 3}
+  m_Name: "Exogenesis_People_\u5149\u5728\u6C34\u4E0B\u6B7B\u53BB_EventNode"
+  m_EditorClassIdentifier: 
+  eventID: "Exogenesis_People_\u5149\u5728\u6C34\u4E0B\u6B7B\u53BB"
+  eventName: "\u5149\u5728\u6C34\u4E0B\u6B7B\u53BB"
+  sourceRole: 1
+  isUnique: 0
+  cooldownTurns: 3
+  decreaseFactor: 1
+  triggerConditions: {fileID: 11400000, guid: 754a542ae766a0745a3e6de54630ebb7, type: 2}
+  branchGroups:
+  - {fileID: 11400000, guid: 87938c575d5f1284db068c8949ad89a1, type: 2}
+  expiredEffects: []
+  description: "\u2014\u2014<\u7FA4\u4F17\u4E8B\u4EF6>\u2014\u2014\n<size=80%>\u4F60\u6240\u5728\u7684\u5730\u533A\u51FA\u73B0\u4E86\u96C6\u4F53\u68A6\u6E38\u73B0\u8C61\u2014\u2014\u4EBA\u4EEC\u6BCF\u665A\u65E0\u58F0\u8D70\u5165\u6CB3\u4E2D\uFF0C\u76F4\u5230\u6C34\u6DF9\u81F3\u9888\uFF0C\u624D\u7F13\u7F13\u540E\u9000\u3002\u4ED6\u4EEC\u9192\u6765\u540E\u5BF9\u68A6\u5883\u6BEB\u65E0\u8BB0\u5FC6\uFF0C\u5374\u4E00\u518D\u91CD\u590D\uFF0C\u76F4\u81F3\u7B2C\u4E94\u591C\uFF0C\u4E00\u540D\u5C11\u5973\u6EBA\u4EA1\u3002\u4FE1\u4F17\u5F00\u59CB\u4F20\u8A00\u6CB3\u91CC\u6709\u201C\u5012\u6D41\u7684\u9884\u8A00\u201D\u3002</size>"
+  icon: {fileID: 21300000, guid: 9b13790593e3ef847adb4f53458e9938, type: 3}
+  duration: 0
