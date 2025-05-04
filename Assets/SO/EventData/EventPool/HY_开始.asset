@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventPoolName: "\u9ED8\u8BA4\u4E8B\u4EF6\u6C60"
   eventNodeDataList:
-  - {fileID: 11400000, guid: b4089dd113437de4a945fe48b8865ccd, type: 2}
-  - {fileID: 11400000, guid: 084060258aecde249ba378d788ffff16, type: 2}
+  - {fileID: 11400000, guid: 9915cebe69bdc7646825b66d4f3a07bb, type: 2}
+  - {fileID: 11400000, guid: 454cdf870b2bff643a6d9aacbaf21e48, type: 2}
