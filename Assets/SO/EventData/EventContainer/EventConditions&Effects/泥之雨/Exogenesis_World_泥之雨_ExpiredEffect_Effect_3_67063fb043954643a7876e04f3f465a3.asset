@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: "Exogenesis_World_\u6CE5\u4E4B\u96E8_ExpiredEffect_Effect_3_67063fb043954643a7876e04f3f465a3"
   m_EditorClassIdentifier: 
   label: "\u4FE1\u4F17\u6570"
-  rarityFactor: -200
+  rarityFactor: 1
   targetRole: 1
   statKey: "\u4FE1\u4F17\u6570"
   mode: 0
-  value: 1
+  value: -200
   variance: 0
   specificEntry: {fileID: 0}
   entryactor: 1

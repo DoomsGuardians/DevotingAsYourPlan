@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01fe49c37202ad040baf0848c45b71ed, type: 3}
+  m_Name: "Exogenesis_World_\u6CE5\u4E4B\u96E8_Exogenesis_World_\u6CE5\u4E4B\u96E8_BranchGroup_0_Effect_0_Effect_5_34b9146694a14827bbe3af9372edc891_Copy"
+  m_EditorClassIdentifier: 
+  label: "\u707E\u4E30\u79EF\u7D2F\u5EA6"
+  rarityFactor: 0
+  targetRole: 0
+  statKey: "\u5065\u5EB7\u5EA6"
+  mode: 0
+  value: -20
+  variance: 2
+  specificEntry: {fileID: 0}
+  entryactor: 1
