@@ -494,6 +494,11 @@ public class EventManager
                 }
             }
 
+            if (matched)
+            {
+                await CleanupEventAsync(evt);
+            }
+
             // 没有匹配分支，但事件已过期
             if (!matched && evt.IsExpired())
             {
@@ -502,14 +507,15 @@ public class EventManager
                 await TransferCardsOutOfEvent(evt);
 
                 await ExecuteEffectsAsync(evt, evt.data.expiredEffects);
-
+                
+                await CleanupEventAsync(evt);
 
             }
             else if (!matched)
             {
                 Debug.LogWarning($"[事件处理] 【{evt.data.eventName}】没有匹配任何分支！");
             }
-            await CleanupEventAsync(evt);
+            
             HistoryLog.Log(evt, matched);
         }
     }
