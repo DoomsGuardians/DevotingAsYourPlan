@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: "\u540E\u7EED\u4E8B\u4EF6"
   rarityFactor: 0
-  eventToQueue: {fileID: 11400000, guid: 2c1fa4e5f92c32e41bdd9434c0c2375f, type: 2}
+  eventToQueue: {fileID: 11400000, guid: 35f823f6915922c46bee72ba981b1acf, type: 2}
