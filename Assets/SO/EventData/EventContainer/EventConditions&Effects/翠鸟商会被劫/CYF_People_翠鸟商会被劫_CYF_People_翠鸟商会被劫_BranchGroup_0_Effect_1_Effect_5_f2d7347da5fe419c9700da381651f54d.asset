@@ -20,6 +20,6 @@ MonoBehaviour:
   filterByEntry: 0
   requiredEntries: []
   excludeUniqueCard: 1
-  cardPoolOverride: {fileID: 11400000, guid: c3d5c02dce9d3f04caa518b6690dc34c, type: 2}
+  cardPoolOverride: {fileID: 0}
   filterByRarity: 1
   rarityWeights: 3c0000001e0000000a00000001000000

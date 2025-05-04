@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 455a0d4c6b3aec142aec345debda4ab4, type: 3}
-  m_Name: "\u635F\u574F\u7684\u8BA1\u7B97\u5355\u5143"
+  m_Name: "\u9999\u8349"
   m_EditorClassIdentifier: 
-  cardName: "\u635F\u574F\u7684\u8BA1\u7B97\u5355\u5143"
-  description: "\u81EA\u52A8\u77FF\u8F66\u4E0A\u6700\u6709\u4EF7\u503C\u7684\u90E8\u5206\u2014\u2014\u4F46\u662F\u574F\u6389\u4E86\u4F9D\u7136\u53EA\u662F\u4E2A\u5783\u573E\u3002\n\u5F53\u7136\u6CA1\u6709\u4EBA\u4F1A\u5426\u8BA4\u5B83\u4F5C\u4E3A\u8D27\u5E01\u7684\u4EF7\u503C"
+  cardName: "\u9999\u8349"
+  description: "\u5B83\u4EEC\u7684\u9999\u6C14\u4E0D\u8FC7\u662F\u63A9\u9970\u82E6\u6DA9\u7684\u9999\u5473\u3002\u795E\u7684\u6307\u5C16\u4F1A\u4ECE\u8FD9\u4E9B\u9999\u6C14\u4E2D\u6355\u6349\u5230\u4EBA\u7C7B\u7684\u611A\u6627\uFF1A\u662F\u7684\uFF0C\u6211\u4EEC\u5DF2\u7ECF\u5FD8\u8BB0\u4E86\u7EAF\u7CB9\u7684\u610F\u56FE\u3002"
   illustration: {fileID: 21300000, guid: 050cff38b5ad4d54ea0124d30a498f85, type: 3}
   cardType: 1
   rarity: 2
-  maxLife: 2
+  maxLife: 1
   isUnique: 0
-  decrease: 2
-  entries:
-  - {fileID: 11400000, guid: cd3e193b3de09c7429ff729df192c846, type: 2}
+  decrease: 1
+  entries: []
