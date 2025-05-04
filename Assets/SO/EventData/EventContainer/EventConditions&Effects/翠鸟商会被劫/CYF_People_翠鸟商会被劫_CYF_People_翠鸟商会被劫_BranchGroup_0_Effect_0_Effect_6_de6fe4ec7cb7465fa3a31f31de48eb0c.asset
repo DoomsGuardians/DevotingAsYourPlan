@@ -22,7 +22,7 @@ MonoBehaviour:
   cardName: "\u6211"
   isFirstFound: 0
   isAddEntry: 1
-  addEntry: {fileID: 11400000, guid: fae2e45855dbd59479a4a8c5d05f958a, type: 2}
+  addEntry: {fileID: 11400000, guid: b21b088920467af46b3fea79c54892c7, type: 2}
   isSubEntry: 0
   subEntry: {fileID: 0}
   isChangeLife: 0
