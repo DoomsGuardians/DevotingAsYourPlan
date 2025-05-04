@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1db51979910eac468574dc3ea47ce19, type: 3}
+  m_Name: "HY_Player_0004.\u5F00\u57A6\uFF01_\u7ED3\u7B97\u6761\u4EF6\u7EC4_0_28e8d5e6be284912b5d18c802c5684be"
+  m_EditorClassIdentifier: 
+  label: 
+  mode: 0
+  conditions:
+  - {fileID: 11400000, guid: cb5293df48e11034798b00d40ec83ce3, type: 2}
+  - {fileID: 11400000, guid: c40cf112212b9b040954177e39290c63, type: 2}
+  - {fileID: 11400000, guid: 9baec34c487bf444c992a3edebde1d78, type: 2}

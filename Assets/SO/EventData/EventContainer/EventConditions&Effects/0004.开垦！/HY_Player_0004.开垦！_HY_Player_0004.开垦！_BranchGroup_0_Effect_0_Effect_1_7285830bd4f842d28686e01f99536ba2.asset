@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01fe49c37202ad040baf0848c45b71ed, type: 3}
+  m_Name: "HY_Player_0004.\u5F00\u57A6\uFF01_HY_Player_0004.\u5F00\u57A6\uFF01_BranchGroup_0_Effect_0_Effect_1_7285830bd4f842d28686e01f99536ba2"
+  m_EditorClassIdentifier: 
+  label: 
+  rarityFactor: 0
+  targetRole: 0
+  statKey: "\u53D1\u5C55\u5EA6"
+  mode: 0
+  value: 5
+  variance: 0.5
+  specificEntry: {fileID: 0}
+  entryactor: 1
