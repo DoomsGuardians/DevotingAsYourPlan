@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e59bba2fe274b45a23dfb1ac0ad63f, type: 3}
   m_Name: "HY_Player_1005_\u4E60\u6B66\u8005_EventNode"
   m_EditorClassIdentifier: 
-  eventID: HY_Player_1004
-  eventName: "\u65E0\u754F\u8005"
+  eventID: "HY_Player_1005\u4E60\u6B66\u8005"
+  eventName: "\u4E60\u6B66\u8005"
   sourceRole: 0
   isUnique: 0
   cooldownTurns: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "HY_Player_1001.\u7231\u6155\u8005_Branch_f56d4f94ba504519910d6d9dcad3b53e_3548a03a096544a5a613836aa16edb2c"
   m_EditorClassIdentifier: 
   label: "\u672A\u6EE1\u8DB3\u6761\u4EF6"
-  matchConditions: {fileID: 11400000, guid: 7834ffd1a34fd7e4589f1d3e257352e6, type: 2}
+  matchConditions: {fileID: 11400000, guid: 03d1afc2f8c0c0d45a01c86855e7d6a9, type: 2}
   effects:
   - {fileID: 11400000, guid: eb92c99017ea8454782048adfc7899de, type: 2}
   - {fileID: 11400000, guid: 3d1b5892c2cfcd040a959def7bd88cee, type: 2}
