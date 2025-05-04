@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c69a093dd1e11e54c89047ba9f14da62, type: 3}
+  m_Name: "0003b.\u4E00\u5207\u7684\u8D77\u70B9\uFF01_Branch_d45b55b566904404a30811df9c1defae_695594822fc4401faf63a75f5d09fa73"
+  m_EditorClassIdentifier: 
+  label: "\u519C\u6C11"
+  matchConditions: {fileID: 11400000, guid: f81c6a650e60a4f4b8dbba149ac468e9, type: 2}
+  effects:
+  - {fileID: 11400000, guid: 7e47b024eb9b8504fb943838b760436f, type: 2}
+  - {fileID: 11400000, guid: d6e2de266d93db74382ab1fd60cd7627, type: 2}
+  - {fileID: 11400000, guid: 65ad356928a90d14fabcdfdf16a4f6ac, type: 2}

@@ -17,7 +17,7 @@ MonoBehaviour:
   illustration: {fileID: 0}
   cardType: 2
   rarity: 3
-  maxLife: 1
+  maxLife: 15
   isUnique: 1
   decrease: 0
   entries: []

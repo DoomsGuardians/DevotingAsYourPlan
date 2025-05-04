@@ -20,4 +20,5 @@ MonoBehaviour:
   maxLife: 5
   isUnique: 1
   decrease: 0
-  entries: []
+  entries:
+  - {fileID: 11400000, guid: 18601ebd88207674782777a71dbedfef, type: 2}
