@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84bb682338cb52a4aa725089d6980471, type: 3}
+  m_Name: Level_Abbey
+  m_EditorClassIdentifier: 
+  levelName: "\u7199\u7B03\u4F1A\u89C4"
+  sceneName: Abbey
+  description: "\u77F3\u4E0E\u85E4\u5728\u7802\u58E4\u95F4\u751F\u6839\uFF0C\u5C06\u5929\u56FD\u8FCE\u5411\u8FD9\u4FE1\u4EF0\u7684\u8352\u539F"
+  previewImage: {fileID: 0}

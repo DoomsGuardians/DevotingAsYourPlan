@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: "\u4F43\u6236"
   description: "\u5176\u6240\u79CD\u8005\u6682\u5C5E\u5C18\u4E16\uFF0C\u6240\u6536\u8005\u6C38\u5F52\u5929\u56FD\u3002"
-  illustration: {fileID: 0}
+  illustration: {fileID: 21300000, guid: 06ea65624ab6e824a97c2a990b1f8f36, type: 3}
   cardType: 0
   rarity: 0
   maxLife: 5

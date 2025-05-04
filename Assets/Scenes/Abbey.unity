@@ -1457,24 +1457,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 453354221076535839, guid: 8334e1cab8c40d44da5e0586cda40cc0, type: 3}
       propertyPath: IntroScenario
-      value: Exogenisis_Intro
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 453354221076535839, guid: 8334e1cab8c40d44da5e0586cda40cc0, type: 3}
       propertyPath: defaultCardPool
       value: 
-      objectReference: {fileID: 11400000, guid: ca07bddff886ce84891e96373e86cae9, type: 2}
+      objectReference: {fileID: 11400000, guid: 46fee8aa6efb309489ee7f1d8cb48ed8, type: 2}
     - target: {fileID: 453354221076535839, guid: 8334e1cab8c40d44da5e0586cda40cc0, type: 3}
       propertyPath: initialCardPool
       value: 
-      objectReference: {fileID: 11400000, guid: 2eedcae5a73280e4fb43e86ff0148bdb, type: 2}
+      objectReference: {fileID: 11400000, guid: f5f8564853331db4fb78ef23bd0ce16b, type: 2}
     - target: {fileID: 453354221076535839, guid: 8334e1cab8c40d44da5e0586cda40cc0, type: 3}
       propertyPath: turnTransitionText
       value: 
-      objectReference: {fileID: 11400000, guid: d2ca21b231c3fdc469b149ddd9c83db4, type: 2}
+      objectReference: {fileID: 11400000, guid: 48213cbc70578514b8c3b22fd614bccd, type: 2}
     - target: {fileID: 453354221076535839, guid: 8334e1cab8c40d44da5e0586cda40cc0, type: 3}
       propertyPath: defaultEventNodeDatas
       value: 
-      objectReference: {fileID: 11400000, guid: 102d854b7faf53449bc0e87442e36158, type: 2}
+      objectReference: {fileID: 11400000, guid: c9d546bf1c766fa4b8b996d9921f7856, type: 2}
+    - target: {fileID: 453354221076535839, guid: 8334e1cab8c40d44da5e0586cda40cc0, type: 3}
+      propertyPath: roleDataConfigs.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2001d0862283c824f81008248f49ccc9, type: 2}
+    - target: {fileID: 453354221076535839, guid: 8334e1cab8c40d44da5e0586cda40cc0, type: 3}
+      propertyPath: roleDataConfigs.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 334f2233c1e4dfc4092f8fff3186591b, type: 2}
+    - target: {fileID: 453354221076535839, guid: 8334e1cab8c40d44da5e0586cda40cc0, type: 3}
+      propertyPath: roleDataConfigs.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7c8ba1b3474a0774485f2726e974a43a, type: 2}
     - target: {fileID: 455907285148763458, guid: 8334e1cab8c40d44da5e0586cda40cc0, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
