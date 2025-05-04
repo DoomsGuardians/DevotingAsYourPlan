@@ -245,6 +245,13 @@ public class EventManager
                     continue;
                 }
 
+                // 如果事件有冷却时间且没有加入到 cooldownTimers 中，就加入
+                if (data.cooldownTurns > 0 && !cooldownTimers.ContainsKey(data.eventID))
+                {
+                    cooldownTimers[data.eventID] = data.cooldownTurns; // 初始化冷却时间
+                    Debug.Log($"[冷却设置] {data.eventName} 设置初始冷却 {data.cooldownTurns} 回合");
+                }
+
                 bool canTrigger = data.triggerConditions.EvaluateAll(data);
                 if (canTrigger)
                 {
@@ -256,13 +263,6 @@ public class EventManager
                     if (data.isUnique)
                     {
                         triggeredEventIDs.Add(data.eventID);
-                    }
-                    
-                    // 如果事件有冷却时间且没有加入到 cooldownTimers 中，就加入
-                    if (data.cooldownTurns > 0 && !cooldownTimers.ContainsKey(data.eventID))
-                    {
-                        cooldownTimers[data.eventID] = data.cooldownTurns; // 初始化冷却时间
-                        Debug.Log($"[冷却设置] {data.eventName} 设置初始冷却 {data.cooldownTurns} 回合");
                     }
                     
                     Debug.Log($"[事件生成] 满足条件 -> 创建事件：{data.eventName}");
@@ -466,8 +466,6 @@ public class EventManager
 
             bool matched = false;
 
-            bool decreased = false;
-            
             if (evt.data.branchGroups.Count == 0)
             {
                 await CleanupEventAsync(evt);
@@ -475,32 +473,25 @@ public class EventManager
                 continue;
             }
 
-            evt.originalCards = evt.cardHolder.cards.Select(card => card.runtimeData).ToList();
-
+            // 遍历所有结果分支
             foreach (var branchGroup in evt.data.branchGroups)
             {
-
-                foreach (var branch in branchGroup.branches)
+                foreach (var branch in branchGroup.branches) // Iterate through branches in the group
                 {
-                    if (branch.matchConditions.EvaluateAll(evt))
+                    if (branch.matchConditions.EvaluateAll(evt)) // Check conditions for each branch
                     {
                         Debug.Log($"[事件处理] 【{evt.data.eventName}】匹配分支【{branch.label}】");
-
-                        if (!decreased)
-                        {
-                            GameManager.Instance.CardManager.ResolveCardsDecrease(evt);
-                            decreased = true;
-                        }
-
+                        GameManager.Instance.CardManager.ResolveCardsDecrease(evt);
+                        evt.originalCards = evt.cardHolder.cards.Select(card => card.runtimeData)
+                            .ToList();
                         await TransferCardsOutOfEvent(evt);
                         await ExecuteEffectsAsync(evt, branch.effects);
-
+                        // 清理引用，避免事件被卡牌引用锁住
+                        evt.originalCards.Clear();
                         matched = true;
-                        break; // 只处理一个分支组中的一个分支
+                        break;
                     }
                 }
-
-                // 每个分支组匹配失败也不会跳出，继续下一组
             }
 
             if (matched)
@@ -509,21 +500,22 @@ public class EventManager
             }
 
             // 没有匹配分支，但事件已过期
-
             if (!matched && evt.IsExpired())
             {
                 Debug.Log($"[事件处理] 【{evt.data.eventName}】过期未匹配任何分支");
 
                 await TransferCardsOutOfEvent(evt);
+
                 await ExecuteEffectsAsync(evt, evt.data.expiredEffects);
-                evt.originalCards.Clear();
+                
                 await CleanupEventAsync(evt);
+
             }
             else if (!matched)
             {
-                evt.originalCards.Clear();
                 Debug.LogWarning($"[事件处理] 【{evt.data.eventName}】没有匹配任何分支！");
             }
+            
             HistoryLog.Log(evt, matched);
         }
     }
@@ -532,7 +524,7 @@ public class EventManager
     {
         // 销毁事件之前，确保动画播放完成
         await evt.PlayAndDestroyAfterAnim();
-        Debug.Log($"[事件处理] 清理【{evt.data.eventName}】分支");
+        Debug.Log($"[事件处理] 清理【{evt.data.eventName}】过期分支");
         activeEvents.Remove(evt);
 
         // 这部分会等到动画播放完再销毁事件

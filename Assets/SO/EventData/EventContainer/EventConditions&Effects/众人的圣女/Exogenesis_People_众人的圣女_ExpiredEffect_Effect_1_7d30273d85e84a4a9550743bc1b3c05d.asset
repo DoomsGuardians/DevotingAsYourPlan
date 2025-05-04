@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650ecb40950ae1d43a74182200ff3f26, type: 3}
   m_Name: "Exogenesis_People_\u4F17\u4EBA\u7684\u5723\u5973_ExpiredEffect_Effect_1_7d30273d85e84a4a9550743bc1b3c05d"
   m_EditorClassIdentifier: 
-  label: "\u5723\u8FF9\u4E4B\u95EE"
+  label: 
   rarityFactor: 0
-  eventToQueue: {fileID: 11400000, guid: ca3e448d73da5be48b8a75139628dfe6, type: 2}
+  eventToQueue: {fileID: 0}

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: "\u6211"
   description: "\u4E00\u4E2A\u88AB\u653E\u9010\u7684\u4EBA\u3002\u4E00\u4E2A\u91CE\u5FC3\u5BB6"
-  illustration: {fileID: 21300000, guid: ab4c1ccb6c79a3e4080acd7fc2af578c, type: 3}
+  illustration: {fileID: 21300000, guid: c34fa96070d17db4e9d794c9ff7b31ef, type: 3}
   cardType: 2
   rarity: 3
-  maxLife: 70
+  maxLife: 50
   isUnique: 1
   decrease: 2
   entries:
