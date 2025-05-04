@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 650ecb40950ae1d43a74182200ff3f26, type: 3}
-  m_Name: "CYF_People_\u7FE0\u9E1F\u5546\u4F1A\u88AB\u52AB_CYF_People_\u7FE0\u9E1F\u5546\u4F1A\u88AB\u52AB_BranchGroup_0_Effect_3_Effect_4_b7a6f8e94af24dd98544ea470e6afff6"
+  m_Name: "CYF_People_\u7FE0\u9E1F\u5546\u4F1A\u88AB\u52AB_CYF_People_\u7FE0\u9E1F\u5546\u4F1A\u88AB\u52AB_\u5206\u652F\u7EC4_2_796f47c9b4884d4b9f5f4a1447da1ba0_Effect_0_Effect_0_cb16319d99ad4568a6ac76da24189d8a"
   m_EditorClassIdentifier: 
   label: "\u540E\u7EED\u4E8B\u4EF6"
   rarityFactor: 0
-  eventToQueue: {fileID: 0}
+  eventToQueue: {fileID: 11400000, guid: d3cae97b57e477646858991bdaa9d0d4, type: 2}

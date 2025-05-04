@@ -19,7 +19,7 @@ MonoBehaviour:
   filterByEntry: 0
   requiredEntries: []
   filterByName: 1
-  cardName: "\u6D1B\u4F26\u4F50"
+  cardName: "\u6211"
   isFirstFound: 0
   isAddEntry: 0
   addEntry: {fileID: 11400000, guid: 7632ed171b99c274c891d4ef256981df, type: 2}
