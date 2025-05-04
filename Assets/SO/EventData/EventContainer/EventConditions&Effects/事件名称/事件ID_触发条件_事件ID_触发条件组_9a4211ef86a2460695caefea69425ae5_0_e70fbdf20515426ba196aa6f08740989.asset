@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e5cbef80eb12c42a795c8d440d96cb, type: 3}
+  m_Name: "\u4E8B\u4EF6ID_\u89E6\u53D1\u6761\u4EF6_\u4E8B\u4EF6ID_\u89E6\u53D1\u6761\u4EF6\u7EC4_9a4211ef86a2460695caefea69425ae5_0_e70fbdf20515426ba196aa6f08740989"
+  m_EditorClassIdentifier: 
+  targetCard: {fileID: 0}
+  invert: 0
+  isCheckLife: 0
+  minCount: 1
+  maxCount: 999

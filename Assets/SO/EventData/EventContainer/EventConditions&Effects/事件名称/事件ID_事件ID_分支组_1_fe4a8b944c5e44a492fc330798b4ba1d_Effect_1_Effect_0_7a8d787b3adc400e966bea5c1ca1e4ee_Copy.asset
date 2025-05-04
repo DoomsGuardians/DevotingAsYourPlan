@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34104afd93803744ebf6f054bc1b3c81, type: 3}
+  m_Name: "\u4E8B\u4EF6ID_\u4E8B\u4EF6ID_\u5206\u652F\u7EC4_1_fe4a8b944c5e44a492fc330798b4ba1d_Effect_1_Effect_0_7a8d787b3adc400e966bea5c1ca1e4ee_Copy"
+  m_EditorClassIdentifier: 
+  label: "\u52B3\u52A8\u529B+"
+  rarityFactor: 0
+  amount: 1
+  filterByType: 0
+  cardType: 0
+  filterByEntry: 0
+  requiredEntries: []
+  excludeUniqueCard: 1
+  cardPoolOverride: {fileID: 11400000, guid: 8a1d1c68ef3cc6a429210c718b165d90, type: 2}
+  filterByRarity: 1
+  rarityWeights: 64000000

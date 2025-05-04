@@ -9,21 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69e29663fbc446eabf6382ac97446912, type: 3}
-  m_Name: "\u9ED8\u8BA4\u56DE\u5408\u5BA3\u8A00\u914D\u7F6E"
+  m_Script: {fileID: 11500000, guid: d1db51979910eac468574dc3ea47ce19, type: 3}
+  m_Name: "\u4E8B\u4EF6ID_\u7ED3\u7B97\u6761\u4EF6\u7EC4_0_996fb1ccf40c4b769efa0f408f196dc7"
   m_EditorClassIdentifier: 
-  TurnStrings:
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  startYear: 0
-  startAge: 20
+  label: 
+  mode: 0
+  conditions:
+  - {fileID: 11400000, guid: 950bec2610456bc4d8596fc35830179b, type: 2}

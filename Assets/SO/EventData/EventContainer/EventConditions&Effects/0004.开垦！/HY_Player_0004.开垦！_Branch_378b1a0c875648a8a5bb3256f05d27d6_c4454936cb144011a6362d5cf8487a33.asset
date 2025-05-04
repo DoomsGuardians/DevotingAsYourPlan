@@ -9,21 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69e29663fbc446eabf6382ac97446912, type: 3}
-  m_Name: "\u9ED8\u8BA4\u56DE\u5408\u5BA3\u8A00\u914D\u7F6E"
+  m_Script: {fileID: 11500000, guid: c69a093dd1e11e54c89047ba9f14da62, type: 3}
+  m_Name: "HY_Player_0004.\u5F00\u57A6\uFF01_Branch_378b1a0c875648a8a5bb3256f05d27d6_c4454936cb144011a6362d5cf8487a33"
   m_EditorClassIdentifier: 
-  TurnStrings:
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  startYear: 0
-  startAge: 20
+  label: 
+  matchConditions: {fileID: 0}
+  effects: []

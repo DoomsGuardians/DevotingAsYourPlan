@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e59bba2fe274b45a23dfb1ac0ad63f, type: 3}
+  m_Name: "HY_Player_0003b.\u4E00\u5207\u7684\u8D77\u70B9\uFF01_EventNode"
+  m_EditorClassIdentifier: 
+  eventID: "0003.\u4E00\u5207\u7684\u8D77\u70B9\uFF01"
+  eventName: "0003.\u4E00\u5207\u7684\u8D77\u70B9\uFF01"
+  sourceRole: 0
+  isUnique: 0
+  cooldownTurns: 0
+  decreaseFactor: 1
+  triggerConditions: {fileID: 11400000, guid: 42d7c03c42031f341b3b0aea2e3b60ff, type: 2}
+  branchGroups:
+  - {fileID: 11400000, guid: 4d368756e36c1e94384bb6752f0038fe, type: 2}
+  expiredEffects: []
+  description: "\u586B\u5165\u5EFA\u8BAE\uFF1A\n<color=red>\u81F3\u5C11\u4E00\u5F20\u52B3\u52A8\u529B</color>\n\t\u8F66\u8F74\u7684\u560E\u5431\u4F5C\u54CD\u5212\u7834\u5B81\u9759\u7684\u6668\u96FE\uFF0C\u51E0\u8F86\u6EE1\u8F7D\u7684\u725B\u8F66\u7F13\u7F13\u9A76\u6765\u3002\"\u7537\u7235\u5927\u4EBA\u7684\u793C\u7269\uFF01\"\u9886\u5934\u7684\u9A91\u5175\u961F\u957F\u9A84\u50B2\u7684\u558A\u9053\u3002\n\t\u5934\u4E24\u8F66\u8F7D\u7740\u6574\u9F50\u5207\u5272\u7684\u77F3\u7070\u5CA9\u5757\uFF0C\u7528\u6765\u505A\u6559\u5802\u7684\u5730\u57FA\u518D\u5408\u9002\u4E0D\u8FC7\u3002\u7D27\u63A5\u7740\u662F12\u6839\u7B14\u76F4\u7684\u6A61\u6728\u6A2A\u6881\u548C\u51E0\u8F66\u629B\u5149\u7684\u677E\u6728\u677F\uFF0C\u8DB3\u591F\u642D\u8D77\u575A\u56FA\u7684\u5899\u58C1\u548C\u5C4B\u9876\uFF0C\u8BA9\u7948\u7977\u5728\u98CE\u96E8\u4E2D\u5EF6\u7EED\u3002\u6700\u540E\u4E00\u8F66\u8FD8\u8D34\u5FC3\u5730\u5907\u4E0A\u4E86\u5DE5\u5177\u3001\u94C1\u7B8D\u3001\u6728\u7126\u6CB9\u548C\u8702\u8721\u8721\u70DB\u3002\r\n\t\u770B\u6765\uFF0C\u8FD9\u7247\u571F\u5730\u79BB\u4E0A\u5E1D\u7684\u5E87\u62A4\u53EA\u6709\u4E00\u6B65\u4E4B\u9065\u4E86\u2014\u2014Ora
+    et labora!\uFF08\u7948\u7977\u548C\u5DE5\u4F5C\uFF09\n</size>"
+  icon: {fileID: 0}
+  duration: 5
