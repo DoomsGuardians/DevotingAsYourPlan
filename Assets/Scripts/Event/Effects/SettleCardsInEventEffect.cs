@@ -20,6 +20,8 @@ public class SettleCardsInEventEffect : EventEffectSO
                     if (card.data.cardType == CardType.Believer)
                     {
                         card.remainingLife += extraLifeForBeliever;
+                        if (card.data.cardName == "我") ;
+                        GameManager.Instance.RoleManager.GetRole(RoleType.Player).AddStat("健康度",extraLifeForBeliever);
                         Debug.Log($"[延寿效果] 卡【{card.data.cardName}】 +{extraLifeForBeliever} 寿命");
                     }
                     if (card.data.cardType == CardType.Tribute)
@@ -39,6 +41,7 @@ public class SettleCardsInEventEffect : EventEffectSO
                     Debug.Log($"[消耗治疗] 卡【{card.data.cardName}】 消耗{card.data.decrease} 寿命");
                 }
             }
+            GameManager.Instance.CardManager.RefreshCards();
         }
     }
 
