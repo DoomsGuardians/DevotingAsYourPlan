@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   role: 2
   statKey: "\u707E\u4E30\u79EF\u7D2F\u5EA6"
-  minValue: 50
-  maxValue: 999
+  minValue: -999
+  maxValue: -10
   invert: 0
