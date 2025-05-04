@@ -466,6 +466,8 @@ public class EventManager
 
             bool matched = false;
 
+            bool decreased = false;
+            
             if (evt.data.branchGroups.Count == 0)
             {
                 await CleanupEventAsync(evt);
@@ -473,25 +475,33 @@ public class EventManager
                 continue;
             }
 
-            // 遍历所有结果分支
+            evt.originalCards = evt.cardHolder.cards.Select(card => card.runtimeData).ToList();
+
             foreach (var branchGroup in evt.data.branchGroups)
             {
-                foreach (var branch in branchGroup.branches) // Iterate through branches in the group
+                bool groupMatched = false;
+
+                foreach (var branch in branchGroup.branches)
                 {
-                    if (branch.matchConditions.EvaluateAll(evt)) // Check conditions for each branch
+                    if (branch.matchConditions.EvaluateAll(evt))
                     {
                         Debug.Log($"[事件处理] 【{evt.data.eventName}】匹配分支【{branch.label}】");
-                        GameManager.Instance.CardManager.ResolveCardsDecrease(evt);
-                        evt.originalCards = evt.cardHolder.cards.Select(card => card.runtimeData)
-                            .ToList();
+
+                        if (!decreased)
+                        {
+                            GameManager.Instance.CardManager.ResolveCardsDecrease(evt);
+                            decreased = true;
+                        }
+
                         await TransferCardsOutOfEvent(evt);
                         await ExecuteEffectsAsync(evt, branch.effects);
-                        // 清理引用，避免事件被卡牌引用锁住
-                        evt.originalCards.Clear();
+
                         matched = true;
-                        break;
+                        break; // 只处理一个分支组中的一个分支
                     }
                 }
+
+                // 每个分支组匹配失败也不会跳出，继续下一组
             }
 
             if (matched)
@@ -499,24 +509,37 @@ public class EventManager
                 await CleanupEventAsync(evt);
             }
 
+<<<<<<< Updated upstream
             // 没有匹配分支，但事件已过期
+=======
+// 最终没有匹配任何分支，则判断是否过期
+>>>>>>> Stashed changes
             if (!matched && evt.IsExpired())
             {
                 Debug.Log($"[事件处理] 【{evt.data.eventName}】过期未匹配任何分支");
 
                 await TransferCardsOutOfEvent(evt);
-
                 await ExecuteEffectsAsync(evt, evt.data.expiredEffects);
+<<<<<<< Updated upstream
                 
                 await CleanupEventAsync(evt);
 
+=======
+                evt.originalCards.Clear();
+                await CleanupEventAsync(evt);
+>>>>>>> Stashed changes
             }
             else if (!matched)
             {
+                evt.originalCards.Clear();
                 Debug.LogWarning($"[事件处理] 【{evt.data.eventName}】没有匹配任何分支！");
             }
+<<<<<<< Updated upstream
             
+=======
+>>>>>>> Stashed changes
             HistoryLog.Log(evt, matched);
+
         }
     }
 
@@ -524,7 +547,7 @@ public class EventManager
     {
         // 销毁事件之前，确保动画播放完成
         await evt.PlayAndDestroyAfterAnim();
-        Debug.Log($"[事件处理] 清理【{evt.data.eventName}】过期分支");
+        Debug.Log($"[事件处理] 清理【{evt.data.eventName}】分支");
         activeEvents.Remove(evt);
 
         // 这部分会等到动画播放完再销毁事件

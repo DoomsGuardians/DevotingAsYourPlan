@@ -22,9 +22,9 @@ public class CardMatchRangeResolveCondition : EventResolveConditionSO
 
     public override bool Evaluate(EventInstance context)
     {
-        var matchedCards = context.cardHolder.cards.Where(card =>
+        var matchedCards = context.originalCards.Where(card =>
         {
-            var data = card.runtimeData.data;
+            var data = card.data;
 
             if (filterByName && data.cardName != nameFilter)
                 return false;
