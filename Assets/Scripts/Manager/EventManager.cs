@@ -479,7 +479,6 @@ public class EventManager
 
             foreach (var branchGroup in evt.data.branchGroups)
             {
-                bool groupMatched = false;
 
                 foreach (var branch in branchGroup.branches)
                 {
@@ -509,37 +508,23 @@ public class EventManager
                 await CleanupEventAsync(evt);
             }
 
-<<<<<<< Updated upstream
             // 没有匹配分支，但事件已过期
-=======
-// 最终没有匹配任何分支，则判断是否过期
->>>>>>> Stashed changes
+
             if (!matched && evt.IsExpired())
             {
                 Debug.Log($"[事件处理] 【{evt.data.eventName}】过期未匹配任何分支");
 
                 await TransferCardsOutOfEvent(evt);
                 await ExecuteEffectsAsync(evt, evt.data.expiredEffects);
-<<<<<<< Updated upstream
-                
-                await CleanupEventAsync(evt);
-
-=======
                 evt.originalCards.Clear();
                 await CleanupEventAsync(evt);
->>>>>>> Stashed changes
             }
             else if (!matched)
             {
                 evt.originalCards.Clear();
                 Debug.LogWarning($"[事件处理] 【{evt.data.eventName}】没有匹配任何分支！");
             }
-<<<<<<< Updated upstream
-            
-=======
->>>>>>> Stashed changes
             HistoryLog.Log(evt, matched);
-
         }
     }
 
