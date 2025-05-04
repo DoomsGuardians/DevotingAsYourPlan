@@ -21,9 +21,9 @@ MonoBehaviour:
   triggerConditions: {fileID: 11400000, guid: b54a8fa0ee06366438f51274a69c2683, type: 2}
   branchGroups:
   - {fileID: 11400000, guid: 4e578d32f84abf54eb133d117b002766, type: 2}
-  - {fileID: 11400000, guid: 7220500d7612c694b80747853e64b252, type: 2}
-  - {fileID: 11400000, guid: acf406dde885d5b4faf836d84dbcb62a, type: 2}
-  - {fileID: 11400000, guid: eea501d8601b81f4a8b671ac5f599a6d, type: 2}
+  - {fileID: 11400000, guid: b9e9dc84bcb2ec245a692950a71e49f6, type: 2}
+  - {fileID: 11400000, guid: 27059a0d927651f4fa519556761a8375, type: 2}
+  - {fileID: 11400000, guid: 5bc8956c848e3044bb133acfd233bd5c, type: 2}
   expiredEffects: []
   description: "\u2014\u2014<\u4F60\u7684\u51B3\u8BAE>\u2014\u2014\n\n<size=80%><color=green>
     \u586B\u5165\u5EFA\u8BAE\uFF1A\u4EFB\u610F\u5361\u724C</color>\n      \u4F60\u7AD9\u5728\u5C71\u4E18\u4E4B\u4E0A\uFF0C\u8FDC\u773A\u8352\u829C\u7684\u6CB3\u8C37\uFF0C\u79CB\u98CE\u63A0\u8FC7\u67AF\u9EC4\u7684\u91CE\u8349\uFF0C\u5439\u5411\u5BF9\u5CB8\u7684\u6797\u5730\u3002\u5411\u6CB3\u8C37\u7684\u5C3D\u5934\u671B\u53BB\uFF0C\u4FBF\u770B\u89C1\u96F6\u661F\u51E0\u4E1B\u8305\u8349\u5C0F\u5C4B\uFF0C\u5347\u8D77\u7A00\u8584\u7684\u708A\u70DF\u3002\n     

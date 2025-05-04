@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 483f4a620c4f63b42b888cc37da2027b, type: 3}
-  m_Name: "HY_\u5F00\u59CB"
+  m_Script: {fileID: 11500000, guid: b0004075e6edf174090cd7fbc69e2ab8, type: 3}
+  m_Name: "HY_Player_0001.\u5230\u8FBE\uFF01_BranchGroup_1"
   m_EditorClassIdentifier: 
-  eventPoolName: "\u9ED8\u8BA4\u4E8B\u4EF6\u6C60"
-  eventNodeDataList:
-  - {fileID: 11400000, guid: 1b8d44e57bfa60e4fa9ff3cb5f171739, type: 2}
+  label: 
+  branches:
+  - {fileID: 11400000, guid: 3447dabc839bbc741817a675e8ff7af5, type: 2}
