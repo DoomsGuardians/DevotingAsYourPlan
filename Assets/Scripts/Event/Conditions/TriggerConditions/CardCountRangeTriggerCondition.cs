@@ -15,7 +15,7 @@ public class HandCardCountTriggerCondition : EventTriggerConditionSO
 
         bool result = currentHand >= minCount && currentHand <= maxCount;
 
-        Debug.Log($"[手牌判断] 当前手牌数 = {currentHand}，要求范围 [{minCount}, {maxCount}] → {(result ? "✅ 满足" : "❌ 不满足")}");
+        Debug.Log($"[手牌判断] 当前手牌数 = {currentHand}，要求范围 [{minCount}, {maxCount}] -> {(result ? "满足" : "不满足")}");
 
         return result;
     }

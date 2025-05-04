@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650ecb40950ae1d43a74182200ff3f26, type: 3}
   m_Name: "Exogenesis_People_\u5944\u5944\u4E00\u606F\u7684\u5973\u5B69_Exogenesis_People_\u5944\u5944\u4E00\u606F\u7684\u5973\u5B69_BranchGroup_0_Effect_4_Effect_0_4f63aa5af411453baf76425d50ea518e_Copy_Copy"
   m_EditorClassIdentifier: 
-  label: "\u6E29\u8A00\u8005"
+  label: "\u4F17\u4EBA\u7684\u5723\u5973"
   rarityFactor: 0
-  eventToQueue: {fileID: 0}
+  eventToQueue: {fileID: 11400000, guid: 0ff1129c4ab4a1d4191aa0f747ce2043, type: 2}

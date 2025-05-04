@@ -14,8 +14,8 @@ public class WorldLogicModule : IRoleLogicModule
         float animacy = role.GetStat("神格性");
 
         // 灾丰积累度
-        float fluctuation = (lastOutput - prevOutput) / Mathf.Max(1f, population) * 100f;
-        float cycle = Mathf.Sin(round / 8f) * 5f;
+        float fluctuation = (lastOutput - prevOutput) / Mathf.Max(1f, population) * 200f;
+        float cycle = Mathf.Sin(round / 8f) * 10f;
         float mysteryMod = mystery * 0.02f;
         float animacyMode = animacy * 0.02f;
         float random = Random.Range(-3f, 3f);
@@ -26,7 +26,7 @@ public class WorldLogicModule : IRoleLogicModule
 
         // 动荡度
         float unrest = role.GetStat("动荡度");
-        int unrestChange = Random.Range(-2, 3);
+        int unrestChange = Random.Range(-5, 5);
         if (role.GetStat("orthodox") < 0) unrestChange += Random.Range(1, 3);
         if (Mathf.Abs(boomBane) > 50) unrestChange += 1;
         if (round % 10 == 0) unrestChange += 1;
