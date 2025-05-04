@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e59bba2fe274b45a23dfb1ac0ad63f, type: 3}
+  m_Name: "Exogenesis_People_\u955C\u5149\u4E0A\u5347_EventNode"
+  m_EditorClassIdentifier: 
+  eventID: "Exogenesis_People_\u955C\u5149\u4E0A\u5347"
+  eventName: "\u955C\u5149\u4E0A\u5347"
+  sourceRole: 1
+  isUnique: 0
+  cooldownTurns: 6
+  decreaseFactor: 2
+  triggerConditions: {fileID: 11400000, guid: f76e0abfdc4e07e4e99029c6ee089ab9, type: 2}
+  branchGroups:
+  - {fileID: 11400000, guid: 7f62d873651363f4092abb6704f72348, type: 2}
+  expiredEffects:
+  - {fileID: 11400000, guid: a148a1e6ab93ccc4491fc5879b4af332, type: 2}
+  - {fileID: 11400000, guid: bf50b568652a69640a781aa6fe58459b, type: 2}
+  - {fileID: 11400000, guid: bd59e870c932c40418313858ec541f43, type: 2}
+  - {fileID: 11400000, guid: 048ef9a8dccbab041a112106ac89b3de, type: 2}
+  description: "\u2014\u2014<\u4E16\u754C\u4E8B\u4EF6>\u2014\u2014\n<size=80%>\u50A8\u7CAE\u5F00\u59CB\u8150\u70C2\uFF0C\u4F46\u8FC7\u7A0B\u8BE1\u5F02\uFF1A\u5916\u89C2\u65E0\u53D8\uFF0C\u5473\u9053\u672A\u5F02\uFF0C\u5374\u6709\u79CD\u8BA9\u4EBA\u201C\u611F\u5230\u9519\u8BEF\u201D\u7684\u6C14\u606F\u3002\u4E00\u5207\u98DF\u7269\u9700\u7ECF\u8FC7\u4E09\u4EBA\u201C\u770B\u8FC7\u201D\u624D\u6562\u4E0B\u809A\u3002\u4EBA\u79F0\u8FD9\u662F\u201C\u7B2C\u4E09\u53E3\u5728\u6697\u4E2D\u5C1D\u201D\u3002</size>"
+  icon: {fileID: 21300000, guid: e35882885d2457d458f196c5993445b4, type: 3}
+  duration: 5
