@@ -15,5 +15,4 @@ MonoBehaviour:
   label: "\u9A6C\u514B\u897F\u59C6"
   matchConditions: {fileID: 11400000, guid: 2a39a9e91bf33ce4c9f21344ab33c0a9, type: 2}
   effects:
-  - {fileID: 0}
   - {fileID: 11400000, guid: 6a3db8fd7b640634794be85b7007b7f9, type: 2}

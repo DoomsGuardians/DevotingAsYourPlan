@@ -16,4 +16,3 @@ MonoBehaviour:
   matchConditions: {fileID: 11400000, guid: a8a483f81504721458da673d65884fe8, type: 2}
   effects:
   - {fileID: 11400000, guid: a34c47fc69f329d4f8e720d7e897fa7f, type: 2}
-  - {fileID: 11400000, guid: 19b9b4ee66e14d347a9e8bdc869ce41b, type: 2}

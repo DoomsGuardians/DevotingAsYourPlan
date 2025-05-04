@@ -14,5 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Exogenesis.unity
     guid: 38e38ba8ec9ff9749852d8121dfcb9b6
+  - enabled: 1
+    path: Assets/Scenes/Abbey.unity
+    guid: 67a3436cfb66f324fbbda40fdddb5910
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 94336059aac30be4f908d3e0903d8db4, type: 2}

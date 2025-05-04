@@ -1322,6 +1322,7 @@ MonoBehaviour:
   levelButtonPrefab: {fileID: 9135433265745766226, guid: e20aafa3b856aa6449f3a6f17312b0aa, type: 3}
   levels:
   - {fileID: 11400000, guid: f06dd2452c4efc64eb03449d4fe41b63, type: 2}
+  - {fileID: 11400000, guid: 408d7995b84f3dc499a480a0845b08b7, type: 2}
 --- !u!1 &1873100543
 GameObject:
   m_ObjectHideFlags: 0
@@ -2425,6 +2426,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6016017116222459476, guid: 309f1262990d2b2429ed8455863d303f, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843093609805167871, guid: 309f1262990d2b2429ed8455863d303f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843093609805167871, guid: 309f1262990d2b2429ed8455863d303f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843093609805167871, guid: 309f1262990d2b2429ed8455863d303f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7183436441314364762, guid: 309f1262990d2b2429ed8455863d303f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7183436441314364762, guid: 309f1262990d2b2429ed8455863d303f, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7372527930379408370, guid: 309f1262990d2b2429ed8455863d303f, type: 3}
