@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c69a093dd1e11e54c89047ba9f14da62, type: 3}
   m_Name: "HY_Player_0004.\u5F00\u57A6\uFF01_Branch_e213edcc7fe94d67952c28521c791168_b59600efd73849d1ba22008b2c2df749"
   m_EditorClassIdentifier: 
-  label: 
-  matchConditions: {fileID: 0}
-  effects: []
+  label: "\u4E24\u4E2A\u52B3\u52A8\u8005+\u9A74"
+  matchConditions: {fileID: 11400000, guid: 89533d4fbcd1e174a95edb752f13823a, type: 2}
+  effects:
+  - {fileID: 11400000, guid: 39ec8e537d9aec14a870e6224147281c, type: 2}
+  - {fileID: 11400000, guid: a27a780fc37803e4da6447d33abd923e, type: 2}
+  - {fileID: 11400000, guid: c128ae55027de8341aeb8c18c792c41b, type: 2}
+  - {fileID: 11400000, guid: d678015b400119249b17981dee2594cb, type: 2}
